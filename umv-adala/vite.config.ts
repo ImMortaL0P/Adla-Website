@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import path from 'path'
 
 export default defineConfig({
+  base: '/Adla-Website/', // Required for GitHub Pages deployment under a subdirectory
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

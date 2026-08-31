@@ -54,7 +54,12 @@ export function HomeHero() {
 
           <Reveal>
             <h1 className="mb-4 font-display text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-              <AnimatedTitle text={t('home.hero.title')} as="span" className={cn('block', lang === 'hi' && 'mb-2')} />
+              <AnimatedTitle
+                text={t('home.hero.title')}
+                as="span"
+                className={cn('block', lang === 'hi' && 'mb-2')}
+                wordClassName={!prefersReducedMotion ? 'title-shimmer' : undefined}
+              />
               {lang === 'en' && (
                 <AnimatedTitle
                   text={t('home.hero.titleHi')}

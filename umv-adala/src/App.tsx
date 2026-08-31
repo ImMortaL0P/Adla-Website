@@ -1,7 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from './components/layout/Layout'
-import { HomeHero } from './components/home/HomeHero'
 import { useT } from './context/LanguageContext'
 
 const Home = lazy(() => import('./pages/Home'))
