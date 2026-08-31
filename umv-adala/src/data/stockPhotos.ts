@@ -178,6 +178,16 @@ export type StockPhotoKey = keyof typeof stockPhotos
  * found — they keep the initials placeholder tile instead.
  */
 export const staffPortraits = {
+  principal: {
+    src: '/images/staff/staff-principal.jpg',
+    width: 320,
+    height: 480,
+    alt: { en: 'Illustrative staff portrait', hi: 'उदाहरणात्मक स्टाफ चित्र' },
+    credit: 'Pixabay',
+    license: 'Pixabay Content License',
+    licenseUrl: 'https://pixabay.com/service/license-summary/',
+    sourceUrl: 'https://pixabay.com/',
+  },
   maths: {
     src: '/images/staff/staff-maths.jpg',
     width: 480,
