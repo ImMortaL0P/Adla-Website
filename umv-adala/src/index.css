@@ -220,6 +220,35 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ────────────────────────────────────────────────────────
+   Hero title shimmer — continuous looping gradient sweep.
+   Every gradient stop stays light (white / warm-tinted white) so the
+   text never loses contrast against the hero photo overlay — only the
+   hue shifts, legibility doesn't. Applied conditionally in JS behind
+   usePrefersReducedMotion; the @media block below is a CSS backstop.
+   ──────────────────────────────────────────────────────── */
+@keyframes title-shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.title-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    hsl(var(--saffron)) 20%,
+    #ffffff 40%,
+    hsl(var(--sky)) 60%,
+    #ffffff 80%,
+    hsl(var(--saffron)) 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: title-shimmer 7s linear infinite;
+}
+
+/* ────────────────────────────────────────────────────────
    Reduced Motion — CSS Backstop
    Must always be present alongside the JS gate.
    Reduced motion means skip the animation, NEVER skip the reveal.

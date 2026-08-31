@@ -3,8 +3,9 @@ import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs'
 import { Reveal } from '@/components/motion/Reveal'
-import { PlaceholderImage } from '@/components/common/PlaceholderImage'
+import { StockPhoto } from '@/components/common/StockPhoto'
 import { school } from '@/data/school'
+import { staffPortraits } from '@/data/stockPhotos'
 import { pick } from '@/lib/utils'
 
 export default function AboutPrincipal() {
@@ -18,7 +19,12 @@ export default function AboutPrincipal() {
         <SectionHeading overline={t('about.principal.overline')} title={t('about.principal.title')} level={1} />
         <Reveal>
           <div className="flex flex-col items-center gap-8 rounded-3xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-8 text-center sm:p-12">
-            <PlaceholderImage initials="P" size="lg" variant="leaf" className="rounded-full" />
+            <div className="flex flex-col items-center gap-2">
+              <StockPhoto photo={staffPortraits.principal} compact isPersonPhoto className="h-40 w-40 rounded-full" imgClassName="rounded-full" />
+              <p className="text-xs text-[hsl(var(--muted-foreground))]">
+                {t('common.illustrativePhotoPerson')} · {t('common.photoCredit')}: {staffPortraits.principal.credit}
+              </p>
+            </div>
             <div>
               <h2 className="font-display text-2xl font-bold text-[hsl(var(--foreground))]">
                 {pick(school.principal, 'name', lang)}

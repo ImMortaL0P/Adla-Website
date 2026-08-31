@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom'
 import { Quote } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { Reveal } from '@/components/motion/Reveal'
-import { PlaceholderImage } from '@/components/common/PlaceholderImage'
+import { StockPhoto } from '@/components/common/StockPhoto'
 import { school } from '@/data/school'
+import { staffPortraits } from '@/data/stockPhotos'
 import { pick } from '@/lib/utils'
 
 export function PrincipalMessage() {
@@ -20,7 +21,7 @@ export function PrincipalMessage() {
         </h2>
         <Reveal>
           <div className="flex flex-col items-center gap-6">
-            <PlaceholderImage initials="P" size="lg" variant="leaf" className="rounded-full" />
+            <StockPhoto photo={staffPortraits.principal} compact isPersonPhoto className="h-24 w-24 rounded-full" imgClassName="rounded-full" />
             <Quote size={28} className="text-[hsl(var(--primary-strong))/40]" aria-hidden="true" />
             <p className="font-display text-xl italic leading-relaxed text-[hsl(var(--foreground))] sm:text-2xl">
               {lang === 'en'

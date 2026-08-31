@@ -5,12 +5,14 @@ import { Reveal } from '@/components/motion/Reveal'
 import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { ScrollProgress } from '@/components/motion/ScrollProgress'
 import { AnimatedTitle } from '@/components/common/AnimatedTitle'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { stockPhotos } from '@/data/stockPhotos'
 import { cn } from '@/lib/utils'
 
 export function HomeHero() {
   const { t, lang } = useT()
   const bgPhoto = stockPhotos.campusEntrance
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
     <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden pt-16">

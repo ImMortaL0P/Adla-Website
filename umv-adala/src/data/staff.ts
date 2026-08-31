@@ -18,7 +18,7 @@ export const staticStaff: Staff[] = [
     qualification: 'M.A., B.Ed.',
     bio_en: 'Biography to be updated by the school administration.',
     bio_hi: 'जीवनी विद्यालय प्रशासन द्वारा अद्यतन की जाएगी।',
-    photo_url: null,
+    photo_url: staffPortraits.principal.src,
     display_order: 1,
     is_active: true,
     created_at: new Date().toISOString(),
