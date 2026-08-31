@@ -1,0 +1,306 @@
+/* ────────────────────────────────────────────────────────
+   Google Fonts
+   ──────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&display=swap');
+
+@import 'tailwindcss';
+
+/* ────────────────────────────────────────────────────────
+   Tailwind v4 Theme Configuration
+   ──────────────────────────────────────────────────────── */
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary-strong: hsl(var(--primary-strong));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-secondary-strong: hsl(var(--secondary-strong));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-strong: hsl(var(--accent-strong));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-strong: hsl(var(--destructive-strong));
+  --color-success: hsl(var(--success));
+  --color-warning: hsl(var(--warning));
+  --color-saffron: hsl(var(--saffron));
+  --color-leaf: hsl(var(--leaf));
+  --color-sky: hsl(var(--sky));
+  --color-clay: hsl(var(--clay));
+  --color-clay-strong: hsl(var(--clay-strong));
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 0.25rem);
+  --radius-2xl: calc(var(--radius) + 0.5rem);
+
+  --font-display: 'Bitter', 'Tiro Devanagari Hindi', serif;
+  --font-body: 'Inter', 'Noto Sans Devanagari', system-ui, sans-serif;
+}
+
+/* ────────────────────────────────────────────────────────
+   Light Theme Tokens — Warm chalk paper
+   ──────────────────────────────────────────────────────── */
+:root {
+  --background: 40 30% 97%;
+  --foreground: 222 25% 16%;
+  --card: 40 30% 99%;
+  --card-foreground: 222 25% 16%;
+  --popover: 40 30% 99%;
+  --popover-foreground: 222 25% 16%;
+  --muted: 40 18% 93%;
+  --muted-foreground: 222 12% 42%;
+  --border: 40 15% 87%;
+  --input: 40 15% 87%;
+  --ring: 32 55% 58%;
+
+  /* School accent roles */
+  --saffron: 32 62% 62%;
+  --leaf: 145 28% 52%;
+  --sky: 205 45% 60%;
+  --clay: 18 32% 58%;
+
+  /* Semantic roles mapped to school accents */
+  --primary: 32 62% 62%;
+  --primary-foreground: 40 40% 99%;
+  --primary-strong: 32 58% 38%;
+  --secondary: 145 28% 52%;
+  --secondary-foreground: 40 40% 99%;
+  --secondary-strong: 145 24% 39%;
+  --accent: 205 45% 60%;
+  --accent-foreground: 40 40% 99%;
+  --accent-strong: 205 41% 43%;
+  --clay-strong: 18 28% 45%;
+
+  --destructive: 358 55% 52%;
+  --destructive-strong: 358 55% 52%;
+  --success: 145 45% 42%;
+  --warning: 38 70% 50%;
+
+  --radius: 0.75rem;
+}
+
+/* ────────────────────────────────────────────────────────
+   Dark Theme Tokens — Soft navy-charcoal
+   ──────────────────────────────────────────────────────── */
+.dark {
+  --background: 220 18% 11%;
+  --foreground: 40 22% 94%;
+  --card: 220 16% 15%;
+  --card-foreground: 40 22% 94%;
+  --popover: 220 16% 15%;
+  --popover-foreground: 40 22% 94%;
+  --muted: 220 14% 19%;
+  --muted-foreground: 220 10% 66%;
+  --border: 220 14% 23%;
+  --input: 220 14% 23%;
+  --ring: 32 50% 66%;
+
+  --saffron: 32 48% 70%;
+  --leaf: 145 24% 64%;
+  --sky: 205 38% 70%;
+  --clay: 18 28% 66%;
+
+  --primary: 32 48% 70%;
+  --primary-foreground: 220 20% 12%;
+  --primary-strong: 32 52% 74%;
+  --secondary: 145 24% 64%;
+  --secondary-foreground: 220 20% 12%;
+  --secondary-strong: 145 24% 64%;
+  --accent: 205 38% 70%;
+  --accent-foreground: 220 20% 12%;
+  --accent-strong: 205 38% 70%;
+  --clay-strong: 18 28% 66%;
+
+  --destructive: 358 50% 66%;
+  --destructive-strong: 358 55% 54%;
+  --success: 145 38% 60%;
+  --warning: 38 60% 66%;
+}
+
+/* ────────────────────────────────────────────────────────
+   Fluid Type Scale
+   ──────────────────────────────────────────────────────── */
+:root {
+  --fs-xs:   clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+  --fs-sm:   clamp(0.875rem, 0.85rem + 0.15vw, 0.9375rem);
+  --fs-base: clamp(1rem, 0.97rem + 0.2vw, 1.0625rem);
+  --fs-lg:   clamp(1.125rem, 1.08rem + 0.25vw, 1.25rem);
+  --fs-xl:   clamp(1.375rem, 1.28rem + 0.45vw, 1.625rem);
+  --fs-2xl:  clamp(1.75rem, 1.55rem + 0.9vw, 2.25rem);
+  --fs-3xl:  clamp(2.125rem, 1.8rem + 1.5vw, 3rem);
+  --fs-4xl:  clamp(2.5rem, 1.95rem + 2.5vw, 4rem);
+  --fs-5xl:  clamp(3rem, 2.1rem + 4vw, 5.5rem);
+}
+
+/* ────────────────────────────────────────────────────────
+   Base Styles
+   ──────────────────────────────────────────────────────── */
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--background));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* ────────────────────────────────────────────────────────
+   Devanagari Adjustments
+   Hindi has taller ascenders and a continuous headline (shirorekha)
+   ──────────────────────────────────────────────────────── */
+.lang-hi body {
+  line-height: 1.75;
+  letter-spacing: 0;
+}
+
+.lang-hi h1, .lang-hi h2, .lang-hi h3 {
+  line-height: 1.4;
+}
+
+.lang-hi .tracking-tight {
+  letter-spacing: 0;
+}
+
+/* ────────────────────────────────────────────────────────
+   Theme Transition
+   Applied to wrapper, not * (animating everything jank-sources on cheap phones)
+   ──────────────────────────────────────────────────────── */
+.theme-transition {
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+/* ────────────────────────────────────────────────────────
+   Focus Ring
+   Every interactive element gets a visible focus indicator
+   ──────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* ────────────────────────────────────────────────────────
+   Scrollbar styling (subtle)
+   ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* ────────────────────────────────────────────────────────
+   Reduced Motion — CSS Backstop
+   Must always be present alongside the JS gate.
+   Reduced motion means skip the animation, NEVER skip the reveal.
+   ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ────────────────────────────────────────────────────────
+   Contrast Audit — WCAG AA Compliance (re-verified, corrected)
+
+   A prior version of this block claimed --primary-strong at 44% L
+   passed at 5.23:1 against white text. That arithmetic was wrong —
+   the actual ratio was 3.79:1, which FAILS AA for normal-size text
+   (only clears the 3:1 large-text threshold). Several accent colours
+   were also being used directly as text (e.g. --sky, --leaf, --clay
+   in notice-type badges) with no fix at all, at ratios as low as 2.1:1.
+   Both problems are now fixed at the token level below, computed with
+   the WCAG 2.1 relative-luminance formula:
+     L = 0.2126×R + 0.7152×G + 0.0722×B (linearised sRGB)
+     Ratio = (L_lighter + 0.05) / (L_darker + 0.05)
+
+   Fix: --primary-strong darkened 44%→38% L (light mode). New
+   --secondary-strong / --accent-strong / --clay-strong / --destructive-strong
+   tokens added, tuned so each passes 4.5:1 both as coloured text on
+   background/card AND as a solid button background under white or
+   --{role}-foreground text. All consuming components (badges, icon
+   tiles, the WhatsApp button, the "New" notice tag) now reference the
+   -strong token instead of the raw decorative hue.
+
+   LIGHT MODE — verified 4.5:1+ (AA, normal text) unless noted:
+   ┌────────────────────────────────────────────────────────────┐
+   │ foreground        on background        = 14.50:1            │
+   │ muted-foreground  on background        =  5.43:1            │
+   │ muted-foreground  on card              =  5.65:1            │
+   │ card-foreground   on card              = 15.08:1            │
+   │ primary-foreground on primary-strong   =  4.87:1  (was 3.79 FAIL) │
+   │ secondary-foreground on secondary-strong = 4.77:1            │
+   │ white             on destructive-strong =  4.88:1            │
+   │ primary-strong    on background/card   =  4.68 / 4.86:1      │
+   │ secondary-strong  on background/card   =  4.59 / 4.77:1      │
+   │ accent-strong     on background/card   =  4.67 / 4.85:1      │
+   │ clay-strong       on background/card   =  4.65 / 4.84:1      │
+   │ destructive       on background/card   =  4.60 / 4.79:1      │
+   │ border (non-text, 3:1 req.) on background = 1.38:1 (decorative, OK)│
+   │ ring   (non-text, 3:1 req.) on background = 3.05:1 PASS      │
+   └────────────────────────────────────────────────────────────┘
+
+   DARK MODE — verified 4.5:1+ (AA, normal text) unless noted:
+   ┌────────────────────────────────────────────────────────────┐
+   │ foreground        on background        = 15.37:1            │
+   │ muted-foreground  on background        =  7.06:1            │
+   │ muted-foreground  on card              =  6.30:1            │
+   │ card-foreground   on card              = 13.73:1             │
+   │ primary-foreground on primary-strong   =  9.75:1             │
+   │ secondary-foreground on secondary-strong = 7.75:1  (was 2.19 FAIL when using hardcoded white) │
+   │ white             on destructive-strong =  4.58:1            │
+   │ primary/secondary/accent/clay-strong on background = 7.1–10.0:1 │
+   │ destructive       on background/card   =  5.81 / 5.19:1      │
+   │ border (non-text) on background        = 1.72:1 (decorative, OK) │
+   │ ring   (non-text) on background        = 6.24:1 PASS         │
+   └────────────────────────────────────────────────────────────┘
+
+   Rules going forward:
+   1. Never put text directly in --saffron / --leaf / --sky / --clay —
+      those are for decorative fills, borders, and translucent tints
+      only. Use the matching --primary-strong / --secondary-strong /
+      --accent-strong / --clay-strong for any actual text or icon glyph.
+   2. A solid button/badge background needs its paired *-foreground
+      token for the label — never hardcode text-white on a themed
+      background, since --secondary-strong (etc.) intentionally flips
+      to a LIGHT fill with a DARK label in dark mode, mirroring
+      --primary-strong. --destructive-strong is the one deliberate
+      exception: it's tuned to stay dark enough for literal white text
+      in both themes, because a small red "New" tag is conventionally
+      red+white regardless of theme.
+   ──────────────────────────────────────────────────────── */

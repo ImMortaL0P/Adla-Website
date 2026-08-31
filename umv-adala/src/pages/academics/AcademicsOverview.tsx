@@ -1,0 +1,69 @@
+import { Link } from 'react-router-dom'
+import { Baby, BookOpen, GraduationCap, Landmark, ArrowRight, Languages } from 'lucide-react'
+import { useT } from '@/context/LanguageContext'
+import { Seo } from '@/components/common/Seo'
+import { SectionHeading } from '@/components/common/SectionHeading'
+import { Reveal } from '@/components/motion/Reveal'
+import { StaggerGroup } from '@/components/motion/StaggerGroup'
+import { cn } from '@/lib/utils'
+
+const stages = [
+  { href: '/academics/primary', labelKey: 'common.nav.primary', icon: Baby, variant: 'saffron' },
+  { href: '/academics/middle', labelKey: 'common.nav.middle', icon: BookOpen, variant: 'leaf' },
+  { href: '/academics/secondary', labelKey: 'common.nav.secondary', icon: Landmark, variant: 'sky' },
+  { href: '/academics/senior', labelKey: 'common.nav.senior', icon: GraduationCap, variant: 'clay' },
+] as const
+
+const variantStyles: Record<string, string> = {
+  saffron: 'bg-[hsl(var(--saffron))/12] text-[hsl(var(--primary-strong))]',
+  leaf: 'bg-[hsl(var(--leaf))/12] text-[hsl(var(--secondary-strong))]',
+  sky: 'bg-[hsl(var(--sky))/12] text-[hsl(var(--accent-strong))]',
+  clay: 'bg-[hsl(var(--clay))/12] text-[hsl(var(--clay-strong))]',
+}
+
+export default function AcademicsOverview() {
+  const { t } = useT()
+
+  return (
+    <>
+      <Seo titleKey="academics.title" path="/academics" />
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:px-12">
+        <SectionHeading overline={t('academics.overline')} title={t('academics.title')} level={1} />
+
+        <Reveal>
+          <div className="mx-auto mb-12 flex max-w-2xl items-center justify-center gap-3 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 text-center">
+            <Languages size={20} className="shrink-0 text-[hsl(var(--primary-strong))]" />
+            <p className="text-sm text-[hsl(var(--foreground))]">
+              <span className="font-semibold">{t('academics.medium')}:</span> {t('academics.mediumText')}
+            </p>
+          </div>
+        </Reveal>
+
+        <StaggerGroup stagger={80} className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          {stages.map((stage) => (
+            <Reveal key={stage.href}>
+              <Link
+                to={stage.href}
+                className={cn(
+                  'group flex items-center justify-between gap-4 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6',
+                  'transition-all duration-300 hover:-translate-y-1 hover:shadow-md',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
+                )}
+              >
+                <div className="flex items-center gap-4">
+                  <span className={cn('flex h-12 w-12 shrink-0 items-center justify-center rounded-xl', variantStyles[stage.variant])}>
+                    <stage.icon size={22} strokeWidth={1.75} />
+                  </span>
+                  <span className="font-display text-lg font-semibold text-[hsl(var(--foreground))]">
+                    {t(stage.labelKey as any)}
+                  </span>
+                </div>
+                <ArrowRight size={18} className="shrink-0 text-[hsl(var(--muted-foreground))] transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Reveal>
+          ))}
+        </StaggerGroup>
+      </div>
+    </>
+  )
+}
