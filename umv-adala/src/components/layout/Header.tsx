@@ -192,21 +192,24 @@ export function Header() {
           : 'bg-[hsl(var(--primary-strong))] dark:bg-[hsl(var(--background))]/70 backdrop-blur-sm'
       )}
     >
-      <div className="mx-auto flex h-28 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
-        {/* Logo / School name */}
+      <div className="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
+        {/* Logo / School name — the crest is deliberately taller than the
+            band and top-aligned so it reads as a badge pasted over the
+            seam between the nav bar and the page below, while the band
+            itself stays a normal, menu-height strip. */}
         <Link
           to="/"
           className={cn(
-            'flex items-center gap-3',
+            'z-10 flex items-start gap-3 self-start pt-1.5',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded-lg'
           )}
         >
-          <SchoolLogo className="h-20" />
-          <div className="hidden sm:block">
-            <div className="text-sm font-semibold leading-tight text-white dark:text-[hsl(var(--foreground))]">
+          <SchoolLogo className="h-32 shadow-xl" />
+          <div className="hidden mt-3 sm:block">
+            <div className="text-lg font-semibold leading-tight text-white dark:text-[hsl(var(--foreground))]">
               {t('common.schoolName')}
             </div>
-            <div className="text-xs leading-tight text-white/80 dark:text-[hsl(var(--muted-foreground))]">
+            <div className="text-sm leading-tight text-white/80 dark:text-[hsl(var(--muted-foreground))]">
               {t('common.schoolNameHi')}
             </div>
           </div>
