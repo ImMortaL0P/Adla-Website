@@ -33,6 +33,26 @@
         } catch (e) {}
       })();
     </script>
+
+    <!--
+      Restores the real path after the 404.html redirect (see public/404.html).
+      Must run before React Router mounts, so it's inline here rather than in
+      a module — history.replaceState puts the real URL back before render.
+    -->
+    <script>
+      (function () {
+        var l = window.location;
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function (s) {
+            return s.replace(/~and~/g, '&');
+          });
+          window.history.replaceState(
+            null, null,
+            l.pathname.slice(0, -1) + decoded.shift() + (decoded.length ? '?' + decoded.join('&') : '') + l.hash
+          );
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
