@@ -10,6 +10,8 @@
  * surfaced via CONTENT-GUIDE.md / the image title attribute.
  */
 
+import { withBase } from '@/lib/utils'
+
 export interface StockPhoto {
   src: string
   width: number
@@ -23,7 +25,7 @@ export interface StockPhoto {
 
 export const stockPhotos = {
   campusEntrance: {
-    src: '/images/stock/campus-entrance.jpg',
+    src: withBase('/images/stock/campus-entrance.jpg'),
     width: 1200,
     height: 540,
     alt: {
@@ -36,7 +38,7 @@ export const stockPhotos = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Entrance_of_Government_High_School_Tehna_(Faridkot).jpg',
   },
   campusVillageSchool: {
-    src: '/images/stock/campus-village-school.jpg',
+    src: withBase('/images/stock/campus-village-school.jpg'),
     width: 1200,
     height: 900,
     alt: {
@@ -49,7 +51,7 @@ export const stockPhotos = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:A_children_village_school_in_Kovalam_Kerala_India.jpg',
   },
   classroomKerala: {
-    src: '/images/stock/classroom-kerala.jpg',
+    src: withBase('/images/stock/classroom-kerala.jpg'),
     width: 1200,
     height: 675,
     alt: {
@@ -62,7 +64,7 @@ export const stockPhotos = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:A_Classroom_in_a_Government_Primary_school_in_Kerala.jpg',
   },
   classroomTamilNadu: {
-    src: '/images/stock/classroom-tamilnadu.jpg',
+    src: withBase('/images/stock/classroom-tamilnadu.jpg'),
     width: 1200,
     height: 900,
     alt: {
@@ -75,7 +77,7 @@ export const stockPhotos = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Tamil_Nadu_school_kids.jpg',
   },
   sportsChildrenPlaying: {
-    src: '/images/stock/sports-children-playing.jpg',
+    src: withBase('/images/stock/sports-children-playing.jpg'),
     width: 945,
     height: 1200,
     alt: {
@@ -88,7 +90,7 @@ export const stockPhotos = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:(1)_Children_playing_with_each_other_in_India.jpg',
   },
   annualFunctionDance: {
-    src: '/images/stock/annual-function-dance.jpg',
+    src: withBase('/images/stock/annual-function-dance.jpg'),
     width: 1200,
     height: 803,
     alt: {
@@ -101,7 +103,7 @@ export const stockPhotos = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Group_Dance_at_54th_Kerala_School_Kalolsavam_2014_at_Palakkad..JPG',
   },
   independenceDay: {
-    src: '/images/stock/independence-day.jpg',
+    src: withBase('/images/stock/independence-day.jpg'),
     width: 1200,
     height: 900,
     alt: {
@@ -114,7 +116,7 @@ export const stockPhotos = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:BRKM_Independence_day_2019.jpg',
   },
   facilityMidDayMeal: {
-    src: '/images/stock/facility-midday-meal.jpg',
+    src: withBase('/images/stock/facility-midday-meal.jpg'),
     width: 1200,
     height: 900,
     alt: {
@@ -127,7 +129,7 @@ export const stockPhotos = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Children_at_a_rural_school_provided_with_lunch_Uttar_Pradesh_India.jpg',
   },
   facilityComputerLab: {
-    src: '/images/stock/facility-computer-lab.jpg',
+    src: withBase('/images/stock/facility-computer-lab.jpg'),
     width: 1200,
     height: 676,
     alt: {
@@ -140,7 +142,7 @@ export const stockPhotos = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:School_Computer_Lab.jpg',
   },
   eventClassroomKids: {
-    src: '/images/stock/event-classroom-kids.jpg',
+    src: withBase('/images/stock/event-classroom-kids.jpg'),
     width: 1200,
     height: 675,
     alt: {
@@ -153,7 +155,7 @@ export const stockPhotos = {
     sourceUrl: 'https://pixabay.com/',
   },
   eventSchoolUniformWalk: {
-    src: '/images/stock/event-school-uniform-walk.jpg',
+    src: withBase('/images/stock/event-school-uniform-walk.jpg'),
     width: 1200,
     height: 740,
     alt: {
@@ -173,13 +175,13 @@ export type StockPhotoKey = keyof typeof stockPhotos
  * Generic illustrative staff/person portraits — used only as optional
  * photo_url values in data/staff.ts. Always shown with the same
  * "illustrative photo" disclaimer via <StockPhoto>. None are photos of
- * real UMV Adala staff. A few roles (Principal, support staff) were left
- * without a photo because no appropriately dignified/plain candidate was
- * found — they keep the initials placeholder tile instead.
+ * real UMV Adala staff. The support-staff (peon) role was left without a
+ * photo because no appropriately plain, dignified candidate was found —
+ * it keeps the initials placeholder tile instead.
  */
 export const staffPortraits = {
   principal: {
-    src: '/images/staff/staff-principal.jpg',
+    src: withBase('/images/staff/staff-principal.jpg'),
     width: 320,
     height: 480,
     alt: { en: 'Illustrative staff portrait', hi: 'उदाहरणात्मक स्टाफ चित्र' },
@@ -189,7 +191,7 @@ export const staffPortraits = {
     sourceUrl: 'https://pixabay.com/',
   },
   maths: {
-    src: '/images/staff/staff-maths.jpg',
+    src: withBase('/images/staff/staff-maths.jpg'),
     width: 480,
     height: 328,
     alt: { en: 'Illustrative staff portrait', hi: 'उदाहरणात्मक स्टाफ चित्र' },
@@ -199,7 +201,7 @@ export const staffPortraits = {
     sourceUrl: 'https://pixabay.com/',
   },
   science: {
-    src: '/images/staff/staff-science.jpg',
+    src: withBase('/images/staff/staff-science.jpg'),
     width: 319,
     height: 480,
     alt: { en: 'Illustrative staff portrait', hi: 'उदाहरणात्मक स्टाफ चित्र' },
@@ -209,7 +211,7 @@ export const staffPortraits = {
     sourceUrl: 'https://pixabay.com/',
   },
   hindi: {
-    src: '/images/staff/staff-hindi.jpg',
+    src: withBase('/images/staff/staff-hindi.jpg'),
     width: 480,
     height: 480,
     alt: { en: 'Illustrative staff portrait', hi: 'उदाहरणात्मक स्टाफ चित्र' },
@@ -219,7 +221,7 @@ export const staffPortraits = {
     sourceUrl: 'https://pixabay.com/',
   },
   english: {
-    src: '/images/staff/staff-english.jpg',
+    src: withBase('/images/staff/staff-english.jpg'),
     width: 320,
     height: 480,
     alt: { en: 'Illustrative staff portrait', hi: 'उदाहरणात्मक स्टाफ चित्र' },
@@ -229,7 +231,7 @@ export const staffPortraits = {
     sourceUrl: 'https://pixabay.com/',
   },
   social: {
-    src: '/images/staff/staff-social.jpg',
+    src: withBase('/images/staff/staff-social.jpg'),
     width: 320,
     height: 480,
     alt: { en: 'Illustrative staff portrait', hi: 'उदाहरणात्मक स्टाफ चित्र' },
@@ -239,7 +241,7 @@ export const staffPortraits = {
     sourceUrl: 'https://pixabay.com/',
   },
   primary1: {
-    src: '/images/staff/staff-primary1.jpg',
+    src: withBase('/images/staff/staff-primary1.jpg'),
     width: 384,
     height: 480,
     alt: { en: 'Illustrative staff portrait', hi: 'उदाहरणात्मक स्टाफ चित्र' },
@@ -249,7 +251,7 @@ export const staffPortraits = {
     sourceUrl: 'https://pixabay.com/',
   },
   primary2: {
-    src: '/images/staff/staff-primary2.jpg',
+    src: withBase('/images/staff/staff-primary2.jpg'),
     width: 480,
     height: 269,
     alt: { en: 'Illustrative staff portrait', hi: 'उदाहरणात्मक स्टाफ चित्र' },
@@ -259,7 +261,7 @@ export const staffPortraits = {
     sourceUrl: 'https://pixabay.com/',
   },
   clerk: {
-    src: '/images/staff/staff-clerk.jpg',
+    src: withBase('/images/staff/staff-clerk.jpg'),
     width: 342,
     height: 480,
     alt: { en: 'Illustrative staff portrait', hi: 'उदाहरणात्मक स्टाफ चित्र' },

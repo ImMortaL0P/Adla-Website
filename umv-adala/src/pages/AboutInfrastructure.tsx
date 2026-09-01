@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { BookOpen, FlaskConical, Monitor, Trees, Utensils, Droplets, DoorClosed, ShieldCheck, type LucideIcon } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { Seo } from '@/components/common/Seo'
@@ -59,7 +60,7 @@ export default function AboutInfrastructure() {
           })}
         </StaggerGroup>
         <p className="mt-10 text-sm text-[hsl(var(--muted-foreground))]">
-          {t('common.placeholder')} — {t('disclosure.title')}: <a href="/mandatory-disclosure" className="text-[hsl(var(--primary-strong))] hover:underline">{t('disclosure.title')}</a>
+          {t('common.placeholder')} — {t('disclosure.title')}: <Link to="/mandatory-disclosure" className="text-[hsl(var(--primary-strong))] hover:underline">{t('disclosure.title')}</Link>
         </p>
       </div>
     </>

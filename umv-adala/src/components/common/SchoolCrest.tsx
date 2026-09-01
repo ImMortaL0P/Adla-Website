@@ -62,8 +62,8 @@ export function SchoolCrest({ size = 32, className }: SchoolCrestProps) {
           <stop offset="0%" stopColor={TEAL_LIGHT} />
           <stop offset="100%" stopColor={TEAL_DARK} />
         </linearGradient>
-        <path id="umv-top-text-path" d="M21.07,71.27 A84,84 0 0 1 178.93,71.27" />
-        <path id="umv-bottom-text-path" d="M173.3,73.32 A78,78 0 1 0 26.7,73.32" />
+        <path id="umv-top-text-path" d="M27.5,66.19 A80,80 0 0 1 172.5,66.19" />
+        <path id="umv-bottom-text-path" d="M35.91,137 A74,74 0 0 0 164.09,137" />
       </defs>
 
       {/* Light backing disc so the crest reads on both light and dark surfaces */}

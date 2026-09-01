@@ -76,7 +76,7 @@ function LoadingFallback() {
 
 export function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Suspense fallback={<LoadingFallback />}>
         <Routes>
           <Route path="/" element={<Layout />}>

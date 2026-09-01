@@ -23,6 +23,9 @@ export function Footer() {
                 <p className="text-sm text-[hsl(var(--muted-foreground))]">
                   {t('common.tagline')}
                 </p>
+                <p className="mt-1 text-xs italic text-[hsl(var(--muted-foreground))]">
+                  {t('common.motto')}
+                </p>
               </div>
             </Link>
             <p className="text-sm text-[hsl(var(--muted-foreground))]">
