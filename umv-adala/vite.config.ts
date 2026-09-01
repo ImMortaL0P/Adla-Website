@@ -4,7 +4,10 @@ import { defineConfig } from 'vite'
 import path from 'path'
 
 export default defineConfig({
-  base: '/Adla-Website/', // Required for GitHub Pages deployment under a subdirectory
+  // GitHub Pages serves this under /Adla-Website/, so its workflow sets
+  // VITE_BASE_PATH accordingly. Other hosts (Render, etc.) serve from the
+  // domain root, so this defaults to '/' when the env var isn't set.
+  base: process.env.VITE_BASE_PATH || '/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
