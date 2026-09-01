@@ -9,7 +9,7 @@ export function Layout() {
     <div className="flex min-h-screen flex-col">
       <SkipLink />
       <Header />
-      <main id="main" className="flex-1 pb-16 pt-20 focus:outline-none" tabIndex={-1}>
+      <main id="main" className="flex-1 pb-16 pt-28 focus:outline-none" tabIndex={-1}>
         <Outlet />
       </main>
       <Footer />

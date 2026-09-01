@@ -7,7 +7,7 @@
 const en = {
   // ── Common ──
   'common.schoolName': 'UMV Adla',
-  'common.schoolNameFull': 'Uccha Madhyamik Vidyalaya Adla',
+  'common.schoolNameFull': 'Uchcha Madhyamik Vidyalaya Adla',
   'common.schoolNameHi': 'उच्च माध्यमिक विद्यालय अदला',
   'common.motto': 'सा विद्या या विमुक्तये',
   'common.mottoTranslation': '"That alone is knowledge which liberates" — Vishnu Purana',
@@ -20,7 +20,7 @@ const en = {
   'common.goHome': 'Go to homepage',
   'common.comingSoon': 'Coming soon',
   'common.comingSoonDesc': 'This page is under construction and will be available shortly.',
-  'common.copyright': '© 2026 Uccha Madhyamik Vidyalaya Adla. All rights reserved.',
+  'common.copyright': '© 2026 Uchcha Madhyamik Vidyalaya Adla. All rights reserved.',
   'common.developedBy': 'Developed by',
   'common.govAttribution': 'Department of Education, Government of Bihar',
   'common.placeholder': 'To be updated',
@@ -65,7 +65,7 @@ const en = {
   'notFound.suggestion': 'Here are some helpful links:',
 
   // ── Home ──
-  'home.hero.title': 'Uccha Madhyamik Vidyalaya Adla',
+  'home.hero.title': 'Uchcha Madhyamik Vidyalaya Adla',
   'home.hero.titleHi': 'उच्च माध्यमिक विद्यालय अदला',
   'home.hero.subtitle': 'A Bihar Government school nurturing Class 9 to 12 at Adla, Naubatpur, Patna',
   'home.hero.ctaAdmission': 'Admission Enquiry',
@@ -306,7 +306,7 @@ const hi: Record<keyof typeof en, string> = {
   'notFound.description': 'आप जिस पृष्ठ को खोज रहे हैं वह मौजूद नहीं है या स्थानांतरित कर दिया गया है।',
   'notFound.suggestion': 'ये कुछ उपयोगी लिंक हैं:',
 
-  'home.hero.title': 'Uccha Madhyamik Vidyalaya Adla',
+  'home.hero.title': 'Uchcha Madhyamik Vidyalaya Adla',
   'home.hero.titleHi': 'उच्च माध्यमिक विद्यालय अदला',
   'home.hero.subtitle': 'अदला, नौबतपुर, पटना में कक्षा 9 से 12 तक शिक्षा प्रदान करने वाला बिहार सरकार का विद्यालय',
   'home.hero.ctaAdmission': 'प्रवेश पूछताछ',

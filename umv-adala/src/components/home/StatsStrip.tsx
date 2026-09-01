@@ -4,14 +4,13 @@ import { Reveal } from '@/components/motion/Reveal'
 import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { CountUp } from '@/components/motion/CountUp'
 import { school } from '@/data/school'
-import { staticStaff } from '@/data/staff'
 
 export function StatsStrip() {
   const { t } = useT()
 
   const stats = [
     { label: t('home.stats.classes'), value: 12 },
-    { label: t('home.stats.teachers'), value: staticStaff.filter((s) => s.is_active).length },
+    { label: t('home.stats.teachers'), value: school.teacherCount },
     { label: t('home.stats.students'), value: school.studentCount },
     { label: t('home.stats.established'), value: school.established },
   ]

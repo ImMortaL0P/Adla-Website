@@ -8,7 +8,7 @@
 
 export const aboutContent = {
   history: {
-    en: 'Established in 2020, Uccha Madhyamik Vidyalaya Adla is a Bihar Government school serving students from Class 9 to Class 12 in Adla village, Naubatpur block, Patna district. As an "Uccha Madhyamik" (higher secondary) institution, the school offers secondary and senior secondary education alongside its primary and middle sections. A detailed account of the school’s history since its founding is being compiled by the school administration and will be published here.',
+    en: 'Established in 2020, Uchcha Madhyamik Vidyalaya Adla is a Bihar Government school serving students from Class 9 to Class 12 in Adla village, Naubatpur block, Patna district. As an "Uchcha Madhyamik" (higher secondary) institution, the school offers secondary and senior secondary education alongside its primary and middle sections. A detailed account of the school’s history since its founding is being compiled by the school administration and will be published here.',
     hi: '2020 में स्थापित, उच्च माध्यमिक विद्यालय अदला बिहार सरकार का एक विद्यालय है जो पटना जिले के नौबतपुर प्रखंड के अदला गाँव में कक्षा 9 से कक्षा 12 तक के विद्यार्थियों को शिक्षा प्रदान करता है। एक "उच्च माध्यमिक" संस्थान के रूप में, यह विद्यालय अपने प्राथमिक एवं मध्य विभागों के साथ-साथ माध्यमिक एवं उच्चतर माध्यमिक शिक्षा भी प्रदान करता है। स्थापना के बाद से विद्यालय के इतिहास का विस्तृत विवरण विद्यालय प्रशासन द्वारा तैयार किया जा रहा है और शीघ्र ही यहाँ प्रकाशित किया जाएगा।',
   },
   management: {
@@ -143,7 +143,7 @@ export const disclosureSections = [
     title_en: 'School Details',
     title_hi: 'विद्यालय विवरण',
     rows: [
-      { label_en: 'Name of School', label_hi: 'विद्यालय का नाम', value: 'Uccha Madhyamik Vidyalaya Adla' },
+      { label_en: 'Name of School', label_hi: 'विद्यालय का नाम', value: 'Uchcha Madhyamik Vidyalaya Adla' },
       { label_en: 'UDISE Code', label_hi: 'UDISE कोड', value: '10280606804' },
       { label_en: 'School Type', label_hi: 'विद्यालय का प्रकार', value: 'Bihar Government School' },
       { label_en: 'Address', label_hi: 'पता', value: 'Adla, Naubatpur, Patna District, Bihar — 801109' },

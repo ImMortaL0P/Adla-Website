@@ -17,7 +17,7 @@ export function SchoolLogo({ className }: SchoolLogoProps) {
     <span className={cn('inline-block shrink-0 overflow-hidden rounded-full bg-[#FBFAF6] p-0.5 aspect-square', className)}>
       <img
         src={withBase('/images/logo/adala-crest.png')}
-        alt="Uccha Madhyamik Vidyalaya Adla crest"
+        alt="Uchcha Madhyamik Vidyalaya Adla crest"
         width={482}
         height={500}
         className="h-full w-full object-contain"

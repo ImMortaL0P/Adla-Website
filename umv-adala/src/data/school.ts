@@ -1,5 +1,5 @@
 export const school = {
-  name: { en: 'Uccha Madhyamik Vidyalaya Adla', hi: 'उच्च माध्यमिक विद्यालय अदला' },
+  name: { en: 'Uchcha Madhyamik Vidyalaya Adla', hi: 'उच्च माध्यमिक विद्यालय अदला' },
   shortName: 'UMV Adla',
   type: { en: 'Bihar Government School', hi: 'बिहार सरकारी विद्यालय' },
   classes: '9 to 12',
