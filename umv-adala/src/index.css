@@ -59,7 +59,7 @@
   --card-foreground: 222 25% 16%;
   --popover: 40 30% 99%;
   --popover-foreground: 222 25% 16%;
-  --muted: 40 18% 93%;
+  --muted: 62 20% 92%;
   --muted-foreground: 222 12% 42%;
   --border: 40 15% 87%;
   --input: 40 15% 87%;
@@ -248,6 +248,37 @@ h1, h2, h3, h4, h5, h6 {
   background-clip: text;
   color: transparent;
   animation: title-shimmer 7s linear infinite;
+}
+
+/* Same sweep, tuned for dark-ink-on-light-card headings instead of the
+   hero's white-on-photo treatment — every stop keeps real contrast
+   against a light background. */
+.title-shimmer-ink {
+  background-image: linear-gradient(
+    90deg,
+    hsl(var(--muted-foreground)) 0%,
+    hsl(var(--foreground)) 25%,
+    hsl(var(--primary-strong)) 50%,
+    hsl(var(--foreground)) 75%,
+    hsl(var(--muted-foreground)) 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: title-shimmer 6s linear infinite;
+}
+
+/* ────────────────────────────────────────────────────────
+   Grid-paper texture — subtle graph-paper background for editorial
+   accent sections. Line color rides on --border so it stays faint in
+   both themes without a dedicated token.
+   ──────────────────────────────────────────────────────── */
+.bg-grid-paper {
+  background-image:
+    linear-gradient(hsl(var(--border) / 0.7) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--border) / 0.7) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 /* ────────────────────────────────────────────────────────

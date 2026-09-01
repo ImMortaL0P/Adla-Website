@@ -14,7 +14,7 @@ export function MottoSection() {
   const { t } = useT()
 
   return (
-    <section className="relative flex flex-col items-center gap-8 overflow-hidden bg-[hsl(var(--muted))] py-16 sm:py-20">
+    <section className="bg-grid-paper relative flex flex-col items-center gap-8 overflow-hidden bg-[hsl(var(--muted))] py-16 sm:py-20">
       <Marquee speed={60} pauseOnHover={false} className="w-full">
         {Array.from({ length: BAND_REPEATS }, (_, i) => (
           <span

@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { Reveal } from '@/components/motion/Reveal'
 import { ScrollRevealText } from '@/components/motion/ScrollRevealText'
 import { StockPhoto } from '@/components/common/StockPhoto'
+import { CircularArrow } from '@/components/common/CircularArrow'
 import { aboutContent } from '@/data/content'
 import { stockPhotos } from '@/data/stockPhotos'
 
@@ -27,10 +27,10 @@ export function AboutPreview() {
           <ScrollRevealText text={aboutContent.history[lang]} className="mb-6 text-[hsl(var(--muted-foreground))]" />
           <Link
             to="/about"
-            className="inline-flex items-center gap-2 font-medium text-[hsl(var(--primary-strong))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded"
+            className="group inline-flex items-center gap-3 font-medium text-[hsl(var(--primary-strong))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded"
           >
             {t('home.about.readMore')}
-            <ArrowRight size={16} />
+            <CircularArrow />
           </Link>
         </Reveal>
       </div>

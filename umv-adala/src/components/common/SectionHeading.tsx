@@ -1,6 +1,7 @@
 import { type ElementType } from 'react'
 import { cn } from '@/lib/utils'
 import { Reveal } from '@/components/motion/Reveal'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 interface SectionHeadingProps {
   overline?: string
@@ -9,6 +10,8 @@ interface SectionHeadingProps {
   alignment?: 'left' | 'center'
   level?: 1 | 2 | 3 | 4
   className?: string
+  /** Continuous gradient sweep across the title text. Use sparingly — one showcase section, not every heading. */
+  shimmer?: boolean
 }
 
 export function SectionHeading({
@@ -18,8 +21,10 @@ export function SectionHeading({
   alignment = 'center',
   level = 2,
   className,
+  shimmer = false,
 }: SectionHeadingProps) {
   const Component = `h${level}` as ElementType
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
     <Reveal>
@@ -35,7 +40,12 @@ export function SectionHeading({
             {overline}
           </span>
         )}
-        <Component className="font-display text-3xl font-bold tracking-tight text-[hsl(var(--foreground))] sm:text-4xl">
+        <Component
+          className={cn(
+            'font-display text-3xl font-bold tracking-tight sm:text-4xl',
+            shimmer && !prefersReducedMotion ? 'title-shimmer-ink' : 'text-[hsl(var(--foreground))]'
+          )}
+        >
           {title}
         </Component>
         {description && (

@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { Reveal } from '@/components/motion/Reveal'
 import { PlaceholderImage } from '@/components/common/PlaceholderImage'
 import { StockPhoto } from '@/components/common/StockPhoto'
+import { CircularArrow } from '@/components/common/CircularArrow'
 import { staticGallery, staticGalleryStock } from '@/data/gallery'
 import { stockPhotos } from '@/data/stockPhotos'
 import { pick } from '@/lib/utils'
@@ -39,10 +39,10 @@ export function GalleryPreview() {
       <div className="mt-8 flex justify-center">
         <Link
           to="/gallery"
-          className="inline-flex items-center gap-2 font-medium text-[hsl(var(--primary-strong))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded"
+          className="group inline-flex items-center gap-3 font-medium text-[hsl(var(--primary-strong))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded"
         >
           {t('home.gallery.viewAll')}
-          <ArrowRight size={16} />
+          <CircularArrow />
         </Link>
       </div>
     </section>
