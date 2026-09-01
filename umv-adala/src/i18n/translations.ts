@@ -9,7 +9,6 @@ const en = {
   'common.schoolName': 'UMV Adala',
   'common.schoolNameFull': 'Uccha Madhyamik Vidyalaya Adala',
   'common.schoolNameHi': 'उच्च माध्यमिक विद्यालय अदला',
-  'common.tagline': 'Nurturing minds, building futures',
   'common.motto': 'सा विद्या या विमुक्तये',
   'common.mottoTranslation': '"That alone is knowledge which liberates" — Vishnu Purana',
   'common.skipToContent': 'Skip to content',
@@ -102,6 +101,8 @@ const en = {
   'home.location.title': 'Find Us',
   'home.location.overline': 'Location',
   'home.location.directions': 'Get directions',
+  'home.location.nearby': 'Nearby',
+  'home.location.distanceNote': 'Straight-line distance',
 
   // ── About ──
   'about.title': 'About the School',
@@ -254,7 +255,6 @@ const hi: Record<keyof typeof en, string> = {
   'common.schoolName': 'यूएमवी अदला',
   'common.schoolNameFull': 'उच्च माध्यमिक विद्यालय अदला',
   'common.schoolNameHi': 'उच्च माध्यमिक विद्यालय अदला',
-  'common.tagline': 'मन का पोषण, भविष्य का निर्माण',
   'common.motto': 'सा विद्या या विमुक्तये',
   'common.mottoTranslation': '"वही विद्या है जो मुक्ति दिलाए" — विष्णु पुराण',
   'common.skipToContent': 'मुख्य सामग्री पर जाएँ',
@@ -343,6 +343,8 @@ const hi: Record<keyof typeof en, string> = {
   'home.location.title': 'हमें खोजें',
   'home.location.overline': 'स्थान',
   'home.location.directions': 'दिशा-निर्देश पाएँ',
+  'home.location.nearby': 'आस-पास',
+  'home.location.distanceNote': 'सीधी दूरी (हवाई दूरी)',
 
   'about.title': 'विद्यालय के बारे में',
   'about.overline': 'हमारी कहानी',

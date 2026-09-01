@@ -8,7 +8,7 @@ import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
 import { school } from '@/data/school'
-import { pick, cn } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 
 const schema = z.object({
   name: z.string().min(1),
@@ -67,7 +67,7 @@ export default function Contact() {
                   <MapPin size={18} className="mt-0.5 shrink-0 text-[hsl(var(--primary-strong))]" />
                   <div>
                     <dt className="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))]">{t('footer.address')}</dt>
-                    <dd className="text-[hsl(var(--foreground))]">{pick(school, 'address', lang)}</dd>
+                    <dd className="text-[hsl(var(--foreground))]">{school.address[lang]}</dd>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -96,7 +96,7 @@ export default function Contact() {
                   <Clock size={18} className="mt-0.5 shrink-0 text-[hsl(var(--primary-strong))]" />
                   <div>
                     <dt className="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))]">{t('footer.officeHours')}</dt>
-                    <dd className="text-[hsl(var(--foreground))]">{pick(school, 'officeHours', lang)}</dd>
+                    <dd className="text-[hsl(var(--foreground))]">{school.officeHours[lang]}</dd>
                   </div>
                 </div>
               </dl>

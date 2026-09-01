@@ -18,3 +18,26 @@ export const school = {
   teacherCount: 0, // TODO: replace
   officeHours: { en: 'Monday–Saturday, 10:00 AM – 4:00 PM', hi: 'सोमवार-शनिवार, सुबह 10:00 – शाम 4:00' }, // TODO: replace
 } as const
+
+// Straight-line ("as the crow flies") distances from school.coordinates,
+// computed via the haversine formula — not road/driving distance.
+export const nearbyLandmarks = [
+  {
+    key: 'airport',
+    name: { en: 'Jay Prakash Narayan Airport, Patna', hi: 'जय प्रकाश नारायण हवाई अड्डा, पटना' },
+    distanceKm: 19.4,
+    icon: 'Plane',
+  },
+  {
+    key: 'railway',
+    name: { en: 'Patna Junction Railway Station', hi: 'पटना जंक्शन रेलवे स्टेशन' },
+    distanceKm: 25.1,
+    icon: 'TrainFront',
+  },
+  {
+    key: 'cityCentre',
+    name: { en: 'Gandhi Maidan, Patna (city centre)', hi: 'गांधी मैदान, पटना (शहर केंद्र)' },
+    distanceKm: 25.5,
+    icon: 'Landmark',
+  },
+] as const

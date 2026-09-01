@@ -14,9 +14,9 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(() => {
     try {
-      return (localStorage.getItem('umv-theme') as Theme) || 'system'
+      return (localStorage.getItem('umv-theme') as Theme) || 'light'
     } catch {
-      return 'system'
+      return 'light'
     }
   })
 

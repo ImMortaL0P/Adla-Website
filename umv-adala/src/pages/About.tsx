@@ -6,7 +6,6 @@ import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
 import { school } from '@/data/school'
 import { aboutContent } from '@/data/content'
-import { pick } from '@/lib/utils'
 
 export default function About() {
   const { t, lang } = useT()
@@ -53,7 +52,7 @@ export default function About() {
             </h2>
             <p className="leading-relaxed text-[hsl(var(--muted-foreground))]">{aboutContent.management[lang]}</p>
             <p className="mt-3 text-sm text-[hsl(var(--muted-foreground))]">
-              {pick(school, 'managedBy', lang)}
+              {school.managedBy[lang]}
             </p>
           </section>
         </Reveal>

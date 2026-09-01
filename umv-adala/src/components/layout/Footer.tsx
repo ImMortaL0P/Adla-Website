@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { SchoolLogo } from '@/components/common/SchoolLogo'
 import { useT } from '@/context/LanguageContext'
 import { school } from '@/data/school'
-import { pick } from '@/lib/utils'
 
 export function Footer() {
   const { t, lang } = useT()
@@ -20,9 +19,6 @@ export function Footer() {
                 <h3 className="font-display text-lg font-bold leading-tight">
                   {t('common.schoolNameFull')}
                 </h3>
-                <p className="text-sm text-[hsl(var(--muted-foreground))]">
-                  {t('common.tagline')}
-                </p>
                 <p className="mt-1 text-xs italic text-[hsl(var(--muted-foreground))]">
                   {t('common.motto')}
                 </p>
@@ -30,7 +26,7 @@ export function Footer() {
             </Link>
             <p className="text-sm text-[hsl(var(--muted-foreground))]">
               {t('footer.address')}:<br />
-              {pick(school, 'address', lang)}
+              {school.address[lang]}
             </p>
           </div>
 
@@ -84,7 +80,7 @@ export function Footer() {
               </li>
               <li>
                 <span className="block font-medium text-[hsl(var(--foreground))]">{t('footer.officeHours')}</span>
-                {pick(school, 'officeHours', lang)}
+                {school.officeHours[lang]}
               </li>
             </ul>
           </div>

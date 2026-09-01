@@ -25,7 +25,7 @@
     <script>
       (function () {
         try {
-          var s = localStorage.getItem('umv-theme') || 'system';
+          var s = localStorage.getItem('umv-theme') || 'light';
           var d = s === 'dark' || (s === 'system' &&
             window.matchMedia('(prefers-color-scheme: dark)').matches);
           document.documentElement.classList.toggle('dark', d);
