@@ -1,7 +1,7 @@
 /* ────────────────────────────────────────────────────────
    Google Fonts
    ──────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&family=Geist:wght@400;500;600;700;800&family=Jaini&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi&display=swap');
 
 @import 'tailwindcss';
 
@@ -45,25 +45,32 @@
   --radius-xl: calc(var(--radius) + 0.25rem);
   --radius-2xl: calc(var(--radius) + 0.5rem);
 
-  --font-display: 'Sora', 'Noto Sans Devanagari', system-ui, sans-serif;
+  --font-display: 'Geist', 'Noto Sans Devanagari', system-ui, sans-serif;
   --font-body: 'Inter', 'Noto Sans Devanagari', system-ui, sans-serif;
+  --font-jaini: 'Jaini', 'Noto Sans Devanagari', cursive;
+
+  /* Overrides Tailwind's default (150ms, ease-in-out) for every transition-*
+     utility site-wide — a single lever for "make transitions smoother"
+     rather than hand-tuning each component. */
+  --default-transition-duration: 300ms;
+  --default-transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ────────────────────────────────────────────────────────
    Light Theme Tokens — Warm chalk paper
    ──────────────────────────────────────────────────────── */
 :root {
-  --background: 40 30% 97%;
+  --background: 55 40% 96%;
   --foreground: 222 25% 16%;
-  --card: 40 30% 99%;
+  --card: 55 35% 98%;
   --card-foreground: 222 25% 16%;
-  --popover: 40 30% 99%;
+  --popover: 55 35% 98%;
   --popover-foreground: 222 25% 16%;
-  --muted: 62 20% 92%;
+  --muted: 57 32% 90%;
   --muted-foreground: 222 12% 42%;
   --border: 40 15% 87%;
   --input: 40 15% 87%;
-  --ring: 32 55% 58%;
+  --ring: 82 55% 45%;
 
   /* School accent roles */
   --saffron: 32 62% 62%;
@@ -71,10 +78,14 @@
   --sky: 205 45% 60%;
   --clay: 18 32% 58%;
 
-  /* Semantic roles mapped to school accents */
-  --primary: 32 62% 62%;
+  /* Primary brand hue — deep olive-green (Inkrow reference), no longer
+     tied to --saffron. L=30% (not the visually-matched 38% of the old
+     saffron) because green reads lighter than orange at equal L/S; this
+     keeps the contrast-audited ratios against white/foreground intact
+     (see the Contrast Audit note below). */
+  --primary: 82 45% 42%;
   --primary-foreground: 40 40% 99%;
-  --primary-strong: 32 58% 38%;
+  --primary-strong: 82 58% 30%;
   --secondary: 145 28% 52%;
   --secondary-foreground: 40 40% 99%;
   --secondary-strong: 145 24% 39%;
@@ -105,16 +116,16 @@
   --muted-foreground: 220 10% 66%;
   --border: 220 14% 23%;
   --input: 220 14% 23%;
-  --ring: 32 50% 66%;
+  --ring: 82 45% 68%;
 
   --saffron: 32 48% 70%;
   --leaf: 145 24% 64%;
   --sky: 205 38% 70%;
   --clay: 18 28% 66%;
 
-  --primary: 32 48% 70%;
+  --primary: 82 40% 60%;
   --primary-foreground: 220 20% 12%;
-  --primary-strong: 32 52% 74%;
+  --primary-strong: 82 52% 74%;
   --secondary: 145 24% 64%;
   --secondary-foreground: 220 20% 12%;
   --secondary-strong: 145 24% 64%;
@@ -159,6 +170,23 @@ body {
   background-color: hsl(var(--background));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: url('/cursors/pencil.svg') 6 24, auto;
+}
+
+a, button, [role="button"], summary, select, label {
+  cursor: url('/cursors/pencil.svg') 6 24, pointer;
+}
+
+/* Tactile press feedback on click, everywhere — pairs with the custom
+   cursor so interactive elements feel physically pressed, not just
+   hovered. Skipped under reduced motion since it's a scale transition. */
+@media (prefers-reduced-motion: no-preference) {
+  a, button, [role="button"] {
+    transition: transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  a:active, button:active, [role="button"]:active {
+    transform: scale(0.97);
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {

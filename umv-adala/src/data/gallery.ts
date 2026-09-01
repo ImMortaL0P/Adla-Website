@@ -34,20 +34,27 @@ const categories: GalleryImage['category'][] = [
   'independence_day',
 ]
 
-export const staticGallery: GalleryImage[] = categories.flatMap((category, catIndex) =>
-  [1, 2].map((n) => ({
-    id: `gallery-${category}-${n}`,
-    image_url: '',
-    thumbnail_url: null,
-    caption_en: captions[category].en,
-    caption_hi: captions[category].hi,
-    category,
-    taken_on: null,
-    display_order: catIndex * 2 + n,
-    is_published: true,
-    created_at: new Date().toISOString(),
-  }))
-)
+// Only as many tiles as have a real stock photo assigned — an empty
+// "photo to be added" placeholder tile reads as a broken image, so a
+// category with one licensed photo gets one tile, not two.
+export const staticGallery: GalleryImage[] = categories.flatMap((category, catIndex) => {
+  const count = stockAssignments[category]?.length ?? 1
+  return Array.from({ length: count }, (_, i) => {
+    const n = i + 1
+    return {
+      id: `gallery-${category}-${n}`,
+      image_url: '',
+      thumbnail_url: null,
+      caption_en: captions[category].en,
+      caption_hi: captions[category].hi,
+      category,
+      taken_on: null,
+      display_order: catIndex * 2 + n,
+      is_published: true,
+      created_at: new Date().toISOString(),
+    }
+  })
+})
 
 /** Maps a gallery image id to a licensed stock photo, when one is assigned. */
 export const staticGalleryStock: Partial<Record<string, StockPhotoKey>> = Object.fromEntries(

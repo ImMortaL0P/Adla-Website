@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, Sun, Moon, Monitor } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { SchoolCrest } from '@/components/common/SchoolCrest'
+import { SchoolLogo } from '@/components/common/SchoolLogo'
 import { useTheme } from '@/context/ThemeContext'
 import { useT } from '@/context/LanguageContext'
 import { MobileNav } from './MobileNav'
@@ -203,7 +203,7 @@ export function Header() {
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded-lg'
           )}
         >
-          <SchoolCrest size={32} />
+          <SchoolLogo className="h-8" />
           <div className="hidden sm:block">
             <div className="text-sm font-semibold leading-tight text-[hsl(var(--foreground))]">
               {t('common.schoolName')}

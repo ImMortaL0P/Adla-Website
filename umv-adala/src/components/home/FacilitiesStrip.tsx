@@ -23,8 +23,8 @@ export function FacilitiesStrip() {
           const Icon = iconMap[facility.icon]
           return (
             <Reveal key={facility.key}>
-              <div className="flex flex-col items-center gap-3 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-4 py-6 text-center">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[hsl(var(--muted))] text-[hsl(var(--primary-strong))]">
+              <div className="group flex flex-col items-center gap-3 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-4 py-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[hsl(var(--muted))] text-[hsl(var(--primary-strong))] transition-transform duration-300 group-hover:scale-110">
                   <Icon size={20} strokeWidth={1.75} />
                 </span>
                 <span className="text-sm font-medium text-[hsl(var(--foreground))]">

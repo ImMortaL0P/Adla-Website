@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { SchoolCrest } from '@/components/common/SchoolCrest'
+import { SchoolLogo } from '@/components/common/SchoolLogo'
 import { useT } from '@/context/LanguageContext'
 import { school } from '@/data/school'
 import { pick } from '@/lib/utils'
@@ -15,7 +15,7 @@ export function Footer() {
           {/* Identity */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded-lg w-fit">
-              <SchoolCrest size={48} />
+              <SchoolLogo className="h-12" />
               <div>
                 <h3 className="font-display text-lg font-bold leading-tight">
                   {t('common.schoolNameFull')}
@@ -90,13 +90,26 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[hsl(var(--border))] pt-8 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-[hsl(var(--border))] pt-8 sm:flex-row sm:gap-4">
           <p className="text-xs text-[hsl(var(--muted-foreground))]">
             {t('common.copyright')}
           </p>
           <p className="text-xs font-medium text-[hsl(var(--muted-foreground))]">
             {t('common.govAttribution')}
           </p>
+        </div>
+        <div className="mt-3 flex justify-center sm:justify-end">
+          <a
+            href="https://www.linkedin.com/in/kumar-mangalam-362a77176/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary-strong))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded"
+          >
+            {t('common.developedBy')} Kumar Mangalam
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
+            </svg>
+          </a>
         </div>
       </div>
     </footer>

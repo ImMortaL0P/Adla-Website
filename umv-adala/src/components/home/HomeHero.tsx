@@ -64,7 +64,7 @@ export function HomeHero() {
                 <AnimatedTitle
                   text={t('home.hero.titleHi')}
                   as="span"
-                  className="mt-2 block text-2xl font-normal text-white/80 sm:text-3xl md:text-4xl"
+                  className="font-jaini mt-2 block text-3xl font-normal text-white/80 sm:text-4xl md:text-5xl"
                   startDelay={250}
                 />
               )}

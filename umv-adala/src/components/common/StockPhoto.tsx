@@ -34,7 +34,7 @@ export function StockPhoto({ photo, className, imgClassName, loading = 'lazy', r
         height={photo.height}
         alt={photo.alt[lang]}
         loading={loading}
-        className={cn('h-full w-full object-cover', imgClassName)}
+        className={cn('h-full w-full object-cover transition-transform duration-500 ease-out hover:scale-105', imgClassName)}
       />
       {compact ? (
         <span
