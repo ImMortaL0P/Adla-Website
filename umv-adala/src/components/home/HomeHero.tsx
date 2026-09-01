@@ -3,7 +3,6 @@ import { ArrowRight, BookOpen } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { Reveal } from '@/components/motion/Reveal'
 import { StaggerGroup } from '@/components/motion/StaggerGroup'
-import { ScrollProgress } from '@/components/motion/ScrollProgress'
 import { AnimatedTitle } from '@/components/common/AnimatedTitle'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { stockPhotos } from '@/data/stockPhotos'
@@ -16,8 +15,6 @@ export function HomeHero() {
 
   return (
     <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden pt-16">
-      <ScrollProgress />
-
       {/* Background photo + gradient overlay — modern full-bleed hero treatment */}
       <div className="absolute inset-0 -z-20">
         <img src={bgPhoto.src} alt="" aria-hidden="true" className="h-full w-full object-cover" loading="eager" />

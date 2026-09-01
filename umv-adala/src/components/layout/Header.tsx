@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, Sun, Moon, Monitor } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SchoolLogo } from '@/components/common/SchoolLogo'
+import { ScrollRing } from '@/components/motion/ScrollRing'
 import { useTheme } from '@/context/ThemeContext'
 import { useT } from '@/context/LanguageContext'
 import { MobileNav } from './MobileNav'
@@ -207,7 +208,10 @@ export function Header() {
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded-lg'
           )}
         >
-          <SchoolLogo className="h-32 shadow-xl" />
+          <span className="relative inline-block">
+            <SchoolLogo className="h-32 shadow-xl" />
+            <ScrollRing size={128} />
+          </span>
           <div className="hidden mt-3 sm:block">
             <div className="text-lg font-semibold leading-tight text-white dark:text-[hsl(var(--foreground))]">
               {t('common.schoolName')}
