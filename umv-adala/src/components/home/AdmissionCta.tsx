@@ -11,7 +11,7 @@ export function AdmissionCta() {
   return (
     <section className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-12">
       <Reveal>
-        <div className="relative flex flex-col items-center gap-6 overflow-hidden rounded-3xl bg-[hsl(var(--primary-strong))] px-6 py-14 text-center sm:px-16">
+        <div className="relative isolate flex flex-col items-center gap-6 overflow-hidden rounded-3xl bg-[hsl(var(--primary-strong))] px-6 py-14 text-center sm:px-16">
           {/* Faded illustrative photo + gradient overlay */}
           <div className="absolute inset-0 -z-10">
             <img
