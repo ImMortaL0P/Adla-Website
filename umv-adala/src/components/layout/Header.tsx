@@ -51,7 +51,7 @@ function ThemeToggle() {
       className={cn(
         'flex h-9 w-9 items-center justify-center rounded-lg',
         'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
-        'transition-colors duration-600',
+        'transition-colors duration-700',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2'
       )}
     >
@@ -70,7 +70,7 @@ function LanguageToggle() {
       className={cn(
         'flex h-9 items-center gap-1 rounded-lg px-2.5 text-sm font-medium',
         'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
-        'transition-colors duration-600',
+        'transition-colors duration-700',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2'
       )}
     >
@@ -118,13 +118,13 @@ function DropdownNav({ item }: { item: NavItem & { children: ReadonlyArray<{ lab
         className={cn(
           'flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium',
           'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
-          'transition-colors duration-600',
+          'transition-colors duration-700',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
         )}
       >
         {t(item.labelKey as any)}
         <svg
-          className={cn('h-3.5 w-3.5 transition-transform duration-600', open && 'rotate-180')}
+          className={cn('h-3.5 w-3.5 transition-transform duration-700', open && 'rotate-180')}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -133,32 +133,35 @@ function DropdownNav({ item }: { item: NavItem & { children: ReadonlyArray<{ lab
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
-      {open && (
-        <div
-          className={cn(
-            'absolute left-0 top-full z-50 mt-1 min-w-[200px] rounded-xl',
-            'border border-[hsl(var(--border))] bg-[hsl(var(--card))]',
-            'p-1.5 shadow-md',
-            'animate-in fade-in-0 zoom-in-95 duration-500'
-          )}
-        >
-          {item.children.map((child) => (
-            <Link
-              key={child.href}
-              to={child.href}
-              className={cn(
-                'block rounded-lg px-3 py-2 text-sm',
-                'text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]',
-                'transition-colors duration-600',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]',
-                location.pathname === child.href && 'bg-[hsl(var(--muted))] font-medium'
-              )}
-            >
-              {t(child.labelKey as any)}
-            </Link>
-          ))}
-        </div>
-      )}
+      <div
+        className={cn(
+          'absolute left-0 top-full z-50 mt-1 min-w-[200px] origin-top rounded-xl',
+          'border border-[hsl(var(--border))] bg-[hsl(var(--card))]',
+          'p-1.5 shadow-md',
+          'transition-[opacity,transform] duration-600',
+          open
+            ? 'pointer-events-auto translate-y-0 scale-100 opacity-100'
+            : 'pointer-events-none -translate-y-1 scale-95 opacity-0'
+        )}
+        aria-hidden={!open}
+      >
+        {item.children.map((child) => (
+          <Link
+            key={child.href}
+            to={child.href}
+            tabIndex={open ? 0 : -1}
+            className={cn(
+              'block rounded-lg px-3 py-2 text-sm',
+              'text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]',
+              'transition-colors duration-700',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]',
+              location.pathname === child.href && 'bg-[hsl(var(--muted))] font-medium'
+            )}
+          >
+            {t(child.labelKey as any)}
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }
@@ -186,7 +189,7 @@ export function Header() {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50',
-        'transition-all duration-600',
+        'transition-all duration-700',
         scrolled
           ? 'border-b border-[hsl(var(--border))] bg-[hsl(var(--primary-strong))] dark:bg-[hsl(var(--background))]/85 backdrop-blur-md text-white dark:text-foreground'
           : 'bg-[hsl(var(--primary-strong))] dark:bg-[hsl(var(--background))]/70 backdrop-blur-sm'
@@ -227,7 +230,7 @@ export function Header() {
                 className={cn(
                   'rounded-lg px-3 py-2 text-sm font-medium',
                   'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
-                  'transition-colors duration-600',
+                  'transition-colors duration-700',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]',
                   location.pathname === item.href && 'bg-black/10 dark:bg-[hsl(var(--muted))]'
                 )}
@@ -248,7 +251,7 @@ export function Header() {
             className={cn(
               'flex h-9 w-9 items-center justify-center rounded-lg lg:hidden',
               'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
-              'transition-colors duration-600',
+              'transition-colors duration-700',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
             )}
           >
