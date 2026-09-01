@@ -1,7 +1,7 @@
 /* ────────────────────────────────────────────────────────
    Google Fonts
    ──────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi&display=swap');
 
 @import 'tailwindcss';
 
@@ -45,7 +45,7 @@
   --radius-xl: calc(var(--radius) + 0.25rem);
   --radius-2xl: calc(var(--radius) + 0.5rem);
 
-  --font-display: 'Bitter', 'Tiro Devanagari Hindi', serif;
+  --font-display: 'Sora', 'Noto Sans Devanagari', system-ui, sans-serif;
   --font-body: 'Inter', 'Noto Sans Devanagari', system-ui, sans-serif;
 }
 
@@ -163,6 +163,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
+  letter-spacing: -0.02em;
 }
 
 /* ────────────────────────────────────────────────────────
@@ -174,8 +175,9 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0;
 }
 
-.lang-hi h1, .lang-hi h2, .lang-hi h3 {
+.lang-hi h1, .lang-hi h2, .lang-hi h3, .lang-hi h4, .lang-hi h5, .lang-hi h6 {
   line-height: 1.4;
+  letter-spacing: 0;
 }
 
 .lang-hi .tracking-tight {
