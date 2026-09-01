@@ -1,4 +1,4 @@
-import { BookOpen, FlaskConical, Monitor, Trees, Utensils, Droplets, DoorClosed, ShieldCheck, type LucideIcon } from 'lucide-react'
+import { Utensils, Droplets, DoorClosed, ShieldCheck, type LucideIcon } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
@@ -6,10 +6,6 @@ import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { facilitiesList } from '@/data/content'
 
 const iconMap: Record<string, LucideIcon> = {
-  BookOpen,
-  FlaskConical,
-  Monitor,
-  Trees,
   Utensils,
   Droplets,
   DoorClosed,

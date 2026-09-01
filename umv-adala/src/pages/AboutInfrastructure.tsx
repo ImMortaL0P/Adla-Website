@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { BookOpen, FlaskConical, Monitor, Trees, Utensils, Droplets, DoorClosed, ShieldCheck, type LucideIcon } from 'lucide-react'
+import { Utensils, Droplets, DoorClosed, ShieldCheck, type LucideIcon } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
@@ -12,14 +12,9 @@ import { stockPhotos, type StockPhotoKey } from '@/data/stockPhotos'
 
 const facilityPhotos: Partial<Record<string, StockPhotoKey>> = {
   midDayMeal: 'facilityMidDayMeal',
-  computerLab: 'facilityComputerLab',
 }
 
 const iconMap: Record<string, LucideIcon> = {
-  BookOpen,
-  FlaskConical,
-  Monitor,
-  Trees,
   Utensils,
   Droplets,
   DoorClosed,

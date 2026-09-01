@@ -27,38 +27,6 @@ export const aboutContent = {
 
 export const facilitiesList = [
   {
-    icon: 'BookOpen',
-    key: 'library',
-    desc: {
-      en: 'A collection of textbooks and reference material supporting reading and self-study.',
-      hi: 'पठन एवं स्व-अध्ययन में सहायक पाठ्यपुस्तकों एवं संदर्भ सामग्री का संग्रह।',
-    },
-  },
-  {
-    icon: 'FlaskConical',
-    key: 'scienceLab',
-    desc: {
-      en: 'Space for hands-on experiments in physics, chemistry and biology.',
-      hi: 'भौतिकी, रसायन एवं जीव विज्ञान में प्रायोगिक शिक्षण हेतु स्थान।',
-    },
-  },
-  {
-    icon: 'Monitor',
-    key: 'computerLab',
-    desc: {
-      en: 'Computers supporting basic digital literacy and IT classes.',
-      hi: 'बुनियादी डिजिटल साक्षरता एवं कंप्यूटर शिक्षा हेतु कंप्यूटर।',
-    },
-  },
-  {
-    icon: 'Trees',
-    key: 'playground',
-    desc: {
-      en: 'Open ground used for sports, physical education and the morning assembly.',
-      hi: 'खेलकूद, शारीरिक शिक्षा एवं प्रार्थना सभा हेतु खुला मैदान।',
-    },
-  },
-  {
     icon: 'Utensils',
     key: 'midDayMeal',
     desc: {

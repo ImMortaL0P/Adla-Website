@@ -2,6 +2,7 @@ import { Seo } from '@/components/common/Seo'
 import { HomeHero } from '@/components/home/HomeHero'
 import { NoticesTicker } from '@/components/home/NoticesTicker'
 import { StatsStrip } from '@/components/home/StatsStrip'
+import { MottoSection } from '@/components/home/MottoSection'
 import { AboutPreview } from '@/components/home/AboutPreview'
 import { AcademicsGrid } from '@/components/home/AcademicsGrid'
 import { FacilitiesStrip } from '@/components/home/FacilitiesStrip'
@@ -17,6 +18,7 @@ export default function Home() {
       <HomeHero />
       <NoticesTicker />
       <StatsStrip />
+      <MottoSection />
       <AboutPreview />
       <AcademicsGrid />
       <FacilitiesStrip />
