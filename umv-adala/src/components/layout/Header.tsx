@@ -13,7 +13,7 @@ const navItems = [
     href: '/about',
     children: [
       { labelKey: 'common.nav.aboutSchool', href: '/about' },
-      { labelKey: 'common.nav.principal', href: '/about/principal' },
+      { labelKey: 'common.nav.headMaster', href: '/about/headMaster' },
       { labelKey: 'common.nav.infrastructure', href: '/about/infrastructure' },
     ],
   },
@@ -22,8 +22,6 @@ const navItems = [
     href: '/academics',
     children: [
       { labelKey: 'common.nav.academicsOverview', href: '/academics' },
-      { labelKey: 'common.nav.primary', href: '/academics/primary' },
-      { labelKey: 'common.nav.middle', href: '/academics/middle' },
       { labelKey: 'common.nav.secondary', href: '/academics/secondary' },
       { labelKey: 'common.nav.senior', href: '/academics/senior' },
     ],
@@ -52,8 +50,8 @@ function ThemeToggle() {
       aria-pressed={theme === 'dark'}
       className={cn(
         'flex h-9 w-9 items-center justify-center rounded-lg',
-        'text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]',
-        'transition-colors duration-200',
+        'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
+        'transition-colors duration-400',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2'
       )}
     >
@@ -71,14 +69,14 @@ function LanguageToggle() {
       aria-label={lang === 'en' ? 'हिंदी में बदलें' : 'Switch to English'}
       className={cn(
         'flex h-9 items-center gap-1 rounded-lg px-2.5 text-sm font-medium',
-        'text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]',
-        'transition-colors duration-200',
+        'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
+        'transition-colors duration-400',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2'
       )}
     >
-      <span className={cn(lang === 'en' && 'text-[hsl(var(--primary-strong))] font-semibold')}>EN</span>
-      <span className="text-[hsl(var(--muted-foreground))]">|</span>
-      <span className={cn(lang === 'hi' && 'text-[hsl(var(--primary-strong))] font-semibold')}>हिं</span>
+      <span className={cn(lang === 'en' && 'text-[hsl(var(--saffron))] font-semibold')}>EN</span>
+      <span className="text-white/80 dark:text-[hsl(var(--muted-foreground))]">|</span>
+      <span className={cn(lang === 'hi' && 'text-[hsl(var(--saffron))] font-semibold')}>हिं</span>
     </button>
   )
 }
@@ -119,14 +117,14 @@ function DropdownNav({ item }: { item: NavItem & { children: ReadonlyArray<{ lab
         aria-expanded={open}
         className={cn(
           'flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium',
-          'text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]',
-          'transition-colors duration-200',
+          'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
+          'transition-colors duration-400',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
         )}
       >
         {t(item.labelKey as any)}
         <svg
-          className={cn('h-3.5 w-3.5 transition-transform duration-200', open && 'rotate-180')}
+          className={cn('h-3.5 w-3.5 transition-transform duration-400', open && 'rotate-180')}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -141,7 +139,7 @@ function DropdownNav({ item }: { item: NavItem & { children: ReadonlyArray<{ lab
             'absolute left-0 top-full z-50 mt-1 min-w-[200px] rounded-xl',
             'border border-[hsl(var(--border))] bg-[hsl(var(--card))]',
             'p-1.5 shadow-md',
-            'animate-in fade-in-0 zoom-in-95'
+            'animate-in fade-in-0 zoom-in-95 duration-300'
           )}
         >
           {item.children.map((child) => (
@@ -151,7 +149,7 @@ function DropdownNav({ item }: { item: NavItem & { children: ReadonlyArray<{ lab
               className={cn(
                 'block rounded-lg px-3 py-2 text-sm',
                 'text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]',
-                'transition-colors duration-150',
+                'transition-colors duration-400',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]',
                 location.pathname === child.href && 'bg-[hsl(var(--muted))] font-medium'
               )}
@@ -188,13 +186,13 @@ export function Header() {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50',
-        'transition-all duration-300',
+        'transition-all duration-400',
         scrolled
-          ? 'border-b border-[hsl(var(--border))] bg-[hsl(var(--background))/0.85] backdrop-blur-md'
-          : 'bg-transparent'
+          ? 'border-b border-[hsl(var(--border))] bg-[hsl(var(--primary-strong))] dark:bg-[hsl(var(--background))]/85 backdrop-blur-md text-white dark:text-foreground'
+          : 'bg-[hsl(var(--primary-strong))] dark:bg-[hsl(var(--background))]/70 backdrop-blur-sm'
       )}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
         {/* Logo / School name */}
         <Link
           to="/"
@@ -203,12 +201,12 @@ export function Header() {
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded-lg'
           )}
         >
-          <SchoolLogo className="h-8" />
+          <SchoolLogo className="h-14" />
           <div className="hidden sm:block">
-            <div className="text-sm font-semibold leading-tight text-[hsl(var(--foreground))]">
+            <div className="text-sm font-semibold leading-tight text-white dark:text-[hsl(var(--foreground))]">
               {t('common.schoolName')}
             </div>
-            <div className="text-xs leading-tight text-[hsl(var(--muted-foreground))]">
+            <div className="text-xs leading-tight text-white/80 dark:text-[hsl(var(--muted-foreground))]">
               {t('common.schoolNameHi')}
             </div>
           </div>
@@ -225,10 +223,10 @@ export function Header() {
                 to={item.href}
                 className={cn(
                   'rounded-lg px-3 py-2 text-sm font-medium',
-                  'text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]',
-                  'transition-colors duration-200',
+                  'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
+                  'transition-colors duration-400',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]',
-                  location.pathname === item.href && 'bg-[hsl(var(--muted))]'
+                  location.pathname === item.href && 'bg-black/10 dark:bg-[hsl(var(--muted))]'
                 )}
               >
                 {t(item.labelKey as any)}
@@ -246,8 +244,8 @@ export function Header() {
             aria-label={t('common.openMenu')}
             className={cn(
               'flex h-9 w-9 items-center justify-center rounded-lg lg:hidden',
-              'text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]',
-              'transition-colors duration-200',
+              'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
+              'transition-colors duration-400',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
             )}
           >

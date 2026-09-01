@@ -52,7 +52,7 @@
   /* Overrides Tailwind's default (150ms, ease-in-out) for every transition-*
      utility site-wide — a single lever for "make transitions smoother"
      rather than hand-tuning each component. */
-  --default-transition-duration: 300ms;
+  --default-transition-duration: 450ms;
   --default-transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -217,7 +217,7 @@ h1, h2, h3, h4, h5, h6 {
    Applied to wrapper, not * (animating everything jank-sources on cheap phones)
    ──────────────────────────────────────────────────────── */
 .theme-transition {
-  transition: background-color 300ms ease, color 300ms ease;
+  transition: background-color 450ms cubic-bezier(0.16, 1, 0.3, 1), color 450ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ────────────────────────────────────────────────────────

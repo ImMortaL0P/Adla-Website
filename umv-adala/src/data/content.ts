@@ -8,32 +8,20 @@
 
 export const aboutContent = {
   history: {
-    en: 'Established in 2008, Uccha Madhyamik Vidyalaya Adala is a Bihar Government school serving students from Class 1 to Class 12 in Adla village, Naubatpur block, Patna district. As an "Uccha Madhyamik" (higher secondary) institution, the school offers secondary and senior secondary education alongside its primary and middle sections. A detailed account of the school’s history since its founding is being compiled by the school administration and will be published here.',
-    hi: '2008 में स्थापित, उच्च माध्यमिक विद्यालय अदला बिहार सरकार का एक विद्यालय है जो पटना जिले के नौबतपुर प्रखंड के अदला गाँव में कक्षा 1 से कक्षा 12 तक के विद्यार्थियों को शिक्षा प्रदान करता है। एक "उच्च माध्यमिक" संस्थान के रूप में, यह विद्यालय अपने प्राथमिक एवं मध्य विभागों के साथ-साथ माध्यमिक एवं उच्चतर माध्यमिक शिक्षा भी प्रदान करता है। स्थापना के बाद से विद्यालय के इतिहास का विस्तृत विवरण विद्यालय प्रशासन द्वारा तैयार किया जा रहा है और शीघ्र ही यहाँ प्रकाशित किया जाएगा।',
+    en: 'Established in 2020, Uccha Madhyamik Vidyalaya Adla is a Bihar Government school serving students from Class 9 to Class 12 in Adla village, Naubatpur block, Patna district. As an "Uccha Madhyamik" (higher secondary) institution, the school offers secondary and senior secondary education alongside its primary and middle sections. A detailed account of the school’s history since its founding is being compiled by the school administration and will be published here.',
+    hi: '2020 में स्थापित, उच्च माध्यमिक विद्यालय अदला बिहार सरकार का एक विद्यालय है जो पटना जिले के नौबतपुर प्रखंड के अदला गाँव में कक्षा 9 से कक्षा 12 तक के विद्यार्थियों को शिक्षा प्रदान करता है। एक "उच्च माध्यमिक" संस्थान के रूप में, यह विद्यालय अपने प्राथमिक एवं मध्य विभागों के साथ-साथ माध्यमिक एवं उच्चतर माध्यमिक शिक्षा भी प्रदान करता है। स्थापना के बाद से विद्यालय के इतिहास का विस्तृत विवरण विद्यालय प्रशासन द्वारा तैयार किया जा रहा है और शीघ्र ही यहाँ प्रकाशित किया जाएगा।',
   },
   management: {
-    en: 'The school is managed by the Department of Education, Government of Bihar, and administered locally by the Headmaster/Principal along with the teaching and non-teaching staff. Details of the School Management Committee (SMC) will be published here once available.',
-    hi: 'विद्यालय का संचालन शिक्षा विभाग, बिहार सरकार द्वारा किया जाता है तथा स्थानीय प्रशासन प्रधानाध्यापक/प्रधानाचार्य एवं शिक्षण व गैर-शिक्षण स्टाफ द्वारा किया जाता है। विद्यालय प्रबंधन समिति (SMC) का विवरण उपलब्ध होने पर यहाँ प्रकाशित किया जाएगा।',
+    en: 'The school is managed by the Department of Education, Government of Bihar, and administered locally by the Headmaster/Head Master along with the teaching and non-teaching staff. Details of the School Management Committee (SMC) will be published here once available.',
+    hi: 'विद्यालय का संचालन शिक्षा विभाग, बिहार सरकार द्वारा किया जाता है तथा स्थानीय प्रशासन प्रधानाध्यापक/प्रधानाध्यापक एवं शिक्षण व गैर-शिक्षण स्टाफ द्वारा किया जाता है। विद्यालय प्रबंधन समिति (SMC) का विवरण उपलब्ध होने पर यहाँ प्रकाशित किया जाएगा।',
   },
-  // Placeholder milestones — obviously-placeholder values, not invented dates.
-  milestones: [1, 2, 3, 4].map((n) => ({
-    year: 'XXXX',
-    title_en: `Milestone ${n} — to be updated`,
-    title_hi: `मील का पत्थर ${n} — अद्यतन किया जाना है`,
-    desc_en: 'Description to be added by the school administration.',
-    desc_hi: 'विवरण विद्यालय प्रशासन द्वारा जोड़ा जाएगा।',
-  })),
-}
+  // No verified founding-to-present timeline exists yet — left empty rather
+  // than invented, per the placeholder discipline above. About.tsx skips
+  // the Timeline section entirely while this is empty.
+  milestones: [] as Array<{ year: string; title_en: string; title_hi: string; desc_en: string; desc_hi: string }>,
+  }
 
 export const facilitiesList = [
-  {
-    icon: 'Utensils',
-    key: 'midDayMeal',
-    desc: {
-      en: 'Hot cooked meals served under the Government Mid-Day Meal Scheme.',
-      hi: 'सरकारी मध्याह्न भोजन योजना के अंतर्गत गर्म पका हुआ भोजन।',
-    },
-  },
   {
     icon: 'Droplets',
     key: 'drinkingWater',
@@ -102,31 +90,25 @@ export const admissionContent = {
     },
   ],
   documents: [
-    { en: 'Birth certificate', hi: 'जन्म प्रमाण पत्र' },
-    { en: 'Aadhaar card (student and guardian)', hi: 'आधार कार्ड (विद्यार्थी एवं अभिभावक)' },
-    { en: 'Transfer Certificate (TC) from previous school, if applicable', hi: 'पिछले विद्यालय से स्थानांतरण प्रमाण पत्र (TC), यदि लागू हो' },
-    { en: 'Previous class mark sheet / report card, if applicable', hi: 'पिछली कक्षा की अंकसूची / रिपोर्ट कार्ड, यदि लागू हो' },
-    { en: 'Caste certificate, if applicable', hi: 'जाति प्रमाण पत्र, यदि लागू हो' },
-    { en: 'Income certificate, if applying for scholarship schemes', hi: 'छात्रवृत्ति योजना हेतु आवेदन करने पर आय प्रमाण पत्र' },
-    { en: 'Passport-size photographs', hi: 'पासपोर्ट आकार की तस्वीरें' },
-    { en: 'Residence proof', hi: 'निवास प्रमाण' },
+    { en: 'Aadhaar card (student, father, and mother)', hi: 'आधार कार्ड (विद्यार्थी, पिता और माता)' },
+    { en: 'Transfer Certificate (TC) (Mandatory)', hi: 'स्थानांतरण प्रमाण पत्र (TC) (अनिवार्य)' },
+    { en: 'Previous class mark sheet / report card (Mandatory)', hi: 'पिछली कक्षा की अंकसूची (अनिवार्य)' },
+    { en: 'Income certificate (Mandatory)', hi: 'आय प्रमाण पत्र (अनिवार्य)' },
+    { en: 'Residence proof (Mandatory)', hi: 'निवास प्रमाण (अनिवार्य)' },
+    { en: 'Caste certificate (Mandatory)', hi: 'जाति प्रमाण पत्र (अनिवार्य)' },
+    { en: 'PEN Number', hi: 'पेन नंबर (PEN Number)' },
+    { en: 'UDISE of previous School', hi: 'पिछले विद्यालय का UDISE' },
+    { en: 'APAAR ID', hi: 'अपार आईडी (APAAR ID)' },
+    { en: 'Student ID (E-Siksha Kosh)', hi: 'विद्यार्थी आईडी (ई-शिक्षा कोष)' },
   ],
   feeRows: [
-    { head_en: 'Tuition fee', head_hi: 'शिक्षण शुल्क', value_en: 'Free (Government School)', value_hi: 'निःशुल्क (सरकारी विद्यालय)' },
-    { head_en: 'Admission fee', head_hi: 'प्रवेश शुल्क', value_en: 'To be updated', value_hi: 'अद्यतन किया जाना है' },
-    { head_en: 'Examination fee', head_hi: 'परीक्षा शुल्क', value_en: 'To be updated', value_hi: 'अद्यतन किया जाना है' },
-    {
-      head_en: 'Textbooks',
-      head_hi: 'पाठ्यपुस्तकें',
-      value_en: 'Provided free under Government scheme (subject to availability)',
-      value_hi: 'सरकारी योजना के तहत निःशुल्क प्रदान (उपलब्धता के अधीन)',
-    },
+    { head_en: 'All Fees', head_hi: 'सभी शुल्क', value_en: 'As per current government norms.', value_hi: 'वर्तमान सरकारी मानदंडों के अनुसार।' },
   ],
   importantDates: [
     { label_en: 'Admission form distribution begins', label_hi: 'प्रवेश फॉर्म वितरण प्रारंभ', date: 'To be announced' },
     { label_en: 'Last date for submission', label_hi: 'जमा करने की अंतिम तिथि', date: 'To be announced' },
     { label_en: 'Merit list / confirmation', label_hi: 'मेधा सूची / पुष्टि', date: 'To be announced' },
-    { label_en: 'Session begins', label_hi: 'सत्र प्रारंभ', date: 'To be announced' },
+    { label_en: 'Session begins', label_hi: 'सत्र प्रारंभ', date: 'April, Every Calendar Year' },
   ],
   faq: [
     {
@@ -138,8 +120,8 @@ export const admissionContent = {
     {
       q_en: 'Which classes does the school offer?',
       q_hi: 'विद्यालय में कौन-कौन सी कक्षाएँ हैं?',
-      a_en: 'The school offers Class 1 to Class 12, including Science, Commerce and Arts streams at the senior secondary level.',
-      a_hi: 'विद्यालय में कक्षा 1 से कक्षा 12 तक शिक्षा उपलब्ध है, जिसमें उच्चतर माध्यमिक स्तर पर विज्ञान, वाणिज्य एवं कला संकाय शामिल हैं।',
+      a_en: 'The school offers Class 9 to Class 12, including Science, Commerce and Arts streams at the senior secondary level.',
+      a_hi: 'विद्यालय में कक्षा 9 से कक्षा 12 तक शिक्षा उपलब्ध है, जिसमें उच्चतर माध्यमिक स्तर पर विज्ञान, वाणिज्य एवं कला संकाय शामिल हैं।',
     },
     {
       q_en: 'Is there a school bus or transport facility?',
@@ -161,11 +143,11 @@ export const disclosureSections = [
     title_en: 'School Details',
     title_hi: 'विद्यालय विवरण',
     rows: [
-      { label_en: 'Name of School', label_hi: 'विद्यालय का नाम', value: 'Uccha Madhyamik Vidyalaya Adala' },
-      { label_en: 'UDISE Code', label_hi: 'UDISE कोड', value: 'XXXXXXXXXXX — to be updated' },
+      { label_en: 'Name of School', label_hi: 'विद्यालय का नाम', value: 'Uccha Madhyamik Vidyalaya Adla' },
+      { label_en: 'UDISE Code', label_hi: 'UDISE कोड', value: '10280606804' },
       { label_en: 'School Type', label_hi: 'विद्यालय का प्रकार', value: 'Bihar Government School' },
-      { label_en: 'Address', label_hi: 'पता', value: 'Adla, Naubatpur, Patna District, Bihar — 809011' },
-      { label_en: 'Classes Offered', label_hi: 'उपलब्ध कक्षाएँ', value: '1 to 12' },
+      { label_en: 'Address', label_hi: 'पता', value: 'Adla, Naubatpur, Patna District, Bihar — 801109' },
+      { label_en: 'Classes Offered', label_hi: 'उपलब्ध कक्षाएँ', value: '9 to 12' },
       { label_en: 'Board Affiliation', label_hi: 'बोर्ड संबद्धता', value: 'Bihar School Examination Board (BSEB)' },
     ],
   },
@@ -174,7 +156,7 @@ export const disclosureSections = [
     title_hi: 'प्रबंधन',
     rows: [
       { label_en: 'Managed By', label_hi: 'प्रबंधन', value: 'Department of Education, Government of Bihar' },
-      { label_en: 'Head of Institution', label_hi: 'संस्था प्रमुख', value: 'To be updated' },
+      { label_en: 'Head of Institution', label_hi: 'संस्था प्रमुख', value: 'Chandan Kumar' },
     ],
   },
   {
@@ -190,8 +172,8 @@ export const disclosureSections = [
     title_en: 'Staff',
     title_hi: 'स्टाफ',
     rows: [
-      { label_en: 'No. of Teaching Staff', label_hi: 'शिक्षण स्टाफ की संख्या', value: 'To be updated' },
-      { label_en: 'No. of Non-Teaching Staff', label_hi: 'गैर-शिक्षण स्टाफ की संख्या', value: 'To be updated' },
+      { label_en: 'No. of Teaching Staff', label_hi: 'शिक्षण स्टाफ की संख्या', value: '15' },
+      { label_en: 'No. of Non-Teaching Staff', label_hi: 'गैर-शिक्षण स्टाफ की संख्या', value: '2' },
     ],
   },
   {
@@ -205,7 +187,6 @@ export const disclosureSections = [
       { label_en: 'Toilets (Boys/Girls)', label_hi: 'शौचालय (बालक/बालिका)', value: 'To be updated' },
       { label_en: 'Playground', label_hi: 'खेल का मैदान', value: 'To be updated' },
       { label_en: 'Boundary Wall', label_hi: 'चहारदीवारी', value: 'To be updated' },
-      { label_en: 'Mid-Day Meal', label_hi: 'मध्याह्न भोजन', value: 'To be updated' },
     ],
   },
 ] as const

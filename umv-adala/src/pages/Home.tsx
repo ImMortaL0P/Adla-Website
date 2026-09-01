@@ -6,7 +6,7 @@ import { MottoSection } from '@/components/home/MottoSection'
 import { AboutPreview } from '@/components/home/AboutPreview'
 import { AcademicsGrid } from '@/components/home/AcademicsGrid'
 import { FacilitiesStrip } from '@/components/home/FacilitiesStrip'
-import { PrincipalMessage } from '@/components/home/PrincipalMessage'
+import { HeadMasterMessage } from '@/components/home/HeadMasterMessage'
 import { GalleryPreview } from '@/components/home/GalleryPreview'
 import { AdmissionCta } from '@/components/home/AdmissionCta'
 import { LocationSection } from '@/components/home/LocationSection'
@@ -22,7 +22,7 @@ export default function Home() {
       <AboutPreview />
       <AcademicsGrid />
       <FacilitiesStrip />
-      <PrincipalMessage />
+      <HeadMasterMessage />
       <GalleryPreview />
       <AdmissionCta />
       <LocationSection />

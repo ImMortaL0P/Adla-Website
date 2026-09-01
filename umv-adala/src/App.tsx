@@ -5,7 +5,7 @@ import { useT } from './context/LanguageContext'
 
 const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
-const AboutPrincipal = lazy(() => import('./pages/AboutPrincipal'))
+const AboutHeadMaster = lazy(() => import('./pages/AboutHeadMaster'))
 const AboutInfrastructure = lazy(() => import('./pages/AboutInfrastructure'))
 const AcademicsOverview = lazy(() => import('./pages/academics/AcademicsOverview'))
 const AcademicsStagePrimary = lazy(() =>
@@ -82,7 +82,7 @@ export function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
-            <Route path="about/principal" element={<AboutPrincipal />} />
+            <Route path="about/headMaster" element={<AboutHeadMaster />} />
             <Route path="about/infrastructure" element={<AboutInfrastructure />} />
 
             <Route path="academics" element={<AcademicsOverview />} />

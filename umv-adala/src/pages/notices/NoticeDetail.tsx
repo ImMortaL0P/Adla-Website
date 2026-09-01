@@ -9,11 +9,11 @@ import { staticNotices } from '@/data/notices'
 import { pick, cn } from '@/lib/utils'
 
 const typeStyles: Record<string, string> = {
-  circular: 'bg-[hsl(var(--sky))/15] text-[hsl(var(--accent-strong))]',
-  notice: 'bg-[hsl(var(--saffron))/15] text-[hsl(var(--primary-strong))]',
-  event: 'bg-[hsl(var(--leaf))/15] text-[hsl(var(--secondary-strong))]',
-  holiday: 'bg-[hsl(var(--clay))/15] text-[hsl(var(--clay-strong))]',
-  result: 'bg-[hsl(var(--destructive))/15] text-[hsl(var(--destructive-strong))]',
+  circular: 'bg-[hsl(var(--sky))]/15 text-[hsl(var(--accent-strong))]',
+  notice: 'bg-[hsl(var(--saffron))]/15 text-[hsl(var(--primary-strong))]',
+  event: 'bg-[hsl(var(--leaf))]/15 text-[hsl(var(--secondary-strong))]',
+  holiday: 'bg-[hsl(var(--clay))]/15 text-[hsl(var(--clay-strong))]',
+  result: 'bg-[hsl(var(--destructive))]/15 text-[hsl(var(--destructive-strong))]',
 }
 
 export default function NoticeDetail() {

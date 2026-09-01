@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Baby, BookOpen, GraduationCap, Landmark, ArrowRight, Languages } from 'lucide-react'
+import { GraduationCap, Landmark, ArrowRight, Languages } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
@@ -8,17 +8,15 @@ import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { cn } from '@/lib/utils'
 
 const stages = [
-  { href: '/academics/primary', labelKey: 'common.nav.primary', icon: Baby, variant: 'saffron' },
-  { href: '/academics/middle', labelKey: 'common.nav.middle', icon: BookOpen, variant: 'leaf' },
   { href: '/academics/secondary', labelKey: 'common.nav.secondary', icon: Landmark, variant: 'sky' },
   { href: '/academics/senior', labelKey: 'common.nav.senior', icon: GraduationCap, variant: 'clay' },
 ] as const
 
 const variantStyles: Record<string, string> = {
-  saffron: 'bg-[hsl(var(--saffron))/12] text-[hsl(var(--primary-strong))]',
-  leaf: 'bg-[hsl(var(--leaf))/12] text-[hsl(var(--secondary-strong))]',
-  sky: 'bg-[hsl(var(--sky))/12] text-[hsl(var(--accent-strong))]',
-  clay: 'bg-[hsl(var(--clay))/12] text-[hsl(var(--clay-strong))]',
+  saffron: 'bg-[hsl(var(--saffron))]/12 text-[hsl(var(--primary-strong))]',
+  leaf: 'bg-[hsl(var(--leaf))]/12 text-[hsl(var(--secondary-strong))]',
+  sky: 'bg-[hsl(var(--sky))]/12 text-[hsl(var(--accent-strong))]',
+  clay: 'bg-[hsl(var(--clay))]/12 text-[hsl(var(--clay-strong))]',
 }
 
 export default function AcademicsOverview() {
@@ -46,7 +44,7 @@ export default function AcademicsOverview() {
                 to={stage.href}
                 className={cn(
                   'group flex items-center justify-between gap-4 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6',
-                  'transition-all duration-300 hover:-translate-y-1 hover:shadow-md',
+                  'transition-all duration-500 hover:-translate-y-1 hover:shadow-md',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
                 )}
               >

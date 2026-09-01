@@ -56,7 +56,7 @@ export function MobileNav({ open, onClose, navItems }: MobileNavProps) {
       {/* Backdrop */}
       <div
         className={cn(
-          'fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition-opacity duration-300',
+          'fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition-opacity duration-450',
           open ? 'opacity-100' : 'pointer-events-none opacity-0'
         )}
         onClick={onClose}
@@ -72,7 +72,7 @@ export function MobileNav({ open, onClose, navItems }: MobileNavProps) {
         className={cn(
           'fixed inset-y-0 right-0 z-50 w-full max-w-sm',
           'flex flex-col bg-[hsl(var(--background))] shadow-2xl',
-          'transition-transform duration-300 ease-in-out',
+          'transition-transform duration-450',
           open ? 'translate-x-0' : 'translate-x-full'
         )}
       >
@@ -122,7 +122,7 @@ export function MobileNav({ open, onClose, navItems }: MobileNavProps) {
                       
                       <div
                         className={cn(
-                          'overflow-hidden transition-all duration-300 ease-in-out',
+                          'overflow-hidden transition-all duration-450',
                           isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                         )}
                       >

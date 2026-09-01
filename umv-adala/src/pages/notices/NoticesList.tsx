@@ -20,11 +20,11 @@ const filters: Array<{ value: NoticeType | 'all'; labelKey: string }> = [
 ]
 
 const typeStyles: Record<string, string> = {
-  circular: 'bg-[hsl(var(--sky))/15] text-[hsl(var(--accent-strong))]',
-  notice: 'bg-[hsl(var(--saffron))/15] text-[hsl(var(--primary-strong))]',
-  event: 'bg-[hsl(var(--leaf))/15] text-[hsl(var(--secondary-strong))]',
-  holiday: 'bg-[hsl(var(--clay))/15] text-[hsl(var(--clay-strong))]',
-  result: 'bg-[hsl(var(--destructive))/15] text-[hsl(var(--destructive-strong))]',
+  circular: 'bg-[hsl(var(--sky))]/15 text-[hsl(var(--accent-strong))]',
+  notice: 'bg-[hsl(var(--saffron))]/15 text-[hsl(var(--primary-strong))]',
+  event: 'bg-[hsl(var(--leaf))]/15 text-[hsl(var(--secondary-strong))]',
+  holiday: 'bg-[hsl(var(--clay))]/15 text-[hsl(var(--clay-strong))]',
+  result: 'bg-[hsl(var(--destructive))]/15 text-[hsl(var(--destructive-strong))]',
 }
 
 function formatDate(iso: string, lang: 'en' | 'hi') {
@@ -83,7 +83,7 @@ export default function NoticesList() {
               <Reveal key={notice.id} as="li" delay={Math.min(i * 60, 400)}>
                 <Link
                   to={`/notices/${notice.slug}`}
-                  className="flex flex-col gap-2 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 transition-colors hover:bg-[hsl(var(--muted))/50] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] sm:flex-row sm:items-center sm:justify-between"
+                  className="flex flex-col gap-2 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 transition-colors hover:bg-[hsl(var(--muted))]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div className="flex items-start gap-3">
                     <span className={cn('mt-0.5 shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium capitalize', typeStyles[notice.type])}>

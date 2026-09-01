@@ -4,7 +4,7 @@ import type { StockPhotoKey } from '@/data/stockPhotos'
 // GALLERY DATA — a mix of licensed illustrative stock photos (see
 // stockPhotos.ts, always shown with an "illustrative photo" disclaimer)
 // and solid-colour placeholder tiles where no suitable open photo was
-// sourced. None of these are real photographs of UMV Adala — TODO:
+// sourced. None of these are real photographs of UMV Adla — TODO:
 // replace every entry with real school photographs when available.
 const captions: Record<GalleryImage['category'], { en: string; hi: string }> = {
   campus: { en: 'Campus view — photo to be added', hi: 'परिसर दृश्य — फोटो जोड़ी जाएगी' },

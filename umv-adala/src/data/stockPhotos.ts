@@ -1,7 +1,7 @@
 /**
  * Open-licence stock photography, sourced from Wikimedia Commons.
  *
- * These are generic illustrative images — NOT photographs of UMV Adala,
+ * These are generic illustrative images — NOT photographs of UMV Adla,
  * its actual students, or its actual staff. Every place these are used
  * must show the "illustrative photo" disclaimer (see <StockPhoto>) so a
  * visitor cannot mistake them for real photos of this school (DEV.md §2).
@@ -29,7 +29,7 @@ export const stockPhotos = {
     width: 1200,
     height: 540,
     alt: {
-      en: 'Entrance of a government school building in Punjab (illustrative — not UMV Adala)',
+      en: 'Entrance of a government school building in Punjab (illustrative — not UMV Adla)',
       hi: 'पंजाब में एक सरकारी विद्यालय भवन का प्रवेश द्वार (उदाहरणात्मक — यह UMV अदला नहीं है)',
     },
     credit: 'Stalinjeet Brar',
@@ -42,7 +42,7 @@ export const stockPhotos = {
     width: 1200,
     height: 900,
     alt: {
-      en: 'A village school campus in Kerala (illustrative — not UMV Adala)',
+      en: 'A village school campus in Kerala (illustrative — not UMV Adla)',
       hi: 'केरल में एक ग्राम विद्यालय परिसर (उदाहरणात्मक — यह UMV अदला नहीं है)',
     },
     credit: 'Fabrice Florin',
@@ -55,7 +55,7 @@ export const stockPhotos = {
     width: 1200,
     height: 675,
     alt: {
-      en: 'A classroom in a government primary school in Kerala (illustrative — not UMV Adala)',
+      en: 'A classroom in a government primary school in Kerala (illustrative — not UMV Adla)',
       hi: 'केरल के एक सरकारी प्राथमिक विद्यालय की कक्षा (उदाहरणात्मक — यह UMV अदला नहीं है)',
     },
     credit: 'Ramjchandran',
@@ -68,7 +68,7 @@ export const stockPhotos = {
     width: 1200,
     height: 900,
     alt: {
-      en: 'School children in a classroom in Tamil Nadu (illustrative — not UMV Adala)',
+      en: 'School children in a classroom in Tamil Nadu (illustrative — not UMV Adla)',
       hi: 'तमिलनाडु में एक कक्षा में विद्यालय के बच्चे (उदाहरणात्मक — यह UMV अदला नहीं है)',
     },
     credit: 'McKay Savage',
@@ -81,7 +81,7 @@ export const stockPhotos = {
     width: 945,
     height: 1200,
     alt: {
-      en: 'Children playing together in India (illustrative — not UMV Adala)',
+      en: 'Children playing together in India (illustrative — not UMV Adla)',
       hi: 'भारत में साथ खेलते बच्चे (उदाहरणात्मक — यह UMV अदला नहीं है)',
     },
     credit: 'Sukanto Debnath',
@@ -94,7 +94,7 @@ export const stockPhotos = {
     width: 1200,
     height: 803,
     alt: {
-      en: 'Students performing a group dance at a school cultural festival in Kerala (illustrative — not UMV Adala)',
+      en: 'Students performing a group dance at a school cultural festival in Kerala (illustrative — not UMV Adla)',
       hi: 'केरल में एक विद्यालय सांस्कृतिक उत्सव में समूह नृत्य प्रस्तुत करते विद्यार्थी (उदाहरणात्मक — यह UMV अदला नहीं है)',
     },
     credit: 'Krish9',
@@ -107,7 +107,7 @@ export const stockPhotos = {
     width: 1200,
     height: 900,
     alt: {
-      en: 'Students celebrating Independence Day at a school in Kolkata (illustrative — not UMV Adala)',
+      en: 'Students celebrating Independence Day at a school in Kolkata (illustrative — not UMV Adla)',
       hi: 'कोलकाता के एक विद्यालय में स्वतंत्रता दिवस मनाते विद्यार्थी (उदाहरणात्मक — यह UMV अदला नहीं है)',
     },
     credit: 'Keiran Diksa',
@@ -120,7 +120,7 @@ export const stockPhotos = {
     width: 1200,
     height: 900,
     alt: {
-      en: 'Children at a rural school being served a mid-day meal in Uttar Pradesh (illustrative — not UMV Adala)',
+      en: 'Children at a rural school being served a mid-day meal in Uttar Pradesh (illustrative — not UMV Adla)',
       hi: 'उत्तर प्रदेश के एक ग्रामीण विद्यालय में मध्याह्न भोजन करते बच्चे (उदाहरणात्मक — यह UMV अदला नहीं है)',
     },
     credit: 'Ajay Tallam',
@@ -133,7 +133,7 @@ export const stockPhotos = {
     width: 1200,
     height: 676,
     alt: {
-      en: 'A school computer lab (illustrative — not UMV Adala)',
+      en: 'A school computer lab (illustrative — not UMV Adla)',
       hi: 'एक विद्यालय कंप्यूटर प्रयोगशाला (उदाहरणात्मक — यह UMV अदला नहीं है)',
     },
     credit: 'HazelGHC',
@@ -146,7 +146,7 @@ export const stockPhotos = {
     width: 1200,
     height: 675,
     alt: {
-      en: 'School children in a classroom in India (illustrative — not UMV Adala)',
+      en: 'School children in a classroom in India (illustrative — not UMV Adla)',
       hi: 'भारत में एक कक्षा में विद्यालय के बच्चे (उदाहरणात्मक — यह UMV अदला नहीं है)',
     },
     credit: 'Pixabay',
@@ -159,7 +159,7 @@ export const stockPhotos = {
     width: 1200,
     height: 740,
     alt: {
-      en: 'School children walking together in uniform in India (illustrative — not UMV Adala)',
+      en: 'School children walking together in uniform in India (illustrative — not UMV Adla)',
       hi: 'भारत में विद्यालय की वर्दी में साथ चलते बच्चे (उदाहरणात्मक — यह UMV अदला नहीं है)',
     },
     credit: 'Pixabay',
@@ -175,13 +175,13 @@ export type StockPhotoKey = keyof typeof stockPhotos
  * Generic illustrative staff/person portraits — used only as optional
  * photo_url values in data/staff.ts. Always shown with the same
  * "illustrative photo" disclaimer via <StockPhoto>. None are photos of
- * real UMV Adala staff. The support-staff (peon) role was left without a
+ * real UMV Adla staff. The support-staff (peon) role was left without a
  * photo because no appropriately plain, dignified candidate was found —
  * it keeps the initials placeholder tile instead.
  */
 export const staffPortraits = {
-  principal: {
-    src: withBase('/images/staff/staff-principal.jpg'),
+  headMaster: {
+    src: withBase('/images/staff/staff-headMaster.jpg'),
     width: 320,
     height: 480,
     alt: { en: 'Illustrative staff portrait', hi: 'उदाहरणात्मक स्टाफ चित्र' },

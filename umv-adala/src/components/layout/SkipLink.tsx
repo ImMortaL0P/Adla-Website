@@ -13,7 +13,7 @@ export function SkipLink() {
         'fixed top-0 left-1/2 z-[100] -translate-x-1/2 -translate-y-full',
         'rounded-b-lg px-6 py-3 text-sm font-semibold',
         'bg-[hsl(var(--primary-strong))] text-[hsl(var(--primary-foreground))]',
-        'transition-transform duration-200 ease-out',
+        'transition-transform duration-300',
         'focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] focus:ring-offset-2'
       )}
     >

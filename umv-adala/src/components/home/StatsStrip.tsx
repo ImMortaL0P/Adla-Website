@@ -22,7 +22,7 @@ export function StatsStrip() {
       <StaggerGroup stagger={80} className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
         {stats.map((stat) => (
           <Reveal key={stat.label}>
-            <div className="flex flex-col items-center rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-4 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+            <div className="flex flex-col items-center rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-4 py-8 text-center transition-all duration-500 hover:-translate-y-1 hover:shadow-md">
               <span className="font-display text-3xl font-bold text-[hsl(var(--primary-strong))] sm:text-4xl">
                 {typeof stat.value === 'number' ? <CountUp to={stat.value} /> : stat.value}
               </span>

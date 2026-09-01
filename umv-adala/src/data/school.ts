@@ -1,22 +1,22 @@
 export const school = {
-  name: { en: 'Uccha Madhyamik Vidyalaya Adala', hi: 'उच्च माध्यमिक विद्यालय अदला' },
-  shortName: 'UMV Adala',
+  name: { en: 'Uccha Madhyamik Vidyalaya Adla', hi: 'उच्च माध्यमिक विद्यालय अदला' },
+  shortName: 'UMV Adla',
   type: { en: 'Bihar Government School', hi: 'बिहार सरकारी विद्यालय' },
-  classes: '1 to 12',
-  address: { en: 'Adla, Naubatpur, Patna District, Bihar — 809011', hi: 'अदला, नौबतपुर, पटना जिला, बिहार — 809011' },
+  classes: '9 to 12',
+  address: { en: 'Adla, Naubatpur, Patna District, Bihar — 801109', hi: 'अदला, नौबतपुर, पटना जिला, बिहार — 801109' },
   locality: 'Sarasat, Naubatpur block',
   coordinates: { lat: 25.508267, lng: 84.918096 },
   managedBy: { en: 'Department of Education, Government of Bihar', hi: 'शिक्षा विभाग, बिहार सरकार' },
   
   // PLACEHOLDERS below — TODO: replace with real data when available
-  udise: 'XXXXXXXXXXX — to be updated', // TODO: replace
+  udise: '10280606804', // TODO: replace
   phone: '+91 XXXXX XXXXX', // TODO: replace
-  email: 'contact@umvadala.example', // TODO: replace
-  principal: { name_en: 'Principal Name — to be updated', name_hi: 'प्रधानाचार्य का नाम — अद्यतन किया जाना है' }, // TODO: replace
-  established: '2008',
+  email: 'umvadla@gmail.com, contact@umvadla.in', // TODO: replace
+  headMaster: { name_en: 'Chandan Kumar', name_hi: 'चंदन कुमार' }, // TODO: replace
+  established: '2020',
   studentCount: '240+',
-  teacherCount: 0, // TODO: replace
-  officeHours: { en: 'Monday–Saturday, 10:00 AM – 4:00 PM', hi: 'सोमवार-शनिवार, सुबह 10:00 – शाम 4:00' }, // TODO: replace
+  teacherCount: 15, // TODO: replace
+  officeHours: { en: 'Monday - Friday 9:30 AM to 4:00 PM and Saturday 9:30 AM to 1:00 PM', hi: 'सोमवार - शुक्रवार सुबह 9:30 से शाम 4:00 और शनिवार सुबह 9:30 से दोपहर 1:00' }, // TODO: replace
 } as const
 
 // Straight-line ("as the crow flies") distances from school.coordinates,

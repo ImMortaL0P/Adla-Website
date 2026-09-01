@@ -19,7 +19,7 @@ interface StockPhotoProps {
  * Renders a licensed, open-source stock photo used purely for illustration.
  * Always discloses that it's illustrative — a full caption bar by default,
  * or a small badge in `compact` mode — so it can never be mistaken for a
- * real photograph of UMV Adala, its students, or its staff. The <img> alt
+ * real photograph of UMV Adla, its students, or its staff. The <img> alt
  * text always carries the full disclaimer regardless of mode.
  */
 export function StockPhoto({ photo, className, imgClassName, loading = 'lazy', rounded = true, compact = false, isPersonPhoto = false }: StockPhotoProps) {
@@ -34,7 +34,7 @@ export function StockPhoto({ photo, className, imgClassName, loading = 'lazy', r
         height={photo.height}
         alt={photo.alt[lang]}
         loading={loading}
-        className={cn('h-full w-full object-cover transition-transform duration-500 ease-out hover:scale-105', imgClassName)}
+        className={cn('h-full w-full object-cover transition-transform duration-700 hover:scale-105', imgClassName)}
       />
       {compact ? (
         <span

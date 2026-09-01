@@ -47,8 +47,16 @@ export function HomeHero() {
         <StaggerGroup stagger={100} className="flex max-w-4xl flex-col items-center">
 
           <Reveal>
-            <div className="mb-6 inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
-              {t('common.govAttribution')}
+            <div className="mb-4 inline-flex flex-wrap justify-center gap-3">
+              <div className="inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
+                {t('common.govAttribution')}
+              </div>
+              <div className="inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
+                UDISE: 10280606804
+              </div>
+              <div className="inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
+                Cluster MS Adla
+              </div>
             </div>
           </Reveal>
 
@@ -84,7 +92,7 @@ export function HomeHero() {
                 className={cn(
                   'group flex w-full items-center justify-center gap-2 rounded-xl px-8 py-4 text-base font-medium',
                   'bg-[hsl(var(--primary-strong))] text-[hsl(var(--primary-foreground))] shadow-lg shadow-black/20',
-                  'transition-all hover:bg-[hsl(var(--primary-strong))/90] hover:shadow-xl active:scale-[0.98]',
+                  'transition-all hover:bg-[hsl(var(--primary-strong))]/90 hover:shadow-xl active:scale-[0.98]',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/40',
                   'sm:w-auto'
                 )}

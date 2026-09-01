@@ -14,13 +14,13 @@ interface SchoolLogoProps {
  */
 export function SchoolLogo({ className }: SchoolLogoProps) {
   return (
-    <span className={cn('inline-block shrink-0 rounded-full bg-[#FBFAF6] p-0.5', className)}>
+    <span className={cn('inline-block shrink-0 overflow-hidden rounded-full bg-[#FBFAF6] p-0.5 aspect-square', className)}>
       <img
         src={withBase('/images/logo/adala-crest.png')}
-        alt="Uccha Madhyamik Vidyalaya Adala crest"
+        alt="Uccha Madhyamik Vidyalaya Adla crest"
         width={482}
         height={500}
-        className="h-full w-auto"
+        className="h-full w-full object-contain"
       />
     </span>
   )

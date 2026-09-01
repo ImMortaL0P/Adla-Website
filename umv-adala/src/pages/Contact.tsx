@@ -119,7 +119,7 @@ export default function Contact() {
           <Reveal direction="right">
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6">
               {sent && (
-                <p className="rounded-xl bg-[hsl(var(--success))/12] px-4 py-3 text-sm text-[hsl(var(--success))]">
+                <p className="rounded-xl bg-[hsl(var(--success))]/12 px-4 py-3 text-sm text-[hsl(var(--success))]">
                   {t('admission.form.success')}
                 </p>
               )}
@@ -138,7 +138,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[hsl(var(--primary-strong))] px-8 py-3.5 text-sm font-medium text-[hsl(var(--primary-foreground))] transition-colors hover:bg-[hsl(var(--primary-strong))/90] disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[hsl(var(--primary-strong))] px-8 py-3.5 text-sm font-medium text-[hsl(var(--primary-foreground))] transition-colors hover:bg-[hsl(var(--primary-strong))]/90 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2"
               >
                 <Send size={16} />
                 {t('contact.form.submit')}

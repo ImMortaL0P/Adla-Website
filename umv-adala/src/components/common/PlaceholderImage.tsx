@@ -8,10 +8,10 @@ interface PlaceholderImageProps {
 }
 
 const variants = {
-  saffron: 'bg-[hsl(var(--saffron))/15] text-[hsl(var(--primary-strong))] border-[hsl(var(--saffron))/30]',
-  leaf: 'bg-[hsl(var(--leaf))/15] text-[hsl(var(--secondary-strong))] border-[hsl(var(--leaf))/30]',
-  sky: 'bg-[hsl(var(--sky))/15] text-[hsl(var(--accent-strong))] border-[hsl(var(--sky))/30]',
-  clay: 'bg-[hsl(var(--clay))/15] text-[hsl(var(--clay-strong))] border-[hsl(var(--clay))/30]',
+  saffron: 'bg-[hsl(var(--saffron))]/15 text-[hsl(var(--primary-strong))] border-[hsl(var(--saffron))]/30',
+  leaf: 'bg-[hsl(var(--leaf))]/15 text-[hsl(var(--secondary-strong))] border-[hsl(var(--leaf))]/30',
+  sky: 'bg-[hsl(var(--sky))]/15 text-[hsl(var(--accent-strong))] border-[hsl(var(--sky))]/30',
+  clay: 'bg-[hsl(var(--clay))]/15 text-[hsl(var(--clay-strong))] border-[hsl(var(--clay))]/30',
 }
 
 const sizes = {

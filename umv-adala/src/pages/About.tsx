@@ -57,34 +57,36 @@ export default function About() {
           </section>
         </Reveal>
 
-        <section>
-          <h2 className="mb-8 font-display text-xl font-semibold text-[hsl(var(--foreground))]">
-            {t('about.timeline')}
-          </h2>
-          <ol className="relative border-l border-[hsl(var(--border))] pl-6 sm:pl-8">
-            {aboutContent.milestones.map((m, i) => (
-              <Reveal key={i} as="li" className="relative mb-10 last:mb-0">
-                <span className="absolute -left-[calc(1.5rem+5px)] top-1 h-2.5 w-2.5 rounded-full bg-[hsl(var(--primary-strong))] sm:-left-[calc(2rem+5px)]" />
-                <span className="mb-1 block text-sm font-semibold uppercase tracking-wide text-[hsl(var(--primary-strong))]">
-                  {m.year}
-                </span>
-                <h3 className="mb-1 font-semibold text-[hsl(var(--foreground))]">
-                  {lang === 'en' ? m.title_en : m.title_hi}
-                </h3>
-                <p className="text-sm text-[hsl(var(--muted-foreground))]">
-                  {lang === 'en' ? m.desc_en : m.desc_hi}
-                </p>
-              </Reveal>
-            ))}
-          </ol>
-        </section>
+        {aboutContent.milestones.length > 0 && (
+          <section>
+            <h2 className="mb-8 font-display text-xl font-semibold text-[hsl(var(--foreground))]">
+              {t('about.timeline')}
+            </h2>
+            <ol className="relative border-l border-[hsl(var(--border))] pl-6 sm:pl-8">
+              {aboutContent.milestones.map((m, i) => (
+                <Reveal key={i} as="li" className="relative mb-10 last:mb-0">
+                  <span className="absolute -left-[calc(1.5rem+5px)] top-1 h-2.5 w-2.5 rounded-full bg-[hsl(var(--primary-strong))] sm:-left-[calc(2rem+5px)]" />
+                  <span className="mb-1 block text-sm font-semibold uppercase tracking-wide text-[hsl(var(--primary-strong))]">
+                    {m.year}
+                  </span>
+                  <h3 className="mb-1 font-semibold text-[hsl(var(--foreground))]">
+                    {lang === 'en' ? m.title_en : m.title_hi}
+                  </h3>
+                  <p className="text-sm text-[hsl(var(--muted-foreground))]">
+                    {lang === 'en' ? m.desc_en : m.desc_hi}
+                  </p>
+                </Reveal>
+              ))}
+            </ol>
+          </section>
+        )}
 
         <div className="mt-14 flex flex-wrap gap-4">
           <Link
-            to="/about/principal"
+            to="/about/headMaster"
             className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-5 py-3 text-sm font-medium text-[hsl(var(--foreground))] transition-colors hover:bg-[hsl(var(--muted))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]"
           >
-            {t('common.nav.principal')}
+            {t('common.nav.headMaster')}
           </Link>
           <Link
             to="/about/infrastructure"

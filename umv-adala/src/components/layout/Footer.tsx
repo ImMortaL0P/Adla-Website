@@ -14,7 +14,7 @@ export function Footer() {
           {/* Identity */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded-lg w-fit">
-              <SchoolLogo className="h-12" />
+              <SchoolLogo className="h-16" />
               <div>
                 <h3 className="font-display text-lg font-bold leading-tight">
                   {t('common.schoolNameFull')}
@@ -74,9 +74,13 @@ export function Footer() {
               </li>
               <li>
                 <span className="block font-medium text-[hsl(var(--foreground))]">{t('footer.email')}</span>
-                <a href={`mailto:${school.email}`} className="hover:text-[hsl(var(--primary-strong))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded">
-                  {school.email}
-                </a>
+                {school.email.split(',').map((email) => (
+                  <span key={email.trim()} className="block">
+                    <a href={`mailto:${email.trim()}`} className="hover:text-[hsl(var(--primary-strong))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded">
+                      {email.trim()}
+                    </a>
+                  </span>
+                ))}
               </li>
               <li>
                 <span className="block font-medium text-[hsl(var(--foreground))]">{t('footer.officeHours')}</span>

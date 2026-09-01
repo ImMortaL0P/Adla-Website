@@ -34,7 +34,7 @@ export class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="flex w-full flex-col items-center justify-center rounded-2xl border border-[hsl(var(--destructive))/20] bg-[hsl(var(--destructive))/5] p-8 text-center my-8">
+        <div className="flex w-full flex-col items-center justify-center rounded-2xl border border-[hsl(var(--destructive))]/20 bg-[hsl(var(--destructive))]/5 p-8 text-center my-8">
           <AlertTriangle className="mb-4 h-10 w-10 text-[hsl(var(--destructive))]" />
           <h3 className="mb-2 text-lg font-semibold text-[hsl(var(--foreground))]">
             Something went wrong loading this section

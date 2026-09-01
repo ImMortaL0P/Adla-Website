@@ -7,9 +7,9 @@ import { staffPortraits } from '@/data/stockPhotos'
 export const staticStaff: Staff[] = [
   {
     id: 'staff-1',
-    slug: 'principal-placeholder',
-    name_en: 'Principal Name — to be updated',
-    name_hi: 'प्रधानाचार्य का नाम — अद्यतन किया जाना है',
+    slug: 'headMaster-placeholder',
+    name_en: 'Head Master Name — to be updated',
+    name_hi: 'प्रधानाध्यापक का नाम — अद्यतन किया जाना है',
     designation_en: 'Headmaster',
     designation_hi: 'प्रधानाध्यापक',
     department: 'administration',
@@ -18,7 +18,7 @@ export const staticStaff: Staff[] = [
     qualification: 'M.A., B.Ed.',
     bio_en: 'Biography to be updated by the school administration.',
     bio_hi: 'जीवनी विद्यालय प्रशासन द्वारा अद्यतन की जाएगी।',
-    photo_url: staffPortraits.principal.src,
+    photo_url: staffPortraits.headMaster.src,
     display_order: 1,
     is_active: true,
     created_at: new Date().toISOString(),

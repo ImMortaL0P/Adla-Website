@@ -214,7 +214,7 @@ export default function Admission() {
 
             {submitted ? (
               <div className="flex flex-col gap-4">
-                <p className="rounded-xl bg-[hsl(var(--success))/12] px-4 py-3 text-sm text-[hsl(var(--success))]">
+                <p className="rounded-xl bg-[hsl(var(--success))]/12 px-4 py-3 text-sm text-[hsl(var(--success))]">
                   {t('admission.form.success')}
                 </p>
                 <div className="flex flex-wrap gap-3">
@@ -273,7 +273,7 @@ export default function Admission() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="inline-flex items-center gap-2 rounded-xl bg-[hsl(var(--primary-strong))] px-8 py-3.5 text-sm font-medium text-[hsl(var(--primary-foreground))] transition-colors hover:bg-[hsl(var(--primary-strong))/90] disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2"
+                    className="inline-flex items-center gap-2 rounded-xl bg-[hsl(var(--primary-strong))] px-8 py-3.5 text-sm font-medium text-[hsl(var(--primary-foreground))] transition-colors hover:bg-[hsl(var(--primary-strong))]/90 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2"
                   >
                     {isSubmitting ? t('admission.form.submitting') : t('admission.form.submit')}
                   </button>

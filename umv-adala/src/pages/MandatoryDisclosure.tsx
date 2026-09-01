@@ -14,7 +14,7 @@ export default function MandatoryDisclosure() {
         <SectionHeading overline={t('disclosure.overline')} title={t('disclosure.title')} alignment="left" level={1} />
 
         <Reveal>
-          <p className="mb-10 rounded-xl bg-[hsl(var(--muted))/50] px-4 py-3 text-sm text-[hsl(var(--muted-foreground))]">
+          <p className="mb-10 rounded-xl bg-[hsl(var(--muted))]/50 px-4 py-3 text-sm text-[hsl(var(--muted-foreground))]">
             {t('disclosure.pending')}
           </p>
         </Reveal>
