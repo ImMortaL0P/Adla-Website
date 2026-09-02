@@ -2,6 +2,7 @@ services:
   - type: web
     name: umv-adala-fullstack
     env: node
+    plan: free
     rootDir: umv-adala
     buildCommand: npm install && npm run build && cd backend && npm install
     startCommand: cd backend && node index.js
