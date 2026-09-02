@@ -126,6 +126,36 @@ export const admissionContent = {
       a_en: 'You can call, email, or visit the school office directly — see the Contact page for details.',
       a_hi: 'आप सीधे विद्यालय कार्यालय को कॉल, ईमेल कर सकते हैं या जा सकते हैं — विवरण हेतु संपर्क पृष्ठ देखें।',
     },
+    {
+      q_en: 'Are original documents required during admission?',
+      q_hi: 'क्या प्रवेश के समय मूल दस्तावेज़ों की आवश्यकता होती है?',
+      a_en: 'Yes, original documents must be presented for verification along with photocopies. The originals will be returned after verification, except for the Transfer Certificate (TC).',
+      a_hi: 'हाँ, सत्यापन के लिए फोटोकॉपी के साथ मूल दस्तावेज़ प्रस्तुत करना अनिवार्य है। स्थानांतरण प्रमाण पत्र (TC) को छोड़कर अन्य मूल दस्तावेज़ सत्यापन के बाद लौटा दिए जाते हैं।',
+    },
+    {
+      q_en: 'Is there a specific uniform for students?',
+      q_hi: 'क्या विद्यार्थियों के लिए कोई विशेष गणवेश (यूनिफॉर्म) है?',
+      a_en: 'Yes, students must wear the prescribed school uniform. Details regarding the uniform colors and specifications will be provided at the time of admission.',
+      a_hi: 'हाँ, विद्यार्थियों को निर्धारित विद्यालय गणवेश पहनना अनिवार्य है। गणवेश के रंग और विवरण की जानकारी प्रवेश के समय दी जाएगी।',
+    },
+    {
+      q_en: 'Does the school organize sports and extracurricular activities?',
+      q_hi: 'क्या विद्यालय में खेलकूद और पाठ्येतर गतिविधियां आयोजित की जाती हैं?',
+      a_en: 'Absolutely. We encourage holistic development through regular sports, cultural programs, and national day celebrations.',
+      a_hi: 'बिल्कुल। हम नियमित खेलकूद, सांस्कृतिक कार्यक्रमों और राष्ट्रीय पर्व समारोहों के माध्यम से विद्यार्थियों के समग्र विकास को प्रोत्साहित करते हैं।',
+    },
+    {
+      q_en: 'Are students eligible for government schemes like the cycle scheme or scholarships?',
+      q_hi: 'क्या विद्यार्थी साइकिल योजना या छात्रवृत्ति जैसी सरकारी योजनाओं के पात्र हैं?',
+      a_en: 'Yes, eligible students receive benefits under various Bihar Government schemes (such as Cycle, Poshak, and Scholarship schemes) directly into their linked bank accounts.',
+      a_hi: 'हाँ, पात्र विद्यार्थियों को बिहार सरकार की विभिन्न योजनाओं (जैसे साइकिल, पोशाक और छात्रवृत्ति योजना) का लाभ सीधे उनके जुड़े हुए बैंक खाते में मिलता है।',
+    },
+    {
+      q_en: 'How often are Parent-Teacher Meetings (PTMs) conducted?',
+      q_hi: 'अभिभावक-शिक्षक बैठकें (PTM) कितनी बार आयोजित की जाती हैं?',
+      a_en: 'Regular PTMs are held to discuss student progress. Parents are notified in advance about the exact dates through the school notice board and students.',
+      a_hi: 'विद्यार्थियों की प्रगति पर चर्चा करने के लिए नियमित PTM आयोजित की जाती हैं। अभिभावकों को विद्यालय के नोटिस बोर्ड और विद्यार्थियों के माध्यम से पहले ही सूचित कर दिया जाता है।',
+    },
   ],
 }
 
