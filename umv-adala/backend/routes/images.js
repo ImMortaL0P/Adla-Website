@@ -1,21 +1,12 @@
 const express = require('express');
 const multer = require('multer');
-const { google } = require('googleapis');
 const fs = require('fs');
 const Image = require('../models/Image');
 const auth = require('../middleware/auth');
+const { uploadImageToDrive, deleteFromDrive } = require('../lib/drive');
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
-
-const getDriveService = () => {
-  if (!fs.existsSync('service-account.json')) return null;
-  const auth = new google.auth.GoogleAuth({
-    keyFile: 'service-account.json',
-    scopes: ['https://www.googleapis.com/auth/drive']
-  });
-  return google.drive({ version: 'v3', auth });
-};
 
 // Get all images
 router.get('/', async (req, res) => {
@@ -35,13 +26,10 @@ router.post('/', auth, upload.single('file'), async (req, res) => {
     
     if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
     
-    // Check if key already exists, we will replace it later or reject
     const existing = await Image.findOne({ key });
     if (existing && category === 'system') {
-      // For system images (hero, about), we might want to delete the old one from drive first
-      const drive = getDriveService();
-      if (drive && existing.driveFileId) {
-        try { await drive.files.delete({ fileId: existing.driveFileId }); } catch(e) {}
+      if (existing.driveFileId) {
+        try { await deleteFromDrive(existing.driveFileId); } catch(e) { console.error('Failed to delete old image from drive', e); }
       }
       await Image.findByIdAndDelete(existing._id);
     } else if (existing) {
@@ -49,36 +37,24 @@ router.post('/', auth, upload.single('file'), async (req, res) => {
       return res.status(400).json({ message: 'Image key already exists' });
     }
 
-    const drive = getDriveService();
-    if (!drive) {
-      fs.unlinkSync(req.file.path);
-      return res.status(500).json({ message: 'Drive not configured' });
-    }
-
-    const folderId = process.env.DRIVE_FOLDER_ID;
-    const file = await drive.files.create({
-      resource: { name: req.file.originalname, parents: folderId ? [folderId] : [] },
-      media: { mimeType: req.file.mimetype, body: fs.createReadStream(req.file.path) },
-      fields: 'id'
-    });
-    const driveFileId = file.data.id;
-
-    await drive.permissions.create({
-      fileId: driveFileId,
-      requestBody: { role: 'reader', type: 'anyone' }
-    });
-
-    const url = `https://drive.google.com/uc?id=${driveFileId}`; // 'uc' is better for direct image rendering than 'view'
+    const driveData = await uploadImageToDrive(req.file.path, req.file.originalname, req.file.mimetype);
     
     fs.unlinkSync(req.file.path);
 
-    const newImage = new Image({ key, label, category, driveFileId, url });
+    const newImage = new Image({ 
+      key, 
+      label, 
+      category, 
+      driveFileId: driveData.driveFileId, 
+      url: driveData.image_url 
+    });
+    
     await newImage.save();
     res.json(newImage);
   } catch (err) {
     console.error(err);
     if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
-    res.status(500).send('Server Error');
+    res.status(500).json({ message: err.message || 'Server Error' });
   }
 });
 
@@ -88,15 +64,14 @@ router.delete('/:id', auth, async (req, res) => {
     const img = await Image.findById(req.params.id);
     if (!img) return res.status(404).json({ message: 'Image not found' });
 
-    const drive = getDriveService();
-    if (drive && img.driveFileId) {
-      try { await drive.files.delete({ fileId: img.driveFileId }); } catch(e) {}
+    if (img.driveFileId) {
+      try { await deleteFromDrive(img.driveFileId); } catch(e) { console.error('Failed to delete from drive', e); }
     }
     await Image.findByIdAndDelete(req.params.id);
     res.json({ message: 'Image removed' });
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server Error');
+    res.status(500).json({ message: 'Server Error' });
   }
 });
 
