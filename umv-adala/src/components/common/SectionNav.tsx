@@ -25,7 +25,7 @@ export function SectionNav({ items, className }: SectionNavProps) {
     <nav
       aria-label="Section navigation"
       className={cn(
-        'sticky top-16 z-30 -mx-5 mb-10 overflow-x-auto border-b border-[hsl(var(--border))] bg-[hsl(var(--background))]/0.9 px-5 py-3 backdrop-blur-sm sm:-mx-8 sm:px-8',
+        'sticky top-20 z-30 -mx-5 mb-10 overflow-x-auto border-b border-[hsl(var(--border))] bg-[hsl(var(--background))]/0.9 px-5 py-3 backdrop-blur-sm sm:-mx-8 sm:px-8',
         className
       )}
     >
