@@ -33,9 +33,6 @@ export function StatsStrip() {
           </Reveal>
         ))}
       </StaggerGroup>
-      <p className="mt-6 text-center text-xs text-[hsl(var(--muted-foreground))]">
-        {t('home.stats.provisional')}
-      </p>
     </section>
   )
 }
