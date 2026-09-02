@@ -33,8 +33,11 @@ const path = require('path');
 const distPath = path.join(__dirname, '../dist');
 app.use(express.static(distPath));
 
-// Catch-all route to serve index.html for client-side routing
-app.get('*', (req, res) => {
+// Catch-all to serve index.html for client-side routing. A bare '*' path
+// crashes on startup under Express 5 / path-to-regexp v7+ ("Missing
+// parameter name at index 1") — a path-less app.use() matches everything
+// that reaches it without going through route-pattern parsing at all.
+app.use((req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));
 });
 
