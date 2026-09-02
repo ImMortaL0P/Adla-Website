@@ -109,15 +109,8 @@ async function getDriveService() {
 
 function buildImageUrls(fileId) {
   return {
-    // Backend-relative — resolved to an absolute URL client-side (see
-    // resolveMediaUrl in src/lib/api.ts) and served by GET /api/media/:fileId,
-    // which streams the file via the authenticated Drive API instead of
-    // hotlinking Google's public thumbnail endpoint. That endpoint is
-    // unreliable for freshly-uploaded files (can take minutes to over an
-    // hour to propagate for public visitors) — proxying through our own
-    // server sidesteps it entirely.
-    image_url: `/api/media/${fileId}`,
-    thumbnail_url: `/api/media/${fileId}`,
+    image_url: `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`,
+    thumbnail_url: `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`,
     attachment_url: `https://drive.google.com/file/d/${fileId}/view?usp=sharing`,
     attachment_download_url: `https://drive.google.com/uc?export=download&id=${fileId}`,
   };
