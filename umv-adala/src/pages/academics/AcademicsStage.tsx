@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useT } from '@/context/LanguageContext'
 import { Seo } from '@/components/common/Seo'
-import { SectionHeading } from '@/components/common/SectionHeading'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs'
 import { Reveal } from '@/components/motion/Reveal'
 import { academicsData } from '@/data/academics'
@@ -42,18 +41,24 @@ export function AcademicsStage({ stage }: { stage: StageKey }) {
       <Seo titleKey={titleKeys[stage]} path={`/academics/${stage === 'primary' ? 'primary' : stage}`} />
       <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8 lg:px-12">
         <Breadcrumbs items={[{ label: t('academics.title'), href: '/academics' }, { label: t(titleKeys[stage] as any) }]} />
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-8 gap-4">
-          <div className="flex-1 min-w-0 pb-0">
-            <SectionHeading overline={t(overlineKeys[stage] as any)} title={t(titleKeys[stage] as any)} alignment="left" level={1} />
+        
+        <Reveal>
+          <div className="mb-12 flex flex-col items-start text-left">
+            <span className="mb-2 text-sm font-semibold uppercase tracking-wider text-[hsl(var(--primary-strong))]">
+              {t(overlineKeys[stage] as any)}
+            </span>
+            <div className="flex w-full flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <h1 className="font-display text-3xl font-bold tracking-tight text-[hsl(var(--foreground))] sm:text-4xl">
+                {t(titleKeys[stage] as any)}
+              </h1>
+              {stageCodes[stage] && (
+                <div className="inline-flex shrink-0 items-center rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-3 py-1 text-sm font-semibold tracking-wide text-[hsl(var(--muted-foreground))]">
+                  {stageCodes[stage]}
+                </div>
+              )}
+            </div>
           </div>
-          {stageCodes[stage] && (
-            <Reveal>
-              <div className="inline-flex shrink-0 items-center rounded-full bg-[hsl(var(--primary-strong))] px-4 py-1.5 text-sm font-semibold tracking-wide text-white shadow-sm mt-1 sm:mt-12">
-                {stageCodes[stage]}
-              </div>
-            </Reveal>
-          )}
-        </div>
+        </Reveal>
 
         {isSenior ? (
           <Reveal>
