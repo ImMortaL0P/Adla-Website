@@ -12,9 +12,12 @@ import { cn } from '@/lib/utils'
 export function HomeHero() {
   const { t, lang } = useT()
   const prefersReducedMotion = usePrefersReducedMotion()
-  const { getSystemImage } = useImages()
+  const { images, getSystemImage, loading } = useImages()
 
-  const heroImage = getSystemImage('hero_bg') || stockPhotos.campusEntrance.src
+  const dynamicHero = getSystemImage('hero_bg')
+  console.log('HomeHero -> loading:', loading, 'images count:', images.length, 'dynamicHero:', dynamicHero)
+
+  const heroImage = dynamicHero || stockPhotos.campusEntrance.src
   const bgPhoto = stockPhotos.campusEntrance // fallback for credit text if needed
 
   return (
