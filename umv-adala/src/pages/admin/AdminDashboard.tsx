@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Seo } from '@/components/common/Seo';
 import { Trash2, Plus } from 'lucide-react';
+import { API_URL } from '@/lib/api';
 
 export default function AdminDashboard() {
   const [notices, setNotices] = useState<any[]>([]);
@@ -27,7 +28,7 @@ export default function AdminDashboard() {
 
   const fetchNotices = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/notices');
+      const res = await fetch(`${API_URL}/api/notices`);
       const data = await res.json();
       setNotices(data);
     } catch (err) {
@@ -46,7 +47,7 @@ export default function AdminDashboard() {
     if (!window.confirm('Are you sure you want to delete this notice?')) return;
     const token = localStorage.getItem('adminToken');
     try {
-      const res = await fetch(`http://localhost:5000/api/notices/${id}`, {
+      const res = await fetch(`${API_URL}/api/notices/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -75,7 +76,7 @@ export default function AdminDashboard() {
     if (file) formData.append('file', file);
 
     try {
-      const res = await fetch('http://localhost:5000/api/notices', {
+      const res = await fetch(`${API_URL}/api/notices`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`

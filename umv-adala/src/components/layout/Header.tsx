@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, Sun, Moon, Monitor } from 'lucide-react'
+import { Menu, Sun, Moon, Monitor, Lock } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SchoolLogo } from '@/components/common/SchoolLogo'
 import { ScrollRing } from '@/components/motion/ScrollRing'
@@ -247,6 +247,18 @@ export function Header() {
 
         {/* Controls */}
         <div className="flex items-center gap-1">
+          <Link
+            to="/admin"
+            aria-label="Admin Portal"
+            className={cn(
+              'flex h-9 w-9 items-center justify-center rounded-lg',
+              'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
+              'transition-colors duration-700',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
+            )}
+          >
+            <Lock size={18} strokeWidth={1.75} />
+          </Link>
           <ThemeToggle />
           <LanguageToggle />
           <button

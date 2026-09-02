@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Seo } from '@/components/common/Seo';
+import { API_URL } from '@/lib/api';
 
 export default function AdminLogin() {
   const [view, setView] = useState<'login' | 'forgot' | 'reset'>('login');
@@ -18,7 +19,7 @@ export default function AdminLogin() {
     e.preventDefault();
     setMessage(''); setError('');
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
@@ -37,7 +38,7 @@ export default function AdminLogin() {
     e.preventDefault();
     setMessage(''); setError('');
     try {
-      const res = await fetch('http://localhost:5000/api/auth/forgot-password', {
+      const res = await fetch(`${API_URL}/api/auth/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username })
@@ -56,7 +57,7 @@ export default function AdminLogin() {
     e.preventDefault();
     setMessage(''); setError('');
     try {
-      const res = await fetch('http://localhost:5000/api/auth/reset-password', {
+      const res = await fetch(`${API_URL}/api/auth/reset-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, otp, newPassword })

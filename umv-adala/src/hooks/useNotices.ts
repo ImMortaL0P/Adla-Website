@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import { API_URL } from '@/lib/api';
 
 export function useNotices() {
   const [notices, setNotices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/notices')
+    fetch(`${API_URL}/api/notices`)
       .then(res => res.json())
       .then(data => {
         setNotices(data);

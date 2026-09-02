@@ -35,7 +35,7 @@ export function NoticesTicker() {
           <span className="hidden sm:inline">{t('common.nav.notices')}</span>
         </Link>
         <Marquee speed={35} className="py-3">
-          {notices.map((notice) => (
+          {filteredNotices.map((notice) => (
             <Link
               key={notice.id}
               to={`/notices/${notice.slug}`}

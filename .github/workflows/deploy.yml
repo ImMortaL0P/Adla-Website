@@ -44,6 +44,7 @@ jobs:
         run: npm run build
         env:
           VITE_BASE_PATH: /Adla-Website/
+          VITE_API_URL: https://umv-adala-backend.onrender.com
         
       - name: Setup Pages
         uses: actions/configure-pages@v4

@@ -14,7 +14,7 @@ export function Footer() {
           {/* Identity */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded-lg w-fit">
-              <SchoolLogo className="h-28" />
+              <SchoolLogo className="h-40" />
               <div>
                 <h3 className="font-display text-lg font-bold leading-tight">
                   {t('common.schoolNameFull')}
@@ -57,6 +57,11 @@ export function Footer() {
               <li>
                 <Link to="/mandatory-disclosure" className="hover:text-[hsl(var(--primary-strong))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded">
                   {t('common.nav.mandatoryDisclosure')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin" className="hover:text-[hsl(var(--primary-strong))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:rounded">
+                  Admin Portal
                 </Link>
               </li>
             </ul>

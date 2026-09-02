@@ -5,6 +5,9 @@ services:
     rootDir: umv-adala
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://umv-adala-backend.onrender.com
     routes:
       - type: rewrite
         source: /*
@@ -13,3 +16,27 @@ services:
       - path: /assets/*
         name: Cache-Control
         value: public, max-age=31536000, immutable
+
+  - type: web
+    name: umv-adala-backend
+    env: node
+    rootDir: umv-adala/backend
+    buildCommand: npm ci
+    startCommand: node index.js
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: DRIVE_FOLDER_ID
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: TWILIO_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_PHONE_NUMBER
+        sync: false
