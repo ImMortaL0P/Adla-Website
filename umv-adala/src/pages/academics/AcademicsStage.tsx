@@ -25,6 +25,11 @@ const overlineKeys: Record<StageKey, string> = {
 
 const streamKeys = ['science', 'commerce', 'arts'] as const
 
+const stageCodes: Partial<Record<StageKey, string>> = {
+  secondary: 'School Code: 71485',
+  senior: 'School Code: 17355',
+}
+
 export function AcademicsStage({ stage }: { stage: StageKey }) {
   const { t, lang } = useT()
   const [activeStream, setActiveStream] = useState<(typeof streamKeys)[number]>('science')
@@ -37,7 +42,18 @@ export function AcademicsStage({ stage }: { stage: StageKey }) {
       <Seo titleKey={titleKeys[stage]} path={`/academics/${stage === 'primary' ? 'primary' : stage}`} />
       <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8 lg:px-12">
         <Breadcrumbs items={[{ label: t('academics.title'), href: '/academics' }, { label: t(titleKeys[stage] as any) }]} />
-        <SectionHeading overline={t(overlineKeys[stage] as any)} title={t(titleKeys[stage] as any)} alignment="left" level={1} />
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-8 gap-4">
+          <div className="flex-1 min-w-0 pb-0">
+            <SectionHeading overline={t(overlineKeys[stage] as any)} title={t(titleKeys[stage] as any)} alignment="left" level={1} />
+          </div>
+          {stageCodes[stage] && (
+            <Reveal>
+              <div className="inline-flex shrink-0 items-center rounded-full bg-[hsl(var(--primary-strong))] px-4 py-1.5 text-sm font-semibold tracking-wide text-white shadow-sm mt-1 sm:mt-12">
+                {stageCodes[stage]}
+              </div>
+            </Reveal>
+          )}
+        </div>
 
         {isSenior ? (
           <Reveal>

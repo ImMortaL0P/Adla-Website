@@ -8,8 +8,8 @@ import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { cn } from '@/lib/utils'
 
 const stages = [
-  { href: '/academics/secondary', labelKey: 'common.nav.secondary', icon: Landmark, variant: 'sky' },
-  { href: '/academics/senior', labelKey: 'common.nav.senior', icon: GraduationCap, variant: 'clay' },
+  { href: '/academics/secondary', labelKey: 'common.nav.secondary', code: 'Code: 71485', icon: Landmark, variant: 'sky' },
+  { href: '/academics/senior', labelKey: 'common.nav.senior', code: 'Code: 17355', icon: GraduationCap, variant: 'clay' },
 ] as const
 
 const variantStyles: Record<string, string> = {
@@ -52,9 +52,14 @@ export default function AcademicsOverview() {
                   <span className={cn('flex h-12 w-12 shrink-0 items-center justify-center rounded-xl', variantStyles[stage.variant])}>
                     <stage.icon size={22} strokeWidth={1.75} />
                   </span>
-                  <span className="font-display text-lg font-semibold text-[hsl(var(--foreground))]">
-                    {t(stage.labelKey as any)}
-                  </span>
+                  <div className="flex flex-col">
+                    <span className="font-display text-lg font-semibold text-[hsl(var(--foreground))]">
+                      {t(stage.labelKey as any)}
+                    </span>
+                    <span className="text-sm font-medium text-[hsl(var(--muted-foreground))]">
+                      {stage.code}
+                    </span>
+                  </div>
                 </div>
                 <ArrowRight size={18} className="shrink-0 text-[hsl(var(--muted-foreground))] transition-transform group-hover:translate-x-1" />
               </Link>

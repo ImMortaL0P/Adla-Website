@@ -7,8 +7,8 @@ import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { cn } from '@/lib/utils'
 
 const stages = [
-  { href: '/academics/secondary', labelKey: 'common.nav.secondary', icon: Landmark, variant: 'sky' },
-  { href: '/academics/senior', labelKey: 'common.nav.senior', icon: GraduationCap, variant: 'clay' },
+  { href: '/academics/secondary', labelKey: 'common.nav.secondary', code: 'Code: 71485', icon: Landmark, variant: 'sky' },
+  { href: '/academics/senior', labelKey: 'common.nav.senior', code: 'Code: 17355', icon: GraduationCap, variant: 'clay' },
 ] as const
 
 const variantStyles: Record<string, string> = {
@@ -36,9 +36,14 @@ export function AcademicsGrid() {
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
                 )}
               >
-                <span className={cn('flex h-12 w-12 items-center justify-center rounded-xl', variantStyles[stage.variant])}>
-                  <stage.icon size={22} strokeWidth={1.75} />
-                </span>
+                <div className="flex w-full items-start justify-between">
+                  <span className={cn('flex h-12 w-12 items-center justify-center rounded-xl', variantStyles[stage.variant])}>
+                    <stage.icon size={22} strokeWidth={1.75} />
+                  </span>
+                  <span className="rounded-full bg-[hsl(var(--muted))] px-3 py-1 text-xs font-semibold text-[hsl(var(--muted-foreground))]">
+                    {stage.code}
+                  </span>
+                </div>
                 <span className="font-display text-lg font-semibold text-[hsl(var(--foreground))]">
                   {t(stage.labelKey as any)}
                 </span>
