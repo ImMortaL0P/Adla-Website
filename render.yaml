@@ -1,28 +1,10 @@
 services:
   - type: web
-    name: umv-adala
-    env: static
-    rootDir: umv-adala
-    buildCommand: npm ci && npm run build
-    staticPublishPath: dist
-    envVars:
-      - key: VITE_API_URL
-        value: https://umv-adala-backend.onrender.com
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    headers:
-      - path: /assets/*
-        name: Cache-Control
-        value: public, max-age=31536000, immutable
-
-  - type: web
-    name: umv-adala-backend
+    name: umv-adala-fullstack
     env: node
-    rootDir: umv-adala/backend
-    buildCommand: npm ci
-    startCommand: node index.js
+    rootDir: umv-adala
+    buildCommand: npm install && npm run build && cd backend && npm install
+    startCommand: cd backend && node index.js
     envVars:
       - key: MONGODB_URI
         sync: false

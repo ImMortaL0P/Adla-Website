@@ -28,6 +28,16 @@ app.use('/api/images', imageRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/content', contentRoutes);
 
+// --- Serve React Frontend in Production ---
+const path = require('path');
+const distPath = path.join(__dirname, '../dist');
+app.use(express.static(distPath));
+
+// Catch-all route to serve index.html for client-side routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'));
+});
+
 const PORT = process.env.PORT || 5001;
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/umv-adala')
