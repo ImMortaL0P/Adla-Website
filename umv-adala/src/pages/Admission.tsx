@@ -15,7 +15,7 @@ import { school } from '@/data/school'
 import { cn } from '@/lib/utils'
 import { useContent } from '@/hooks/useContent'
 
-const classOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+const classOptions = ['9', '10', '11', '12']
 
 function buildSchema(t: (key: string) => string) {
   return z.object({

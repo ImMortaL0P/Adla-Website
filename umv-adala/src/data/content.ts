@@ -69,16 +69,6 @@ export const admissionContent = {
   ],
   eligibility: [
     {
-      classRange: '1',
-      en: 'Minimum age as per Bihar Government / RTE norms. Please confirm the exact age criteria with the school office.',
-      hi: 'बिहार सरकार / RTE मानदंडों के अनुसार न्यूनतम आयु। सटीक आयु मानदंड हेतु विद्यालय कार्यालय से संपर्क करें।',
-    },
-    {
-      classRange: '2–8',
-      en: 'Transfer Certificate (TC) from the previous school along with the report card of the last class attended.',
-      hi: 'पिछले विद्यालय से स्थानांतरण प्रमाण पत्र (TC) एवं अंतिम कक्षा की रिपोर्ट कार्ड।',
-    },
-    {
       classRange: '9',
       en: 'Passing certificate / report card of Class 8, subject to seat availability.',
       hi: 'कक्षा 8 का उत्तीर्ण प्रमाण पत्र / रिपोर्ट कार्ड, सीट उपलब्धता के अधीन।',
