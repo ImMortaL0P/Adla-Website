@@ -6,7 +6,7 @@ export function useImages() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API_URL}/api/images`)
+    fetch(`${API_URL}/api/images`, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         setImages(data);
