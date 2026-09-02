@@ -28,6 +28,8 @@ const NoticeDetail = lazy(() => import('./pages/notices/NoticeDetail'))
 const Admission = lazy(() => import('./pages/Admission'))
 const Contact = lazy(() => import('./pages/Contact'))
 const MandatoryDisclosure = lazy(() => import('./pages/MandatoryDisclosure'))
+const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'))
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'))
 
 // Lazy loaded placeholder pages for Phase 1 code-splitting optimization
 const PlaceholderPage = lazy(() => Promise.resolve({
@@ -102,6 +104,9 @@ export function App() {
             <Route path="admission" element={<Admission />} />
             <Route path="contact" element={<Contact />} />
             <Route path="mandatory-disclosure" element={<MandatoryDisclosure />} />
+            
+            <Route path="admin" element={<AdminLogin />} />
+            <Route path="admin/dashboard" element={<AdminDashboard />} />
 
             {/* Phase 3/4 scope — remain stubbed until Supabase + admin land */}
             <Route path="results" element={<PlaceholderPage titleKey="results.title" />} />

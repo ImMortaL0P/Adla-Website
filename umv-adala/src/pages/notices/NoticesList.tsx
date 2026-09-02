@@ -6,6 +6,7 @@ import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
 import { EmptyState } from '@/components/common/EmptyState'
+import { useNotices } from '@/hooks/useNotices'
 import { staticNotices } from '@/data/notices'
 import { pick, cn } from '@/lib/utils'
 import type { NoticeType } from '@/types/domain'
@@ -42,13 +43,16 @@ function isNew(iso: string) {
 export default function NoticesList() {
   const { t, lang } = useT()
   const [activeFilter, setActiveFilter] = useState<NoticeType | 'all'>('all')
+  const { notices } = useNotices()
 
   const filtered = useMemo(() => {
-    const published = [...staticNotices]
+    // Fallback to staticNotices if API fails to load anything initially (optional, you can drop staticNotices entirely)
+    const source = notices.length > 0 ? notices : staticNotices;
+    const published = [...source]
       .filter((n) => n.is_published)
-      .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
+      .sort((a, b) => new Date(b.published_at || b.created_at || Date.now()).getTime() - new Date(a.published_at || a.created_at || Date.now()).getTime())
     return activeFilter === 'all' ? published : published.filter((n) => n.type === activeFilter)
-  }, [activeFilter])
+  }, [activeFilter, notices])
 
   return (
     <>

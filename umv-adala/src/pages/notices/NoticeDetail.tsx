@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
+import { useMemo } from 'react'
 import { ArrowLeft, BellOff } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { Seo } from '@/components/common/Seo'
@@ -6,6 +7,7 @@ import { Breadcrumbs } from '@/components/common/Breadcrumbs'
 import { Reveal } from '@/components/motion/Reveal'
 import { EmptyState } from '@/components/common/EmptyState'
 import { staticNotices } from '@/data/notices'
+import { useNotices } from '@/hooks/useNotices'
 import { pick, cn } from '@/lib/utils'
 
 const typeStyles: Record<string, string> = {
@@ -17,9 +19,18 @@ const typeStyles: Record<string, string> = {
 }
 
 export default function NoticeDetail() {
-  const { slug } = useParams<{ slug: string }>()
+  const { slug } = useParams()
   const { t, lang } = useT()
-  const notice = staticNotices.find((n) => n.slug === slug && n.is_published)
+  const { notices, loading } = useNotices()
+
+  const notice = useMemo(() => {
+    const source = notices.length > 0 ? notices : staticNotices;
+    return source.find((n) => n.slug === slug)
+  }, [slug, notices])
+
+  if (loading) {
+    return <div className="p-12 text-center text-[hsl(var(--muted-foreground))]">Loading...</div>
+  }
 
   if (!notice) {
     return (

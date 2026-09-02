@@ -3,6 +3,7 @@ import { Bell } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { Marquee } from '@/components/motion/Marquee'
 import { staticNotices } from '@/data/notices'
+import { useNotices } from '@/hooks/useNotices'
 import { pick, cn } from '@/lib/utils'
 
 const typeStyles: Record<string, string> = {
@@ -15,11 +16,13 @@ const typeStyles: Record<string, string> = {
 
 export function NoticesTicker() {
   const { t, lang } = useT()
-  const notices = [...staticNotices]
+  const { notices } = useNotices()
+  const source = notices.length > 0 ? notices : staticNotices
+  const filteredNotices = [...source]
     .filter((n) => n.is_published)
-    .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
+    .sort((a, b) => new Date(b.published_at || b.created_at || Date.now()).getTime() - new Date(a.published_at || a.created_at || Date.now()).getTime())
 
-  if (notices.length === 0) return null
+  if (filteredNotices.length === 0) return null
 
   return (
     <div className="border-y border-[hsl(var(--border))] bg-[hsl(var(--card))]">
