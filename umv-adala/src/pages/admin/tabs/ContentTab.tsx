@@ -89,7 +89,7 @@ function ContentEditor({ contentKey, label, initialValue, onSave }: any) {
 
   return (
     <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="text-lg font-semibold text-[hsl(var(--foreground))]">{label}</h3>
           <p className="text-xs text-[hsl(var(--muted-foreground))]">Key: {contentKey}</p>
@@ -97,7 +97,7 @@ function ContentEditor({ contentKey, label, initialValue, onSave }: any) {
         <button 
           onClick={handleSave} 
           disabled={saving}
-          className="flex items-center gap-2 rounded-md bg-[hsl(var(--primary-strong))] px-4 py-2 text-sm text-white hover:bg-[hsl(var(--primary))] disabled:opacity-50"
+          className="flex self-start sm:self-auto items-center gap-2 rounded-md bg-[hsl(var(--primary-strong))] px-4 py-2 text-sm text-white hover:bg-[hsl(var(--primary))] disabled:opacity-50"
         >
           <Save size={16} />
           {saving ? 'Saving...' : 'Save Changes'}

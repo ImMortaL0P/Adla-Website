@@ -137,7 +137,7 @@ export default function ImagesTab() {
             {images.map(image => (
               <div key={image.id} className="relative group overflow-hidden rounded-lg border border-[hsl(var(--border))]">
                 <img src={image.url} alt={image.label} className="h-32 w-full object-cover transition-transform group-hover:scale-105" />
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-3">
+                <div className="absolute inset-0 bg-black/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex flex-col justify-between p-3">
                   <div className="flex justify-between items-start">
                     <span className="bg-black/80 text-white text-xs px-2 py-1 rounded-md max-w-[80%] truncate">
                       {image.key}

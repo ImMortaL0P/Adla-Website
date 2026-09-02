@@ -164,21 +164,21 @@ export default function StaffTab() {
         ) : (
           <ul className="space-y-3">
             {staffList.map(staff => (
-              <li key={staff.id} className="flex items-center justify-between rounded-lg border border-[hsl(var(--border))] p-4">
-                <div className="flex items-center gap-4">
+              <li key={staff.id} className="flex items-center justify-between gap-4 rounded-lg border border-[hsl(var(--border))] p-4">
+                <div className="flex items-center gap-4 min-w-0 flex-1">
                   {staff.imageUrl ? (
-                    <img src={staff.imageUrl} alt={staff.name_en} className="h-12 w-12 rounded-full object-cover" />
+                    <img src={staff.imageUrl} alt={staff.name_en} className="h-12 w-12 shrink-0 rounded-full object-cover" />
                   ) : (
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]">
                       <ImageIcon size={20} />
                     </div>
                   )}
-                  <div>
-                    <h4 className="font-medium text-[hsl(var(--foreground))]">{staff.name_en}</h4>
-                    <p className="text-sm text-[hsl(var(--muted-foreground))]">{staff.role_en} · {staff.type}</p>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-medium text-[hsl(var(--foreground))] truncate">{staff.name_en}</h4>
+                    <p className="text-sm text-[hsl(var(--muted-foreground))] truncate">{staff.role_en} · {staff.type}</p>
                   </div>
                 </div>
-                <button onClick={() => handleDelete(staff.id)} className="text-red-500 hover:text-red-700" title="Delete">
+                <button onClick={() => handleDelete(staff.id)} className="shrink-0 text-red-500 hover:text-red-700" title="Delete">
                   <Trash2 size={20} />
                 </button>
               </li>

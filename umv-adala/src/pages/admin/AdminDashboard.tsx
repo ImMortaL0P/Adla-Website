@@ -35,20 +35,20 @@ export default function AdminDashboard() {
     <>
       <Seo titleKey="Admin Dashboard" path="/admin/dashboard" />
       <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 lg:px-12">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">
           <SectionHeading title="Admin Dashboard" level={1} />
-          <button onClick={handleLogout} className="rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600">
+          <button onClick={handleLogout} className="self-start sm:self-auto rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600">
             Logout
           </button>
         </div>
 
         {/* Tab Navigation */}
-        <div className="mb-8 flex space-x-2 border-b border-[hsl(var(--border))]">
+        <div className="mb-8 flex overflow-x-auto scrollbar-hide space-x-2 border-b border-[hsl(var(--border))]">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${
+              className={`flex shrink-0 whitespace-nowrap items-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${
                 activeTab === tab.id
                   ? 'border-b-2 border-[hsl(var(--primary-strong))] text-[hsl(var(--primary-strong))]'
                   : 'text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]'

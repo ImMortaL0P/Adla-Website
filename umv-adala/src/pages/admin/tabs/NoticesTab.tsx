@@ -121,19 +121,19 @@ export default function NoticesTab() {
         ) : (
           <ul className="space-y-3">
             {notices.map(notice => (
-              <li key={notice.id} className="flex items-center justify-between rounded-lg border border-[hsl(var(--border))] p-4">
-                <div>
-                  <h4 className="font-medium text-[hsl(var(--foreground))]">{notice.title_en}</h4>
-                  <p className="text-sm text-[hsl(var(--muted-foreground))]">
+              <li key={notice.id} className="flex items-center justify-between gap-4 rounded-lg border border-[hsl(var(--border))] p-4">
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-medium text-[hsl(var(--foreground))] truncate whitespace-normal">{notice.title_en}</h4>
+                  <p className="text-sm text-[hsl(var(--muted-foreground))] mt-1">
                     {new Date(notice.published_at).toLocaleDateString()} · {notice.type.toUpperCase()}
                   </p>
                   {notice.attachment_url && (
-                    <a href={notice.attachment_url} target="_blank" rel="noreferrer" className="text-xs text-[hsl(var(--primary-strong))] hover:underline">
+                    <a href={notice.attachment_url} target="_blank" rel="noreferrer" className="mt-1 inline-block text-xs text-[hsl(var(--primary-strong))] hover:underline">
                       View Attachment
                     </a>
                   )}
                 </div>
-                <button onClick={() => handleDelete(notice.id)} className="text-red-500 hover:text-red-700" title="Delete Notice">
+                <button onClick={() => handleDelete(notice.id)} className="shrink-0 text-red-500 hover:text-red-700" title="Delete Notice">
                   <Trash2 size={20} />
                 </button>
               </li>
