@@ -1,4 +1,4 @@
-import { API_URL } from "@/lib/api";
+import { API_URL, resolveMediaUrl } from "@/lib/api";
 import { useState, useEffect } from 'react';
 import { Trash2, Image as ImageIcon } from 'lucide-react';
 
@@ -18,7 +18,7 @@ export default function ImagesTab() {
     try {
       const res = await fetch(`${API_URL}/api/images`);
       const data = await res.json();
-      setImages(data);
+      setImages(data.map((img: any) => ({ ...img, url: resolveMediaUrl(img.url) })));
     } catch (err) {
       console.error(err);
     } finally {

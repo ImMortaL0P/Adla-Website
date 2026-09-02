@@ -1,4 +1,4 @@
-import { API_URL } from "@/lib/api";
+import { API_URL, resolveMediaUrl } from "@/lib/api";
 import { useState, useEffect } from 'react';
 import { staticStaff } from '@/data/staff';
 
@@ -10,7 +10,7 @@ export function useStaff() {
     fetch(`${API_URL}/api/staff`)
       .then(res => res.json())
       .then(data => {
-        setStaffList(data);
+        setStaffList(data.map((s: any) => ({ ...s, imageUrl: s.imageUrl ? resolveMediaUrl(s.imageUrl) : s.imageUrl })));
         setLoading(false);
       })
       .catch(err => {

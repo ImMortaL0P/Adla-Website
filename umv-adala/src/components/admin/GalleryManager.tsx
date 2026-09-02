@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Trash2, Plus } from 'lucide-react'
-import { API_URL } from '@/lib/api'
+import { API_URL, resolveMediaUrl } from '@/lib/api'
 import { ACCEPTED_GALLERY_FILE_TYPES, GALLERY_CATEGORIES } from '@/hooks/useGallery'
 
 interface GalleryManagerProps {
@@ -26,7 +26,11 @@ export function GalleryManager({ driveReady }: GalleryManagerProps) {
     try {
       const res = await fetch(`${API_URL}/api/gallery`)
       const data = await res.json()
-      setImages(data)
+      setImages(data.map((img: any) => ({
+        ...img,
+        image_url: resolveMediaUrl(img.image_url),
+        thumbnail_url: resolveMediaUrl(img.thumbnail_url) || null,
+      })))
     } catch (err) {
       console.error(err)
     } finally {

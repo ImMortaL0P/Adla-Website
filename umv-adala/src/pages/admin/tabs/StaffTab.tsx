@@ -1,4 +1,4 @@
-import { API_URL } from "@/lib/api";
+import { API_URL, resolveMediaUrl } from "@/lib/api";
 import { useState, useEffect } from 'react';
 import { Trash2, Plus, Image as ImageIcon } from 'lucide-react';
 
@@ -24,7 +24,7 @@ export default function StaffTab() {
     try {
       const res = await fetch(`${API_URL}/api/staff`);
       const data = await res.json();
-      setStaffList(data);
+      setStaffList(data.map((s: any) => ({ ...s, imageUrl: s.imageUrl ? resolveMediaUrl(s.imageUrl) : s.imageUrl })));
     } catch (err) {
       console.error(err);
     } finally {

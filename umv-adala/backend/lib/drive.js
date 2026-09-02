@@ -109,8 +109,15 @@ async function getDriveService() {
 
 function buildImageUrls(fileId) {
   return {
-    image_url: `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`,
-    thumbnail_url: `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`,
+    // Backend-relative — resolved to an absolute URL client-side (see
+    // resolveMediaUrl in src/lib/api.ts) and served by GET /api/media/:fileId,
+    // which streams the file via the authenticated Drive API instead of
+    // hotlinking Google's public thumbnail endpoint. That endpoint is
+    // unreliable for freshly-uploaded files (can take minutes to over an
+    // hour to propagate for public visitors) — proxying through our own
+    // server sidesteps it entirely.
+    image_url: `/api/media/${fileId}`,
+    thumbnail_url: `/api/media/${fileId}`,
     attachment_url: `https://drive.google.com/file/d/${fileId}/view?usp=sharing`,
     attachment_download_url: `https://drive.google.com/uc?export=download&id=${fileId}`,
   };
@@ -191,6 +198,47 @@ async function deleteFromDrive(fileId) {
   } catch (err) {
     if (err.code !== 404) throw err;
   }
+}
+
+/**
+ * Streams a Drive file's bytes straight into an Express response, using our
+ * own authenticated Drive access rather than Google's public thumbnail/uc
+ * endpoints. Backing GET /api/media/:fileId.
+ */
+async function streamDriveFile(fileId, res) {
+  const drive = await getDriveService();
+  if (!drive) {
+    res.status(503).json({ message: 'Google Drive is not configured on the server.' });
+    return;
+  }
+
+  let mimeType = 'application/octet-stream';
+  let driveRes;
+  try {
+    // The stream response's own headers don't reliably surface Content-Type
+    // through gaxios, so look it up explicitly rather than guess.
+    const meta = await drive.files.get({ fileId, fields: 'mimeType', supportsAllDrives: true });
+    mimeType = meta.data.mimeType || mimeType;
+
+    driveRes = await drive.files.get(
+      { fileId, alt: 'media', supportsAllDrives: true },
+      { responseType: 'stream' }
+    );
+  } catch (err) {
+    const status = err?.code === 404 ? 404 : 502;
+    res.status(status).json({ message: formatDriveError(err) });
+    return;
+  }
+
+  res.setHeader('Content-Type', mimeType);
+  res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+  driveRes.data
+    .on('error', (err) => {
+      console.error('Error streaming Drive file:', err.message);
+      if (!res.headersSent) res.status(502).end();
+      else res.end();
+    })
+    .pipe(res);
 }
 
 async function uploadImageToDrive(localPath, originalName, mimeType) {
@@ -296,6 +344,7 @@ module.exports = {
   getDriveService,
   uploadToDrive,
   uploadImageToDrive,
+  streamDriveFile,
   deleteFromDrive,
   buildAttachmentUrls,
   buildImageUrls,

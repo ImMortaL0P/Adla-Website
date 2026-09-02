@@ -9,6 +9,7 @@ const galleryRoutes = require('./routes/gallery');
 const imageRoutes = require('./routes/images');
 const staffRoutes = require('./routes/staff');
 const contentRoutes = require('./routes/content');
+const mediaRoutes = require('./routes/media');
 const { verifyDriveAccess, verifyGalleryAccess } = require('./lib/drive');
 
 const app = express();
@@ -27,6 +28,7 @@ app.use('/api/gallery', galleryRoutes);
 app.use('/api/images', imageRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/content', contentRoutes);
+app.use('/api/media', mediaRoutes);
 
 // --- Serve React Frontend in Production ---
 const path = require('path');

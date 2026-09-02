@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { API_URL } from '@/lib/api'
+import { API_URL, resolveMediaUrl } from '@/lib/api'
 import type { GalleryImage } from '@/types/domain'
 
 export function useGallery() {
@@ -9,8 +9,14 @@ export function useGallery() {
   useEffect(() => {
     fetch(`${API_URL}/api/gallery`)
       .then((res) => res.json())
-      .then((data) => {
-        setImages(data)
+      .then((data: GalleryImage[]) => {
+        setImages(
+          data.map((img) => ({
+            ...img,
+            image_url: resolveMediaUrl(img.image_url),
+            thumbnail_url: resolveMediaUrl(img.thumbnail_url) || null,
+          }))
+        )
         setLoading(false)
       })
       .catch((err) => {
