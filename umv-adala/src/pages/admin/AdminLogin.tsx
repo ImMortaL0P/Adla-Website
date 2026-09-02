@@ -12,12 +12,14 @@ export default function AdminLogin() {
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(''); setError('');
+    setIsLoading(true);
     try {
       const res = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
@@ -30,13 +32,16 @@ export default function AdminLogin() {
       localStorage.setItem('adminToken', data.token);
       navigate('/admin/dashboard');
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message === 'Failed to fetch' ? 'Failed to connect to server. Check if your computer firewall is blocking port 5001.' : err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleForgot = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(''); setError('');
+    setIsLoading(true);
     try {
       const res = await fetch(`${API_URL}/api/auth/forgot-password`, {
         method: 'POST',
@@ -109,9 +114,10 @@ export default function AdminLogin() {
               </div>
               <button
                 type="submit"
-                className="w-full rounded-md bg-[hsl(var(--primary-strong))] px-4 py-2 text-white hover:bg-[hsl(var(--primary))] focus:outline-none"
+                disabled={isLoading}
+                className="w-full rounded-md bg-[hsl(var(--primary-strong))] px-4 py-2 text-white hover:bg-[hsl(var(--primary))] focus:outline-none disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                Login
+                {isLoading ? 'Logging in...' : 'Login'}
               </button>
               <div className="text-center">
                 <button type="button" onClick={() => setView('forgot')} className="text-sm text-[hsl(var(--primary-strong))] hover:underline">
