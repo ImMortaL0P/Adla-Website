@@ -5,19 +5,23 @@ import { Reveal } from '@/components/motion/Reveal'
 import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { AnimatedTitle } from '@/components/common/AnimatedTitle'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { useImages } from '@/hooks/useImages'
 import { stockPhotos } from '@/data/stockPhotos'
 import { cn } from '@/lib/utils'
 
 export function HomeHero() {
   const { t, lang } = useT()
-  const bgPhoto = stockPhotos.campusEntrance
   const prefersReducedMotion = usePrefersReducedMotion()
+  const { getSystemImage } = useImages()
+
+  const heroImage = getSystemImage('hero_bg') || stockPhotos.campusEntrance.src
+  const bgPhoto = stockPhotos.campusEntrance // fallback for credit text if needed
 
   return (
     <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden pt-16">
       {/* Background photo + gradient overlay — modern full-bleed hero treatment */}
       <div className="absolute inset-0 -z-20">
-        <img src={bgPhoto.src} alt="" aria-hidden="true" className="h-full w-full object-cover" loading="eager" />
+        <img src={heroImage} alt="" aria-hidden="true" className="h-full w-full object-cover" loading="eager" />
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220,25%,8%)]/55 via-[hsl(220,25%,8%)]/65 to-[hsl(220,25%,8%)]/90" />
         <div
           className="absolute inset-0 mix-blend-overlay"

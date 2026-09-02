@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+
 import { Search, Users } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { Seo } from '@/components/common/Seo'
@@ -8,9 +8,9 @@ import { Reveal } from '@/components/motion/Reveal'
 import { PlaceholderImage } from '@/components/common/PlaceholderImage'
 import { StockPhoto } from '@/components/common/StockPhoto'
 import { EmptyState } from '@/components/common/EmptyState'
-import { staticStaff } from '@/data/staff'
+import { useStaff } from "@/hooks/useStaff"
 import { findStaffPortraitBySrc } from '@/data/stockPhotos'
-import { pick, cn } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import type { Department } from '@/types/domain'
 
 const filters: Array<{ value: Department | 'all'; labelKey: string }> = [
@@ -41,17 +41,26 @@ export default function StaffDirectory() {
   const [activeFilter, setActiveFilter] = useState<Department | 'all'>('all')
   const [query, setQuery] = useState('')
 
+  const { staffList } = useStaff()
+
   const filtered = useMemo(() => {
-    const active = staticStaff.filter((s) => s.is_active)
-    const byDept = activeFilter === 'all' ? active : active.filter((s) => s.department === activeFilter)
+    // If backend staff array is empty but we're not loading, it'll return empty.
+    // If it's loaded, use the API objects. Note the field differences.
+    const active = staffList;
+    const byDept = activeFilter === 'all' 
+      ? active 
+      : activeFilter === 'support' 
+        ? active.filter((s: any) => s.type === 'support' || s.department === 'support') 
+        : active.filter((s: any) => s.type !== 'support'); // Simplification since DB schema has teaching/support
+
     const q = query.trim().toLowerCase()
     if (!q) return byDept
-    return byDept.filter((s) => {
-      const name = pick(s, 'name', lang).toLowerCase()
-      const subject = pick(s, 'subject', lang).toLowerCase()
-      return name.includes(q) || subject.includes(q)
+    return byDept.filter((s: any) => {
+      const name = (lang === 'en' ? (s.name_en || s.name?.en) : (s.name_hi || s.name?.hi) || '').toLowerCase()
+      const role = (lang === 'en' ? (s.role_en || s.designation?.en) : (s.role_hi || s.designation?.hi) || '').toLowerCase()
+      return name.includes(q) || role.includes(q)
     })
-  }, [activeFilter, query, lang])
+  }, [activeFilter, query, lang, staffList])
 
   return (
     <>
@@ -99,32 +108,39 @@ export default function StaffDirectory() {
           <EmptyState icon={Users} title={t('staff.noResults')} description="" />
         ) : (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((member, i) => {
-              const portrait = findStaffPortraitBySrc(member.photo_url)
+            {filtered.map((member: any, i: number) => {
+              const portrait = member.imageUrl || (member.photo_url ? findStaffPortraitBySrc(member.photo_url) : null)
+              const name = lang === 'en' ? (member.name_en || member.name?.en) : (member.name_hi || member.name?.hi)
+              const role = lang === 'en' ? (member.role_en || member.designation?.en) : (member.role_hi || member.designation?.hi)
+              const qualifications = lang === 'en' ? (member.qualifications_en || member.qualifications?.en) : (member.qualifications_hi || member.qualifications?.hi)
+
               return (
-              <Reveal key={member.id} delay={Math.min(i * 60, 400)}>
-                <Link
-                  to={`/staff/${member.slug}`}
-                  className="flex h-full flex-col items-center gap-3 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 text-center transition-all hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]"
+              <Reveal key={member.id || i} delay={Math.min(i * 60, 400)}>
+                <div
+                  className="flex h-full flex-col items-center gap-3 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 text-center transition-all hover:-translate-y-1 hover:shadow-md"
                 >
                   {portrait ? (
-                    <StockPhoto photo={portrait} compact isPersonPhoto className="h-24 w-24 rounded-full" imgClassName="rounded-full" />
+                    typeof portrait === 'string' ? (
+                       <img src={portrait} alt={name} className="h-24 w-24 rounded-full object-cover" />
+                    ) : (
+                      <StockPhoto photo={portrait} compact isPersonPhoto className="h-24 w-24 rounded-full" imgClassName="rounded-full" />
+                    )
                   ) : (
                     <PlaceholderImage
-                      initials={initialsOf(pick(member, 'name', lang))}
+                      initials={initialsOf(name || '')}
                       size="lg"
                       variant={variants[i % variants.length]}
                       className="rounded-full"
                     />
                   )}
                   <div>
-                    <h3 className="font-semibold text-[hsl(var(--foreground))]">{pick(member, 'name', lang)}</h3>
-                    <p className="text-sm text-[hsl(var(--muted-foreground))]">{pick(member, 'designation', lang)}</p>
-                    {member.subject_en && (
-                      <p className="mt-1 text-xs text-[hsl(var(--primary-strong))]">{pick(member, 'subject', lang)}</p>
+                    <h3 className="font-semibold text-[hsl(var(--foreground))]">{name}</h3>
+                    <p className="text-sm text-[hsl(var(--muted-foreground))]">{role}</p>
+                    {qualifications && (
+                      <p className="mt-1 text-xs text-[hsl(var(--primary-strong))]">{qualifications}</p>
                     )}
                   </div>
-                </Link>
+                </div>
               </Reveal>
               )
             })}

@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js", "dev": "node --watch index.js",
+    "check-drive": "node scripts/check-drive.js",
+    "get-oauth-token": "node scripts/get-oauth-token.js",
+    "seed-notices": "node scripts/seed-notices.js",
+    "setup-gallery-folder": "node scripts/setup-gallery-folder.js"
   },
   "keywords": [],
   "author": "",

@@ -17,6 +17,9 @@ export interface Notice {
   body_hi: string | null
   type: NoticeType
   attachment_url: string | null
+  attachment_download_url?: string | null
+  attachment_filename?: string | null
+  driveFileId?: string | null
   published_at: string
   is_published: boolean
   created_at: string

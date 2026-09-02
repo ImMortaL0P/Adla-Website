@@ -5,19 +5,48 @@ const cors = require('cors');
 
 const authRoutes = require('./routes/auth');
 const noticeRoutes = require('./routes/notices');
+const galleryRoutes = require('./routes/gallery');
+const imageRoutes = require('./routes/images');
+const staffRoutes = require('./routes/staff');
+const contentRoutes = require('./routes/content');
+const { verifyDriveAccess, verifyGalleryAccess } = require('./lib/drive');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/api/health', async (_req, res) => {
+  const drive = await verifyDriveAccess();
+  const gallery = await verifyGalleryAccess();
+  res.json({ status: 'ok', drive, gallery });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/notices', noticeRoutes);
+app.use('/api/gallery', galleryRoutes);
+app.use('/api/images', imageRoutes);
+app.use('/api/staff', staffRoutes);
+app.use('/api/content', contentRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/umv-adala')
-  .then(() => {
+  .then(async () => {
     console.log('Connected to MongoDB');
+
+    const drive = await verifyDriveAccess();
+    const gallery = await verifyGalleryAccess();
+    if (drive.ok) {
+      console.log(`Google Drive ready (notices folder: ${drive.folderName})`);
+    } else {
+      console.warn(`Google Drive not ready: ${drive.error}`);
+    }
+    if (gallery.ok) {
+      console.log(`Gallery Drive ready (folder: ${gallery.folderName})`);
+    } else {
+      console.warn(`Gallery Drive not ready: ${gallery.error}`);
+    }
+
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });

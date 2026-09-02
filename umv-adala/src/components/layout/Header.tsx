@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, Sun, Moon, Monitor, Lock } from 'lucide-react'
+import { Menu, Sun, Moon, Monitor, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SchoolLogo } from '@/components/common/SchoolLogo'
 import { ScrollRing } from '@/components/motion/ScrollRing'
@@ -187,6 +187,7 @@ export function Header() {
   }, [location.pathname])
 
   return (
+    <>
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50',
@@ -257,7 +258,7 @@ export function Header() {
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
             )}
           >
-            <Lock size={18} strokeWidth={1.75} />
+            <User size={18} strokeWidth={1.75} />
           </Link>
           <ThemeToggle />
           <LanguageToggle />
@@ -275,12 +276,12 @@ export function Header() {
           </button>
         </div>
       </div>
-
+    </header>
       <MobileNav
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
         navItems={navItems}
       />
-    </header>
+    </>
   )
 }

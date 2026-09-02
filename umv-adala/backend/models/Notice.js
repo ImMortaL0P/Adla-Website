@@ -7,7 +7,9 @@ const noticeSchema = new mongoose.Schema({
   body_en: { type: String },
   body_hi: { type: String },
   type: { type: String, enum: ['notice', 'circular', 'order', 'tender'], default: 'notice' },
-  attachment_url: { type: String }, 
+  attachment_url: { type: String },
+  attachment_download_url: { type: String },
+  attachment_filename: { type: String },
   driveFileId: { type: String }, 
   is_published: { type: Boolean, default: true },
 }, { timestamps: { createdAt: 'published_at', updatedAt: 'updated_at' } });

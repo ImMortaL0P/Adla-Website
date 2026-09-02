@@ -10,8 +10,9 @@ import { StockPhoto } from '@/components/common/StockPhoto'
 import { EmptyState } from '@/components/common/EmptyState'
 import { staticGallery, staticGalleryStock } from '@/data/gallery'
 import { stockPhotos } from '@/data/stockPhotos'
+import { useGallery } from '@/hooks/useGallery'
 import { pick, cn } from '@/lib/utils'
-import type { GalleryCategory } from '@/types/domain'
+import type { GalleryImage, GalleryCategory } from '@/types/domain'
 
 const filters: Array<{ value: GalleryCategory | 'all'; labelKey: string }> = [
   { value: 'all', labelKey: 'gallery.filter.all' },
@@ -25,17 +26,23 @@ const filters: Array<{ value: GalleryCategory | 'all'; labelKey: string }> = [
 
 const variants = ['saffron', 'leaf', 'sky', 'clay'] as const
 
+function hasDriveImage(image: GalleryImage) {
+  return Boolean(image.image_url)
+}
+
 export default function Gallery() {
   const { t, lang } = useT()
+  const { images: liveImages, loading } = useGallery()
   const [activeFilter, setActiveFilter] = useState<GalleryCategory | 'all'>('all')
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
   const filtered = useMemo(() => {
-    const published = staticGallery.filter((g) => g.is_published)
-    return activeFilter === 'all' ? published : published.filter((g) => g.category === activeFilter)
-  }, [activeFilter])
+    const source = liveImages.length > 0 ? liveImages : staticGallery.filter((g) => g.is_published)
+    return activeFilter === 'all' ? source : source.filter((g) => g.category === activeFilter)
+  }, [activeFilter, liveImages])
 
   const current = lightboxIndex !== null ? filtered[lightboxIndex] : null
+  const usingLive = liveImages.length > 0
 
   const showPrev = () => setLightboxIndex((i) => (i === null ? null : (i - 1 + filtered.length) % filtered.length))
   const showNext = () => setLightboxIndex((i) => (i === null ? null : (i + 1) % filtered.length))
@@ -65,12 +72,14 @@ export default function Gallery() {
           ))}
         </div>
 
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div className="py-16 text-center text-[hsl(var(--muted-foreground))]">Loading gallery...</div>
+        ) : filtered.length === 0 ? (
           <EmptyState icon={ImageIcon} title={t('gallery.empty')} description="" />
         ) : (
           <div className="columns-2 gap-4 sm:columns-3 [&>*]:mb-4">
             {filtered.map((image, i) => {
-              const stockKey = staticGalleryStock[image.id]
+              const stockKey = !usingLive ? staticGalleryStock[image.id] : undefined
               return (
                 <Reveal key={image.id} delay={Math.min(i * 50, 400)} className="break-inside-avoid">
                   <button
@@ -78,7 +87,14 @@ export default function Gallery() {
                     className="block w-full overflow-hidden rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]"
                     aria-label={pick(image, 'caption', lang)}
                   >
-                    {stockKey ? (
+                    {hasDriveImage(image) ? (
+                      <img
+                        src={image.thumbnail_url || image.image_url}
+                        alt={pick(image, 'caption', lang)}
+                        className="w-full rounded-2xl object-cover transition-transform hover:scale-[1.02]"
+                        loading="lazy"
+                      />
+                    ) : stockKey ? (
                       <StockPhoto photo={stockPhotos[stockKey]} className="w-full transition-transform hover:scale-[1.02]" />
                     ) : (
                       <PlaceholderImage
@@ -115,8 +131,14 @@ export default function Gallery() {
             </Dialog.Close>
 
             {current && (
-              <div className="flex max-w-2xl flex-col items-center gap-4">
-                {staticGalleryStock[current.id] ? (
+              <div className="flex max-w-3xl flex-col items-center gap-4">
+                {hasDriveImage(current) ? (
+                  <img
+                    src={current.image_url}
+                    alt={pick(current, 'caption', lang)}
+                    className="max-h-[75vh] w-full rounded-lg object-contain"
+                  />
+                ) : staticGalleryStock[current.id] ? (
                   <StockPhoto photo={stockPhotos[staticGalleryStock[current.id]!]} className="w-full max-w-md" />
                 ) : (
                   <PlaceholderImage initials="📷" size="xl" variant={variants[(lightboxIndex ?? 0) % variants.length]} className="w-full max-w-md" />

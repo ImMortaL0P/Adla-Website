@@ -45,7 +45,8 @@ export function MobileNav({ open, onClose, navItems }: MobileNavProps) {
   // Close on route change
   useEffect(() => {
     onClose()
-  }, [location.pathname, onClose])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
 
   const toggleExpand = (href: string) => {
     setExpanded((prev) => ({ ...prev, [href]: !prev[href] }))
@@ -56,7 +57,7 @@ export function MobileNav({ open, onClose, navItems }: MobileNavProps) {
       {/* Backdrop */}
       <div
         className={cn(
-          'fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition-opacity duration-450',
+          'fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition-opacity duration-500',
           open ? 'opacity-100' : 'pointer-events-none opacity-0'
         )}
         onClick={onClose}
@@ -72,12 +73,12 @@ export function MobileNav({ open, onClose, navItems }: MobileNavProps) {
         className={cn(
           'fixed inset-y-0 right-0 z-50 w-full max-w-sm',
           'flex flex-col bg-[hsl(var(--background))] shadow-2xl',
-          'transition-transform duration-450',
+          'transition-transform duration-500',
           open ? 'translate-x-0' : 'translate-x-full'
         )}
       >
         <div className="flex h-16 items-center justify-between px-6 border-b border-[hsl(var(--border))]">
-          <span className="font-semibold">{t('common.nav.home')}</span>
+          <span className="font-semibold text-[hsl(var(--foreground))]">{t('common.nav.home')}</span>
           <button
             onClick={onClose}
             aria-label={t('common.closeMenu')}
@@ -122,7 +123,7 @@ export function MobileNav({ open, onClose, navItems }: MobileNavProps) {
                       
                       <div
                         className={cn(
-                          'overflow-hidden transition-all duration-450',
+                          'overflow-hidden transition-all duration-500',
                           isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                         )}
                       >

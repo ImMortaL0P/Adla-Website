@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useState, type ReactNode, useMemo } from 'react'
 import * as Accordion from '@radix-ui/react-accordion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -10,9 +10,10 @@ import { SectionHeading } from '@/components/common/SectionHeading'
 import { SectionNav } from '@/components/common/SectionNav'
 import { Reveal } from '@/components/motion/Reveal'
 import { StaggerGroup } from '@/components/motion/StaggerGroup'
-import { admissionContent } from '@/data/content'
+import { admissionContent as staticAdmissionContent } from '@/data/content'
 import { school } from '@/data/school'
 import { cn } from '@/lib/utils'
+import { useContent } from '@/hooks/useContent'
 
 const classOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
 
@@ -35,6 +36,17 @@ type FormValues = z.infer<ReturnType<typeof buildSchema>>
 export default function Admission() {
   const { t, lang } = useT()
   const [submitted, setSubmitted] = useState<FormValues | null>(null)
+  const { getValue } = useContent()
+
+  const admissionContent = useMemo(() => {
+    const raw = getValue('admission_content', 'en', '');
+    if (!raw) return staticAdmissionContent;
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return staticAdmissionContent;
+    }
+  }, [getValue]);
 
   const schema = buildSchema(t as (key: string) => string)
   const {
@@ -86,7 +98,7 @@ export default function Admission() {
           <section id="process" className="mb-14 scroll-mt-32">
             <h2 className="mb-6 font-display text-xl font-semibold text-[hsl(var(--foreground))]">{t('admission.process')}</h2>
             <StaggerGroup stagger={70} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {admissionContent.process.map((step, i) => (
+              {admissionContent.process.map((step: any, i: number) => (
                 <Reveal key={i}>
                   <div className="flex items-start gap-4 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[hsl(var(--primary-strong))] text-sm font-semibold text-[hsl(var(--primary-foreground))]">
@@ -117,7 +129,7 @@ export default function Admission() {
                   </tr>
                 </thead>
                 <tbody>
-                  {admissionContent.eligibility.map((row) => (
+                  {admissionContent.eligibility.map((row: any) => (
                     <tr key={row.classRange} className="border-t border-[hsl(var(--border))]">
                       <td className="px-4 py-3 font-medium text-[hsl(var(--foreground))]">{row.classRange}</td>
                       <td className="px-4 py-3 text-[hsl(var(--muted-foreground))]">{row[lang]}</td>
@@ -134,7 +146,7 @@ export default function Admission() {
           <section id="documents" className="mb-14 scroll-mt-32">
             <h2 className="mb-6 font-display text-xl font-semibold text-[hsl(var(--foreground))]">{t('admission.documents')}</h2>
             <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-              {admissionContent.documents.map((doc, i) => (
+              {admissionContent.documents.map((doc: any, i: number) => (
                 <li key={i} className="flex items-start gap-2 text-sm text-[hsl(var(--foreground))]">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[hsl(var(--primary-strong))]" />
                   {doc[lang]}
@@ -152,7 +164,7 @@ export default function Admission() {
             <div className="overflow-x-auto rounded-2xl border border-[hsl(var(--border))]">
               <table className="w-full text-left text-sm">
                 <tbody>
-                  {admissionContent.feeRows.map((row) => (
+                  {admissionContent.feeRows.map((row: any) => (
                     <tr key={row.head_en} className="border-t border-[hsl(var(--border))] first:border-t-0">
                       <th scope="row" className="bg-[hsl(var(--muted))] px-4 py-3 font-medium text-[hsl(var(--foreground))]">
                         {lang === 'en' ? row.head_en : row.head_hi}
@@ -171,7 +183,7 @@ export default function Admission() {
           <section id="dates" className="mb-14 scroll-mt-32">
             <h2 className="mb-6 font-display text-xl font-semibold text-[hsl(var(--foreground))]">{t('admission.dates')}</h2>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {admissionContent.importantDates.map((d, i) => (
+              {admissionContent.importantDates.map((d: any, i: number) => (
                 <div key={i} className="flex items-center justify-between rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-4 py-3">
                   <span className="text-sm text-[hsl(var(--foreground))]">{lang === 'en' ? d.label_en : d.label_hi}</span>
                   <span className="text-xs font-medium text-[hsl(var(--muted-foreground))]">{d.date}</span>
@@ -186,7 +198,7 @@ export default function Admission() {
           <section id="faq" className="mb-14 scroll-mt-32">
             <h2 className="mb-6 font-display text-xl font-semibold text-[hsl(var(--foreground))]">{t('admission.faq')}</h2>
             <Accordion.Root type="single" collapsible className="flex flex-col gap-2">
-              {admissionContent.faq.map((item, i) => (
+              {admissionContent.faq.map((item: any, i: number) => (
                 <Accordion.Item
                   key={i}
                   value={`item-${i}`}
