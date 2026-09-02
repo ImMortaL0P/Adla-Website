@@ -14,7 +14,7 @@ export const school = {
   email: 'umvadla@gmail.com, contact@umvadla.in', // TODO: replace
   headMaster: { name_en: 'Chandan Kumar', name_hi: 'चंदन कुमार' }, // TODO: replace
   established: '2020',
-  studentCount: '240+',
+  studentCount: 190,
   teacherCount: 15, // TODO: replace
   officeHours: { en: 'Monday - Friday 9:30 AM to 4:00 PM and Saturday 9:30 AM to 1:00 PM', hi: 'सोमवार - शुक्रवार सुबह 9:30 से शाम 4:00 और शनिवार सुबह 9:30 से दोपहर 1:00' }, // TODO: replace
 } as const
