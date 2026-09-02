@@ -6,14 +6,17 @@ export function useImages() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API_URL}/api/images`, { cache: 'no-store' })
+    const url = `${API_URL}/api/images`;
+    console.log('useImages -> fetching from:', url);
+    fetch(url, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
+        console.log('useImages -> fetched data length:', data?.length);
         setImages(data);
         setLoading(false);
       })
       .catch(err => {
-        console.error(err);
+        console.error('useImages fetch error for URL', url, ':', err);
         setLoading(false);
       });
   }, []);
