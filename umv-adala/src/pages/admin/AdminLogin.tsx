@@ -4,6 +4,14 @@ import { SectionHeading } from '@/components/common/SectionHeading';
 import { Seo } from '@/components/common/Seo';
 import { API_URL } from '@/lib/api';
 
+function describeConnectionFailure() {
+  const target = API_URL || window.location.origin;
+  const isLocal = /localhost|127\.0\.0\.1/.test(target);
+  return isLocal
+    ? `Couldn't reach the local server at ${target}. Make sure "npm start" is running in the backend folder, and check your firewall isn't blocking it.`
+    : `Couldn't reach the server at ${target}. It may be waking up from sleep (free-tier services can take up to a minute) — try again shortly.`;
+}
+
 export default function AdminLogin() {
   const [view, setView] = useState<'login' | 'forgot' | 'reset'>('login');
   const [username, setUsername] = useState('');
@@ -32,7 +40,7 @@ export default function AdminLogin() {
       localStorage.setItem('adminToken', data.token);
       navigate('/admin/dashboard');
     } catch (err: any) {
-      setError(err.message === 'Failed to fetch' ? 'Failed to connect to server. Check if your computer firewall is blocking port 5001.' : err.message);
+      setError(err.message === 'Failed to fetch' ? describeConnectionFailure() : err.message);
     } finally {
       setIsLoading(false);
     }
@@ -54,7 +62,7 @@ export default function AdminLogin() {
       setMessage(data.message);
       setView('reset');
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message === 'Failed to fetch' ? describeConnectionFailure() : err.message);
     }
   };
 
@@ -76,7 +84,7 @@ export default function AdminLogin() {
       setOtp('');
       setNewPassword('');
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message === 'Failed to fetch' ? describeConnectionFailure() : err.message);
     }
   };
 
