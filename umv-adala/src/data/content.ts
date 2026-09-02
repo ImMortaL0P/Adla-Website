@@ -26,24 +26,24 @@ export const facilitiesList = [
     icon: 'Droplets',
     key: 'drinkingWater',
     desc: {
-      en: 'Safe drinking water available on campus.',
-      hi: 'परिसर में शुद्ध पेयजल की उपलब्धता।',
+      en: '1 Purifier available on campus.',
+      hi: 'परिसर में 1 प्यूरीफायर उपलब्ध है।',
     },
   },
   {
     icon: 'DoorClosed',
     key: 'toilets',
     desc: {
-      en: 'Separate toilet facilities for boys and girls.',
-      hi: 'बालक एवं बालिकाओं हेतु अलग-अलग शौचालय सुविधा।',
+      en: '1 toilet each for boys and girls.',
+      hi: 'बालक एवं बालिकाओं हेतु 1-1 शौचालय की सुविधा।',
     },
   },
   {
     icon: 'ShieldCheck',
     key: 'boundaryWall',
     desc: {
-      en: 'A boundary wall around the campus for student safety.',
-      hi: 'विद्यार्थियों की सुरक्षा हेतु परिसर के चारों ओर चहारदीवारी।',
+      en: 'Boundary covers in all 4 directions.',
+      hi: 'चारों दिशाओं में चहारदीवारी।',
     },
   },
 ] as const
@@ -184,9 +184,9 @@ export const disclosureSections = [
     title_en: 'Land & Building',
     title_hi: 'भूमि एवं भवन',
     rows: [
-      { label_en: 'Area of School Campus', label_hi: 'विद्यालय परिसर का क्षेत्रफल', value: 'To be updated' },
-      { label_en: 'Type of Building', label_hi: 'भवन का प्रकार', value: 'To be updated' },
-      { label_en: 'No. of Classrooms', label_hi: 'कक्षा-कक्षों की संख्या', value: 'To be updated' },
+      { label_en: 'Area of School Campus', label_hi: 'विद्यालय परिसर का क्षेत्रफल', value: '1240 Sq mtrs' },
+      { label_en: 'Type of Building', label_hi: 'भवन का प्रकार', value: 'New block under construction' },
+      { label_en: 'No. of Classrooms', label_hi: 'कक्षा-कक्षों की संख्या', value: '4 + 4 upcoming classrooms' },
     ],
   },
   {
@@ -201,13 +201,10 @@ export const disclosureSections = [
     title_en: 'Facilities',
     title_hi: 'सुविधाएँ',
     rows: [
-      { label_en: 'Library', label_hi: 'पुस्तकालय', value: 'To be updated' },
-      { label_en: 'Science Laboratory', label_hi: 'विज्ञान प्रयोगशाला', value: 'To be updated' },
-      { label_en: 'Computer Laboratory', label_hi: 'कंप्यूटर प्रयोगशाला', value: 'To be updated' },
-      { label_en: 'Drinking Water', label_hi: 'पेयजल', value: 'To be updated' },
-      { label_en: 'Toilets (Boys/Girls)', label_hi: 'शौचालय (बालक/बालिका)', value: 'To be updated' },
+      { label_en: 'Drinking Water', label_hi: 'पेयजल', value: '1 Purifier' },
+      { label_en: 'Toilets (Boys/Girls)', label_hi: 'शौचालय (बालक/बालिका)', value: '1 toilet each' },
       { label_en: 'Playground', label_hi: 'खेल का मैदान', value: 'To be updated' },
-      { label_en: 'Boundary Wall', label_hi: 'चहारदीवारी', value: 'To be updated' },
+      { label_en: 'Boundary Wall', label_hi: 'चहारदीवारी', value: 'Covers in all 4 directions' },
     ],
   },
 ] as const
