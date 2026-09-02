@@ -5,10 +5,14 @@ import { Reveal } from '@/components/motion/Reveal'
 import { StockPhoto } from '@/components/common/StockPhoto'
 import { school } from '@/data/school'
 import { staffPortraits } from '@/data/stockPhotos'
+import { useImages } from '@/hooks/useImages'
 import { pick } from '@/lib/utils'
 
 export function HeadMasterMessage() {
   const { t, lang } = useT()
+  const { getSystemImage } = useImages()
+
+  const dynamicHeadmasterPhoto = getSystemImage('headmaster_photo')
 
   return (
     <section className="bg-[hsl(var(--muted))]/50 py-16">
@@ -21,7 +25,11 @@ export function HeadMasterMessage() {
         </h2>
         <Reveal>
           <div className="flex flex-col items-center gap-6">
-            <StockPhoto photo={staffPortraits.headMaster} compact isPersonPhoto className="h-24 w-24 rounded-full" imgClassName="rounded-full" />
+            {dynamicHeadmasterPhoto ? (
+              <img src={dynamicHeadmasterPhoto} alt="Headmaster" className="h-24 w-24 rounded-full object-cover" />
+            ) : (
+              <StockPhoto photo={staffPortraits.headMaster} compact isPersonPhoto className="h-24 w-24 rounded-full" imgClassName="rounded-full" />
+            )}
             <Quote size={28} className="text-[hsl(var(--primary-strong))]/40" aria-hidden="true" />
             <p className="font-display text-xl italic leading-relaxed text-[hsl(var(--foreground))] sm:text-2xl">
               {lang === 'en'

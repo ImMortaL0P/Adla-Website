@@ -7,9 +7,12 @@ import { StockPhoto } from '@/components/common/StockPhoto'
 import { school } from '@/data/school'
 import { staffPortraits } from '@/data/stockPhotos'
 import { pick } from '@/lib/utils'
+import { useImages } from '@/hooks/useImages'
 
 export default function AboutHeadMaster() {
   const { t, lang } = useT()
+  const { getSystemImage } = useImages()
+  const dynamicPhoto = getSystemImage('headmaster_photo')
 
   return (
     <>
@@ -20,10 +23,16 @@ export default function AboutHeadMaster() {
         <Reveal>
           <div className="flex flex-col items-center gap-8 rounded-3xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-8 text-center sm:p-12">
             <div className="flex flex-col items-center gap-2">
-              <StockPhoto photo={staffPortraits.headMaster} compact isPersonPhoto className="h-40 w-40 rounded-full" imgClassName="rounded-full" />
-              <p className="text-xs text-[hsl(var(--muted-foreground))]">
-                {t('common.illustrativePhotoPerson')} · {t('common.photoCredit')}: {staffPortraits.headMaster.credit}
-              </p>
+              {dynamicPhoto ? (
+                <img src={dynamicPhoto} alt="Headmaster" className="h-40 w-40 rounded-full object-cover" />
+              ) : (
+                <>
+                  <StockPhoto photo={staffPortraits.headMaster} compact isPersonPhoto className="h-40 w-40 rounded-full" imgClassName="rounded-full" />
+                  <p className="text-xs text-[hsl(var(--muted-foreground))]">
+                    {t('common.illustrativePhotoPerson')} · {t('common.photoCredit')}: {staffPortraits.headMaster.credit}
+                  </p>
+                </>
+              )}
             </div>
             <div>
               <h2 className="font-display text-2xl font-bold text-[hsl(var(--foreground))]">

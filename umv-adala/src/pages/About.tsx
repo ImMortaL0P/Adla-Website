@@ -6,9 +6,13 @@ import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
 import { school } from '@/data/school'
 import { aboutContent } from '@/data/content'
+import { useImages } from '@/hooks/useImages'
 
 export default function About() {
   const { t, lang } = useT()
+  const { getSystemImage } = useImages()
+
+  const aboutBg = getSystemImage('about_bg')
 
   const infoCards = [
     { icon: Compass, title: t('about.vision'), body: t('about.visionText') },
@@ -20,6 +24,12 @@ export default function About() {
   return (
     <>
       <Seo titleKey="about.title" path="/about" />
+      {aboutBg && (
+        <div className="relative h-64 w-full md:h-80 lg:h-96">
+          <img src={aboutBg} alt="About School" className="h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+      )}
       <div className="mx-auto max-w-5xl px-5 py-16 sm:px-8 lg:px-12">
         <SectionHeading overline={t('about.overline')} title={t('about.title')} alignment="left" level={1} />
 

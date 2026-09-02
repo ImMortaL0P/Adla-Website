@@ -109,7 +109,7 @@ async function getDriveService() {
 
 function buildImageUrls(fileId) {
   return {
-    image_url: `https://drive.google.com/uc?export=view&id=${fileId}`,
+    image_url: `https://drive.google.com/uc?id=${fileId}`,
     thumbnail_url: `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`,
     attachment_url: `https://drive.google.com/file/d/${fileId}/view?usp=sharing`,
     attachment_download_url: `https://drive.google.com/uc?export=download&id=${fileId}`,
