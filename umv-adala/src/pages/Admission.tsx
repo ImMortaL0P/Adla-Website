@@ -159,8 +159,7 @@ export default function Admission() {
         {/* Fees */}
         <Reveal>
           <section id="fees" className="mb-14 scroll-mt-32">
-            <h2 className="mb-2 font-display text-xl font-semibold text-[hsl(var(--foreground))]">{t('admission.fees')}</h2>
-            <p className="mb-4 text-sm text-[hsl(var(--muted-foreground))]">{t('admission.feesNote')}</p>
+            <h2 className="mb-4 font-display text-xl font-semibold text-[hsl(var(--foreground))]">{t('admission.fees')}</h2>
             <div className="overflow-x-auto rounded-2xl border border-[hsl(var(--border))]">
               <table className="w-full text-left text-sm">
                 <tbody>

@@ -92,7 +92,8 @@ export const admissionContent = {
     { en: 'Student ID (E-Siksha Kosh)', hi: 'विद्यार्थी आईडी (ई-शिक्षा कोष)' },
   ],
   feeRows: [
-    { head_en: 'All Fees', head_hi: 'सभी शुल्क', value_en: 'As per current government norms.', value_hi: 'वर्तमान सरकारी मानदंडों के अनुसार।' },
+    { head_en: 'Tuition Fees', head_hi: 'शिक्षण शुल्क', value_en: 'As per government rules', value_hi: 'सरकारी नियमानुसार' },
+    { head_en: 'Other Fees', head_hi: 'अन्य शुल्क', value_en: 'As per current government norms.', value_hi: 'वर्तमान सरकारी मानदंडों के अनुसार।' },
   ],
   importantDates: [
     { label_en: 'Admission form distribution begins', label_hi: 'प्रवेश फॉर्म वितरण प्रारंभ', date: 'To be announced' },
