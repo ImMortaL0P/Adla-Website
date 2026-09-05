@@ -15,8 +15,6 @@ export function HomeHero() {
   const { images, getSystemImage, loading } = useImages()
 
   const dynamicHero = getSystemImage('hero_bg')
-  console.log('HomeHero -> loading:', loading, 'images count:', images.length, 'dynamicHero:', dynamicHero)
-
   const heroImage = dynamicHero || stockPhotos.campusEntrance.src
   const bgPhoto = stockPhotos.campusEntrance // fallback for credit text if needed
 
@@ -51,16 +49,8 @@ export function HomeHero() {
         <StaggerGroup stagger={100} className="flex max-w-4xl flex-col items-center">
 
           <Reveal>
-            <div className="mb-4 inline-flex flex-wrap justify-center gap-3">
-              <div className="inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
-                {t('common.govAttribution')}
-              </div>
-              <div className="inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
-                UDISE: 10280606804
-              </div>
-              <div className="inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
-                Cluster MS Adla
-              </div>
+            <div className="mb-4 inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
+              UDISE: 10280606804
             </div>
           </Reveal>
 
@@ -70,7 +60,6 @@ export function HomeHero() {
                 text={t('home.hero.title')}
                 as="span"
                 className={cn('block', lang === 'hi' && 'mb-2')}
-                wordClassName={!prefersReducedMotion ? 'title-shimmer' : undefined}
               />
               {lang === 'en' && (
                 <AnimatedTitle
@@ -122,13 +111,6 @@ export function HomeHero() {
           </Reveal>
 
         </StaggerGroup>
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="flex flex-col items-center gap-2 text-white/70">
-          <span className="text-xs font-medium uppercase tracking-widest">{t('home.hero.scrollCue')}</span>
-          <div className="h-6 w-[1px] bg-white/40" />
-        </div>
       </div>
     </section>
   )

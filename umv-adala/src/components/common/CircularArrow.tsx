@@ -16,8 +16,8 @@ export function CircularArrow({ icon: Icon = ArrowRight, size = 'sm', className 
   return (
     <span
       className={cn(
-        'inline-flex shrink-0 items-center justify-center rounded-full border border-current transition-colors',
-        'group-hover:bg-[hsl(var(--primary-strong))] group-hover:text-[hsl(var(--primary-foreground))] group-hover:border-[hsl(var(--primary-strong))]',
+        'inline-flex shrink-0 items-center justify-center rounded-full border border-current transition-all duration-200',
+        'group-hover:bg-[hsl(var(--primary-strong))] group-hover:text-[hsl(var(--primary-foreground))] group-hover:border-[hsl(var(--primary-strong))] group-hover:translate-x-0.5',
         size === 'sm' ? 'h-7 w-7' : 'h-9 w-9',
         className
       )}

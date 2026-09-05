@@ -24,7 +24,7 @@ export function AcademicsGrid() {
   return (
     <section className="bg-[hsl(var(--muted))]/50 py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        <SectionHeading overline={t('home.academics.overline')} title={t('home.academics.title')} shimmer />
+        <SectionHeading title={t('home.academics.title')} shimmer />
         <StaggerGroup stagger={80} className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto">
           {stages.map((stage) => (
             <Reveal key={stage.href}>
@@ -32,7 +32,7 @@ export function AcademicsGrid() {
                 to={stage.href}
                 className={cn(
                   'group flex h-full flex-col items-start gap-4 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6',
-                  'transition-all duration-500 hover:-translate-y-1 hover:shadow-md',
+                  'transition-all duration-300 hover:-translate-y-1 hover:shadow-md',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
                 )}
               >

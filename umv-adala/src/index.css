@@ -170,11 +170,6 @@ body {
   background-color: hsl(var(--background));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: url('/cursors/pencil.svg') 6 24, auto;
-}
-
-a, button, [role="button"], summary, select, label {
-  cursor: url('/cursors/pencil.svg') 6 24, pointer;
 }
 
 /* Tactile press feedback on click, everywhere — pairs with the custom

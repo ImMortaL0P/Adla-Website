@@ -51,8 +51,8 @@ function ThemeToggle() {
       aria-pressed={theme === 'dark'}
       className={cn(
         'flex h-9 w-9 items-center justify-center rounded-lg',
-        'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
-        'transition-colors duration-700',
+        'text-white hover:bg-white/15 dark:text-[hsl(var(--foreground))] dark:hover:bg-white/10',
+        'transition-colors duration-300',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2'
       )}
     >
@@ -70,8 +70,8 @@ function LanguageToggle() {
       aria-label={lang === 'en' ? 'हिंदी में बदलें' : 'Switch to English'}
       className={cn(
         'flex h-9 items-center gap-1 rounded-lg px-2.5 text-sm font-medium',
-        'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
-        'transition-colors duration-700',
+        'text-white hover:bg-white/15 dark:text-[hsl(var(--foreground))] dark:hover:bg-white/10',
+        'transition-colors duration-300',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2'
       )}
     >
@@ -118,14 +118,14 @@ function DropdownNav({ item }: { item: NavItem & { children: ReadonlyArray<{ lab
         aria-expanded={open}
         className={cn(
           'flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium',
-          'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
-          'transition-colors duration-700',
+          'text-white hover:bg-white/15 dark:text-[hsl(var(--foreground))] dark:hover:bg-white/10',
+          'transition-colors duration-300',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
         )}
       >
         {t(item.labelKey as any)}
         <svg
-          className={cn('h-3.5 w-3.5 transition-transform duration-700', open && 'rotate-180')}
+          className={cn('h-3.5 w-3.5 transition-transform duration-300', open && 'rotate-180')}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -138,8 +138,8 @@ function DropdownNav({ item }: { item: NavItem & { children: ReadonlyArray<{ lab
         className={cn(
           'absolute left-0 top-full z-50 mt-1 min-w-[200px] origin-top rounded-xl',
           'border border-[hsl(var(--border))] bg-[hsl(var(--card))]',
-          'p-1.5 shadow-md',
-          'transition-[opacity,transform] duration-600',
+          'p-1.5 shadow-lg shadow-black/8',
+          'transition-[opacity,transform] duration-200',
           open
             ? 'pointer-events-auto translate-y-0 scale-100 opacity-100'
             : 'pointer-events-none -translate-y-1 scale-95 opacity-0'
@@ -154,7 +154,7 @@ function DropdownNav({ item }: { item: NavItem & { children: ReadonlyArray<{ lab
             className={cn(
               'block rounded-lg px-3 py-2 text-sm',
               'text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]',
-              'transition-colors duration-700',
+              'transition-colors duration-200',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]',
               location.pathname === child.href && 'bg-[hsl(var(--muted))] font-medium'
             )}
@@ -191,13 +191,13 @@ export function Header() {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50',
-        'transition-all duration-700',
+        'transition-[background-color,border-color,box-shadow] duration-300',
         scrolled
-          ? 'border-b border-[hsl(var(--border))] bg-[hsl(var(--primary-strong))] dark:bg-[hsl(var(--background))]/85 backdrop-blur-md text-white dark:text-foreground'
-          : 'bg-[hsl(var(--primary-strong))] dark:bg-[hsl(var(--background))]/70 backdrop-blur-sm'
+          ? 'border-b border-black/10 bg-[hsl(var(--primary-strong))] shadow-sm dark:border-[hsl(var(--border))] dark:bg-[hsl(var(--background))]/90 dark:backdrop-blur-md'
+          : 'bg-[hsl(var(--primary-strong))] dark:bg-[hsl(var(--background))]/80 dark:backdrop-blur-sm'
       )}
     >
-      <div className="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
+      <div className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:h-[4.5rem] sm:px-8 lg:px-12">
         {/* Logo / School name — the crest is deliberately taller than the
             band and top-aligned so it reads as a badge pasted over the
             seam between the nav bar and the page below, while the band
@@ -234,8 +234,8 @@ export function Header() {
                 to={item.href}
                 className={cn(
                   'rounded-lg px-3 py-2 text-sm font-medium',
-                  'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
-                  'transition-colors duration-700',
+                  'text-white hover:bg-white/15 dark:text-[hsl(var(--foreground))] dark:hover:bg-white/10',
+                  'transition-colors duration-200',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]',
                   location.pathname === item.href && 'bg-black/10 dark:bg-[hsl(var(--muted))]'
                 )}
@@ -253,8 +253,8 @@ export function Header() {
             aria-label="Admin Portal"
             className={cn(
               'flex h-9 w-9 items-center justify-center rounded-lg',
-              'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
-              'transition-colors duration-700',
+              'text-white hover:bg-white/15 dark:text-[hsl(var(--foreground))] dark:hover:bg-white/10',
+              'transition-colors duration-200',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
             )}
           >
@@ -267,8 +267,8 @@ export function Header() {
             aria-label={t('common.openMenu')}
             className={cn(
               'flex h-9 w-9 items-center justify-center rounded-lg lg:hidden',
-              'text-white dark:text-[hsl(var(--foreground))] hover:bg-black/10 dark:hover:bg-black/10 dark:bg-[hsl(var(--muted))]',
-              'transition-colors duration-700',
+              'text-white hover:bg-white/15 dark:text-[hsl(var(--foreground))] dark:hover:bg-white/10',
+              'transition-colors duration-200',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]'
             )}
           >

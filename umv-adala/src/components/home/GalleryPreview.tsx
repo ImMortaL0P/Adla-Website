@@ -19,7 +19,7 @@ export function GalleryPreview() {
 
   return (
     <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-12">
-      <SectionHeading overline={t('home.gallery.overline')} title={t('home.gallery.title')} />
+      <SectionHeading title={t('home.gallery.title')} />
       <StaggerGroup stagger={60} className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
         {preview.map((image, i) => {
           const stockKey = !usingLive ? staticGalleryStock[image.id] : undefined

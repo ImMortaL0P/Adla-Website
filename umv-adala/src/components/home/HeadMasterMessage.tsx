@@ -17,9 +17,6 @@ export function HeadMasterMessage() {
   return (
     <section className="bg-[hsl(var(--muted))]/50 py-16">
       <div className="mx-auto max-w-4xl px-5 text-center sm:px-8 lg:px-12">
-        <span className="mb-2 block text-sm font-semibold uppercase tracking-wider text-[hsl(var(--primary-strong))]">
-          {t('home.headMaster.overline')}
-        </span>
         <h2 className="mb-8 font-display text-3xl font-bold tracking-tight text-[hsl(var(--foreground))] sm:text-4xl">
           {t('home.headMaster.title')}
         </h2>
