@@ -1,5 +1,4 @@
 import { useT } from '@/context/LanguageContext'
-import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
 import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { CountUp } from '@/components/motion/CountUp'

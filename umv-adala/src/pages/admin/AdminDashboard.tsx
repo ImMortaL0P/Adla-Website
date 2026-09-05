@@ -2,15 +2,16 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Seo } from '@/components/common/Seo';
-import { Image as ImageIcon, Users, FileText, Bell, ImagePlus } from 'lucide-react';
+import { Image as ImageIcon, Users, FileText, Bell, ImagePlus, PenTool } from 'lucide-react';
 import NoticesTab from './tabs/NoticesTab';
+import PressNoticeTab from './tabs/PressNoticeTab';
 import ImagesTab from './tabs/ImagesTab';
 import GalleryTab from './tabs/GalleryTab';
 import StaffTab from './tabs/StaffTab';
 import ContentTab from './tabs/ContentTab';
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState<'notices' | 'images' | 'gallery' | 'staff' | 'content'>('notices');
+  const [activeTab, setActiveTab] = useState<'notices' | 'pressNotice' | 'images' | 'gallery' | 'staff' | 'content'>('notices');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function AdminDashboard() {
 
   const tabs = [
     { id: 'notices', label: 'Notices', icon: Bell },
+    { id: 'pressNotice', label: 'Press Notice', icon: PenTool },
     { id: 'gallery', label: 'Gallery', icon: ImagePlus },
     { id: 'images', label: 'System Images', icon: ImageIcon },
     { id: 'staff', label: 'Staff Directory', icon: Users },
@@ -65,6 +67,7 @@ export default function AdminDashboard() {
         {/* Tab Content */}
         <div>
           {activeTab === 'notices' && <NoticesTab />}
+          {activeTab === 'pressNotice' && <PressNoticeTab />}
           {activeTab === 'gallery' && <GalleryTab />}
           {activeTab === 'images' && <ImagesTab />}
           {activeTab === 'staff' && <StaffTab />}

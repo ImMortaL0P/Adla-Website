@@ -4,15 +4,13 @@ import { useT } from '@/context/LanguageContext'
 import { Reveal } from '@/components/motion/Reveal'
 import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { AnimatedTitle } from '@/components/common/AnimatedTitle'
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useImages } from '@/hooks/useImages'
 import { stockPhotos } from '@/data/stockPhotos'
 import { cn } from '@/lib/utils'
 
 export function HomeHero() {
   const { t, lang } = useT()
-  const prefersReducedMotion = usePrefersReducedMotion()
-  const { images, getSystemImage, loading } = useImages()
+  const { getSystemImage } = useImages()
 
   const dynamicHero = getSystemImage('hero_bg')
   const heroImage = dynamicHero || stockPhotos.campusEntrance.src
