@@ -52,6 +52,13 @@ export interface GalleryImage {
   caption_en: string | null
   caption_hi: string | null
   category: GalleryCategory
+  // Event metadata for grouping
+  event_name_en?: string | null
+  event_name_hi?: string | null
+  event_date?: string | null
+  event_description_en?: string | null
+  event_description_hi?: string | null
+
   taken_on: string | null
   display_order: number
   is_published: boolean

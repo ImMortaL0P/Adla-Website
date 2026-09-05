@@ -58,7 +58,7 @@ router.post('/', auth, (req, res, next) => {
   });
 }, async (req, res) => {
   try {
-    const { caption_en, caption_hi, category, taken_on } = req.body;
+    const { caption_en, caption_hi, category, taken_on, event_name_en, event_name_hi, event_date, event_description_en, event_description_hi } = req.body;
 
     if (!caption_en) {
       return res.status(400).json({ message: 'English caption is required.' });
@@ -87,6 +87,11 @@ router.post('/', auth, (req, res, next) => {
       caption_en,
       caption_hi,
       category: category || 'campus',
+      event_name_en: event_name_en || undefined,
+      event_name_hi: event_name_hi || undefined,
+      event_date: event_date || undefined,
+      event_description_en: event_description_en || undefined,
+      event_description_hi: event_description_hi || undefined,
       image_url: uploaded.image_url,
       thumbnail_url: uploaded.thumbnail_url,
       driveFileId: uploaded.driveFileId,

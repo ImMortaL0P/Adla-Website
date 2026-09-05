@@ -8,6 +8,13 @@ const gallerySchema = new mongoose.Schema({
     enum: ['campus', 'classrooms', 'events', 'sports', 'annual_function', 'independence_day'],
     default: 'campus',
   },
+  // Event metadata for grouping
+  event_name_en: { type: String }, // e.g., "Annual Sports Day 2024"
+  event_name_hi: { type: String },
+  event_date: { type: Date }, // When the event happened
+  event_description_en: { type: String },
+  event_description_hi: { type: String },
+
   image_url: { type: String, required: true },
   thumbnail_url: { type: String },
   driveFileId: { type: String },
