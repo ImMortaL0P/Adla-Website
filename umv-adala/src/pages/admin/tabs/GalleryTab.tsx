@@ -4,8 +4,8 @@ import { Trash2, Image as ImageIcon, Upload, Calendar, Plus, X } from 'lucide-re
 
 // Default categories - only 2 initially
 const DEFAULT_CATEGORIES = [
-  { value: 'events', label: 'Events' },
-  { value: 'campus', label: 'Campus' },
+  { value: 'pratibha_samman_samaroh', label: 'Pratibha Samman Samaroh' },
+  { value: 'sakhi_sahayta_desk', label: 'Sakhi Sahayta Desk' },
 ];
 
 export default function GalleryTab() {
@@ -15,7 +15,7 @@ export default function GalleryTab() {
   const [uploading, setUploading] = useState(false);
 
   // Form fields
-  const [category, setCategory] = useState<string>('events');
+  const [category, setCategory] = useState<string>('pratibha_samman_samaroh');
   const [isCreatingCategory, setIsCreatingCategory] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [captionEn, setCaptionEn] = useState('');
