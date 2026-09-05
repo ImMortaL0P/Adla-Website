@@ -43,6 +43,17 @@ router.get('/', async (_req, res) => {
   }
 });
 
+// Get unique categories from existing images
+router.get('/categories', async (_req, res) => {
+  try {
+    const categories = await GalleryImage.distinct('category');
+    res.json(categories.sort());
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
 router.post('/', auth, (req, res, next) => {
   upload.single('file')(req, res, (err) => {
     if (err instanceof multer.MulterError) {

@@ -1,15 +1,23 @@
 import { API_URL, resolveMediaUrl } from "@/lib/api";
 import { useState, useEffect } from 'react';
-import { Trash2, Image as ImageIcon, Upload, Calendar } from 'lucide-react';
-import { GALLERY_CATEGORIES } from '@/hooks/useGallery';
+import { Trash2, Image as ImageIcon, Upload, Calendar, Plus, X } from 'lucide-react';
+
+// Default categories - only 2 initially
+const DEFAULT_CATEGORIES = [
+  { value: 'events', label: 'Events' },
+  { value: 'campus', label: 'Campus' },
+];
 
 export default function GalleryTab() {
   const [images, setImages] = useState<any[]>([]);
+  const [existingCategories, setExistingCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
 
   // Form fields
-  const [category, setCategory] = useState<string>('campus');
+  const [category, setCategory] = useState<string>('events');
+  const [isCreatingCategory, setIsCreatingCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState('');
   const [captionEn, setCaptionEn] = useState('');
   const [captionHi, setCaptionHi] = useState('');
   const [eventNameEn, setEventNameEn] = useState('');
@@ -19,7 +27,10 @@ export default function GalleryTab() {
   const [eventDescriptionHi, setEventDescriptionHi] = useState('');
   const [file, setFile] = useState<File | null>(null);
 
-  useEffect(() => { fetchImages(); }, []);
+  useEffect(() => {
+    fetchImages();
+    fetchCategories();
+  }, []);
 
   const fetchImages = async () => {
     try {
@@ -37,6 +48,16 @@ export default function GalleryTab() {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/gallery/categories`);
+      const data = await res.json();
+      setExistingCategories(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handleDelete = async (id: string) => {
     if (!window.confirm('Are you sure you want to delete this image?')) return;
     const token = localStorage.getItem('adminToken');
@@ -45,16 +66,30 @@ export default function GalleryTab() {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
-      if (res.ok) fetchImages();
-      else alert('Failed to delete image');
+      if (res.ok) {
+        fetchImages();
+        fetchCategories();
+      } else {
+        alert('Failed to delete image');
+      }
     } catch (err) {
       console.error(err);
     }
   };
 
+  const handleCreateCategory = () => {
+    if (!newCategoryName.trim()) {
+      alert('Please enter a category name');
+      return;
+    }
+    setCategory(newCategoryName.trim().toLowerCase());
+    setIsCreatingCategory(false);
+    setNewCategoryName('');
+  };
+
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!captionEn || !file) return alert('English caption and image file are required');
+    if (!captionEn || !file || !category) return alert('Category, English caption and image file are required');
 
     setUploading(true);
     const token = localStorage.getItem('adminToken');
@@ -86,6 +121,7 @@ export default function GalleryTab() {
         setEventDate(''); setEventDescriptionEn(''); setEventDescriptionHi('');
         setFile(null);
         fetchImages();
+        fetchCategories();
       } else {
         const data = await res.json();
         alert(data.message || 'Failed to upload image');
@@ -100,12 +136,19 @@ export default function GalleryTab() {
 
   if (loading) return <div className="py-8 text-center">Loading gallery...</div>;
 
+  // Combine default + existing categories
+  const allCategories = Array.from(new Set([
+    ...DEFAULT_CATEGORIES.map(c => c.value),
+    ...existingCategories
+  ])).sort();
+
   // Group images by event or category
   const groupedImages = images.reduce((acc, img) => {
     const groupKey = img.event_name_en || img.category;
     if (!acc[groupKey]) {
       acc[groupKey] = {
         name: img.event_name_en || img.category,
+        category: img.category,
         date: img.event_date,
         images: []
       };
@@ -124,16 +167,63 @@ export default function GalleryTab() {
         <form onSubmit={handleUpload} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-[hsl(var(--foreground))]">Category *</label>
-            <select
-              required
-              value={category}
-              onChange={e => setCategory(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-[hsl(var(--foreground))]"
-            >
-              {GALLERY_CATEGORIES.map(cat => (
-                <option key={cat.value} value={cat.value}>{cat.label}</option>
-              ))}
-            </select>
+            {isCreatingCategory ? (
+              <div className="mt-1 space-y-2">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={newCategoryName}
+                    onChange={e => setNewCategoryName(e.target.value)}
+                    placeholder="Enter category name..."
+                    className="flex-1 rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-sm text-[hsl(var(--foreground))]"
+                    autoFocus
+                  />
+                  <button
+                    type="button"
+                    onClick={handleCreateCategory}
+                    className="rounded-md bg-[hsl(var(--primary-strong))] px-3 py-2 text-white hover:bg-[hsl(var(--primary))]"
+                  >
+                    <Plus size={16} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsCreatingCategory(false);
+                      setNewCategoryName('');
+                    }}
+                    className="rounded-md border border-[hsl(var(--border))] px-3 py-2 text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+                <p className="text-xs text-[hsl(var(--muted-foreground))]">
+                  Enter a new category name and click + to create
+                </p>
+              </div>
+            ) : (
+              <div className="mt-1 space-y-2">
+                <select
+                  required
+                  value={category}
+                  onChange={e => setCategory(e.target.value)}
+                  className="block w-full rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-[hsl(var(--foreground))]"
+                >
+                  {allCategories.map(cat => (
+                    <option key={cat} value={cat}>
+                      {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={() => setIsCreatingCategory(true)}
+                  className="flex w-full items-center justify-center gap-2 rounded-md border border-dashed border-[hsl(var(--border))] px-3 py-2 text-sm text-[hsl(var(--muted-foreground))] transition-colors hover:border-[hsl(var(--primary-strong))] hover:text-[hsl(var(--primary-strong))]"
+                >
+                  <Plus size={16} />
+                  Create New Category
+                </button>
+              </div>
+            )}
           </div>
 
           <div className="border-t border-[hsl(var(--border))] pt-4">
@@ -239,17 +329,23 @@ export default function GalleryTab() {
         </form>
       </div>
 
-      {/* Images List - Grouped by Event */}
+      {/* Images List - Grouped by Event/Category */}
       <div className="col-span-1 lg:col-span-2 space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-[hsl(var(--foreground))]">Gallery Images</h3>
-          <span className="text-sm text-[hsl(var(--muted-foreground))]">{images.length} total images</span>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-[hsl(var(--muted-foreground))]">{allCategories.length} categories</span>
+            <span className="text-sm text-[hsl(var(--muted-foreground))]">{images.length} total images</span>
+          </div>
         </div>
 
         {images.length === 0 ? (
           <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-8 text-center">
             <ImageIcon size={32} className="mx-auto mb-3 text-[hsl(var(--muted-foreground))]" />
-            <p className="text-[hsl(var(--muted-foreground))]">No gallery images yet.</p>
+            <p className="mb-2 text-[hsl(var(--muted-foreground))]">No gallery images yet.</p>
+            <p className="text-xs text-[hsl(var(--muted-foreground))]">
+              Start with the default categories above, or create custom ones as you upload.
+            </p>
           </div>
         ) : (
           Object.entries(groupedImages)
@@ -264,7 +360,12 @@ export default function GalleryTab() {
               <div key={groupKey} className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm">
                 <div className="mb-4 flex items-center justify-between border-b border-[hsl(var(--border))] pb-3">
                   <div>
-                    <h4 className="font-semibold text-[hsl(var(--foreground))]">{group.name}</h4>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-semibold text-[hsl(var(--foreground))]">{group.name}</h4>
+                      <span className="rounded-full bg-[hsl(var(--muted))] px-2 py-0.5 text-xs font-medium text-[hsl(var(--muted-foreground))]">
+                        {group.category}
+                      </span>
+                    </div>
                     {group.date && (
                       <p className="mt-1 flex items-center gap-1 text-xs text-[hsl(var(--muted-foreground))]">
                         <Calendar size={12} />
@@ -272,7 +373,7 @@ export default function GalleryTab() {
                       </p>
                     )}
                   </div>
-                  <span className="rounded-full bg-[hsl(var(--muted))] px-3 py-1 text-xs font-medium text-[hsl(var(--foreground))]">
+                  <span className="rounded-full bg-[hsl(var(--primary-strong))]/10 px-3 py-1 text-xs font-medium text-[hsl(var(--primary-strong))]">
                     {group.images.length} {group.images.length === 1 ? 'photo' : 'photos'}
                   </span>
                 </div>

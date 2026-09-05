@@ -5,8 +5,8 @@ const gallerySchema = new mongoose.Schema({
   caption_hi: { type: String },
   category: {
     type: String,
-    enum: ['campus', 'classrooms', 'events', 'sports', 'annual_function', 'independence_day'],
-    default: 'campus',
+    required: true,
+    // No enum - allow custom categories created by admin
   },
   // Event metadata for grouping
   event_name_en: { type: String }, // e.g., "Annual Sports Day 2024"

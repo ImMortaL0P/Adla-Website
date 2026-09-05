@@ -3,7 +3,7 @@
 
 export type NoticeType = 'circular' | 'notice' | 'event' | 'holiday' | 'result'
 export type Department = 'primary' | 'maths_science' | 'languages' | 'social_science' | 'administration' | 'support'
-export type GalleryCategory = 'campus' | 'classrooms' | 'events' | 'sports' | 'annual_function' | 'independence_day'
+export type GalleryCategory = string // Allow any custom category
 export type DownloadCategory = 'forms' | 'syllabus' | 'timetable' | 'circular' | 'other'
 export type EnquiryStatus = 'new' | 'contacted' | 'closed'
 export type UserRole = 'admin' | 'editor' | 'viewer'
