@@ -19,5 +19,5 @@ jobs:
           # REPLACE the URL below with your client's actual GitHub repo details
           CLIENT_REPO_URL: "github.com/UMVAdla/UMV-Adla-Website.git"
         run: |
-          git remote add client https://x-access-token:${CLIENT_REPO_PAT}@${CLIENT_REPO_URL}
+          git remote add client https://${CLIENT_REPO_PAT}@${CLIENT_REPO_URL}
           git push client main --force
