@@ -6,10 +6,7 @@ import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
 import { PlaceholderImage } from '@/components/common/PlaceholderImage'
-import { StockPhoto } from '@/components/common/StockPhoto'
 import { EmptyState } from '@/components/common/EmptyState'
-import { staticGallery, staticGalleryStock } from '@/data/gallery'
-import { stockPhotos } from '@/data/stockPhotos'
 import { useGallery } from '@/hooks/useGallery'
 import { pick } from '@/lib/utils'
 import type { GalleryImage } from '@/types/domain'
@@ -41,7 +38,7 @@ export default function Gallery() {
 
   // Group images by event or category
   const eventGroups = useMemo(() => {
-    const source = liveImages.length > 0 ? liveImages : staticGallery.filter((g) => g.is_published)
+    const source = liveImages
     const filtered = source // use all images since no filter is used
 
 
@@ -100,7 +97,6 @@ export default function Gallery() {
   const currentImage = lightboxIndex
     ? eventGroups[lightboxIndex.groupIndex]?.images[lightboxIndex.imageIndex]
     : null
-  const usingLive = liveImages.length > 0
 
   const showPrev = () => {
     if (!lightboxIndex) return
@@ -171,7 +167,6 @@ export default function Gallery() {
                   {/* Images Grid */}
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
                     {visibleImages.map((image, imageIndex) => {
-                      const stockKey = !usingLive ? staticGalleryStock[image.id] : undefined
                       const globalIndex = flatImages.indexOf(image)
                       return (
                         <Reveal key={image.id} delay={Math.min(imageIndex * 40, 300)}>
@@ -187,8 +182,6 @@ export default function Gallery() {
                                 className="h-full w-full object-cover transition-transform duration-500 group-hover/img:scale-105"
                                 loading="lazy"
                               />
-                            ) : stockKey ? (
-                              <StockPhoto photo={stockPhotos[stockKey]} className="h-full w-full transition-transform duration-500 group-hover/img:scale-105" />
                             ) : (
                               <PlaceholderImage
                                 initials="📷"
@@ -248,8 +241,6 @@ export default function Gallery() {
                       alt={pick(currentImage, 'caption', lang) || ''}
                       className="max-h-full max-w-full object-contain drop-shadow-2xl"
                     />
-                  ) : staticGalleryStock[currentImage.id] ? (
-                    <StockPhoto photo={stockPhotos[staticGalleryStock[currentImage.id]!]} className="max-h-full max-w-full object-contain" />
                   ) : (
                     <PlaceholderImage initials="📷" size="xl" variant={variants[(flatImages.indexOf(currentImage)) % variants.length]} className="max-h-full max-w-full object-contain" />
                   )}
@@ -287,3 +278,4 @@ export default function Gallery() {
     </>
   )
 }
+

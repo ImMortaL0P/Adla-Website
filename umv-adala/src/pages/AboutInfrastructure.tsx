@@ -5,14 +5,8 @@ import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
 import { StaggerGroup } from '@/components/motion/StaggerGroup'
-import { StockPhoto } from '@/components/common/StockPhoto'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs'
 import { facilitiesList } from '@/data/content'
-import { stockPhotos, type StockPhotoKey } from '@/data/stockPhotos'
-
-const facilityPhotos: Partial<Record<string, StockPhotoKey>> = {
-  midDayMeal: 'facilityMidDayMeal',
-}
 
 const iconMap: Record<string, LucideIcon> = {
   Utensils,
@@ -33,11 +27,9 @@ export default function AboutInfrastructure() {
         <StaggerGroup stagger={70} className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           {facilitiesList.map((facility) => {
             const Icon = iconMap[facility.icon]
-            const photoKey = facilityPhotos[facility.key]
             return (
               <Reveal key={facility.key}>
                 <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]">
-                  {photoKey && <StockPhoto photo={stockPhotos[photoKey]} className="aspect-[16/9] w-full" rounded={false} />}
                   <div className="flex items-start gap-4 p-6">
                     <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[hsl(var(--muted))] text-[hsl(var(--primary-strong))]">
                       <Icon size={20} strokeWidth={1.75} />
@@ -55,7 +47,7 @@ export default function AboutInfrastructure() {
           })}
         </StaggerGroup>
         <p className="mt-10 text-sm text-[hsl(var(--muted-foreground))]">
-          {t('common.placeholder')} — {t('disclosure.title')}: <Link to="/mandatory-disclosure" className="text-[hsl(var(--primary-strong))] hover:underline">{t('disclosure.title')}</Link>
+           {t('disclosure.title')}: <Link to="/mandatory-disclosure" className="text-[hsl(var(--primary-strong))] hover:underline">{t('disclosure.title')}</Link>
         </p>
       </div>
     </>

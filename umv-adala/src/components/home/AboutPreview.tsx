@@ -2,17 +2,15 @@ import { Link } from 'react-router-dom'
 import { useT } from '@/context/LanguageContext'
 import { Reveal } from '@/components/motion/Reveal'
 import { ScrollRevealText } from '@/components/motion/ScrollRevealText'
-import { StockPhoto } from '@/components/common/StockPhoto'
 import { CircularArrow } from '@/components/common/CircularArrow'
 import { aboutContent } from '@/data/content'
-import { stockPhotos } from '@/data/stockPhotos'
 import { useImages } from '@/hooks/useImages'
 
 export function AboutPreview() {
   const { t, lang } = useT()
   const { getSystemImage } = useImages()
 
-  const dynamicAboutImg = getSystemImage('about_bg')
+  const dynamicAboutImg = getSystemImage('about image') || getSystemImage('about_bg') || ''
 
   return (
     <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-12">
@@ -23,7 +21,7 @@ export function AboutPreview() {
               <img src={dynamicAboutImg} alt="About School" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
             </div>
           ) : (
-            <StockPhoto photo={stockPhotos.campusVillageSchool} className="aspect-[4/3] w-full" />
+            <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gray-200 animate-pulse" />
           )}
         </Reveal>
         <Reveal direction="right">

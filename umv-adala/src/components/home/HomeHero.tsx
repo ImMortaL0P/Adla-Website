@@ -5,16 +5,16 @@ import { Reveal } from '@/components/motion/Reveal'
 import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { AnimatedTitle } from '@/components/common/AnimatedTitle'
 import { useImages } from '@/hooks/useImages'
-import { stockPhotos } from '@/data/stockPhotos'
 import { cn } from '@/lib/utils'
 
 export function HomeHero() {
   const { t, lang } = useT()
   const { getSystemImage } = useImages()
 
-  const dynamicHero = getSystemImage('hero_bg')
-  const heroImage = dynamicHero || stockPhotos.campusEntrance.src
-  const bgPhoto = stockPhotos.campusEntrance // fallback for credit text if needed
+  // New keys based on client uploads.
+  const dynamicHero = getSystemImage('main bg image') || getSystemImage('hero_bg')
+  const heroImage = dynamicHero || '' // Fallback to empty string if not loaded yet
+
 
   return (
     <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden pt-16">
@@ -32,15 +32,6 @@ export function HomeHero() {
             `,
           }}
         />
-        <span className="sr-only">{bgPhoto.alt[lang]}</span>
-      </div>
-
-      {/* Illustrative-photo disclosure badge */}
-      <div
-        title={`${t('common.illustrativePhoto')} — ${t('common.photoCredit')}: ${bgPhoto.credit}`}
-        className="absolute bottom-4 left-4 z-10 rounded-full bg-black/40 px-3 py-1 text-[11px] font-medium text-white/90 backdrop-blur-sm"
-      >
-        {t('common.illustrativePhoto')}
       </div>
 
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center px-5 text-center sm:px-8 lg:px-12">

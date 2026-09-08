@@ -2,9 +2,7 @@ import { Link } from 'react-router-dom'
 import { Quote } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { Reveal } from '@/components/motion/Reveal'
-import { StockPhoto } from '@/components/common/StockPhoto'
 import { school } from '@/data/school'
-import { staffPortraits } from '@/data/stockPhotos'
 import { useImages } from '@/hooks/useImages'
 import { pick } from '@/lib/utils'
 
@@ -25,7 +23,9 @@ export function HeadMasterMessage() {
             {dynamicHeadmasterPhoto ? (
               <img src={dynamicHeadmasterPhoto} alt="Headmaster" className="h-24 w-24 rounded-full object-cover" />
             ) : (
-              <StockPhoto photo={staffPortraits.headMaster} compact isPersonPhoto className="h-24 w-24 rounded-full" imgClassName="rounded-full" />
+              <div className="h-24 w-24 rounded-full bg-[hsl(var(--border))] flex items-center justify-center text-3xl font-bold text-[hsl(var(--muted-foreground))]">
+                 HM
+              </div>
             )}
             <Quote size={28} className="text-[hsl(var(--primary-strong))]/40" aria-hidden="true" />
             <p className="font-display text-xl italic leading-relaxed text-[hsl(var(--foreground))] sm:text-2xl">

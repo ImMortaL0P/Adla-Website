@@ -6,10 +6,8 @@ import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
 import { PlaceholderImage } from '@/components/common/PlaceholderImage'
-import { StockPhoto } from '@/components/common/StockPhoto'
 import { EmptyState } from '@/components/common/EmptyState'
 import { useStaff } from "@/hooks/useStaff"
-import { findStaffPortraitBySrc } from '@/data/stockPhotos'
 import { cn } from '@/lib/utils'
 import type { Department } from '@/types/domain'
 
@@ -47,10 +45,10 @@ export default function StaffDirectory() {
     // If backend staff array is empty but we're not loading, it'll return empty.
     // If it's loaded, use the API objects. Note the field differences.
     const active = staffList;
-    const byDept = activeFilter === 'all' 
-      ? active 
-      : activeFilter === 'support' 
-        ? active.filter((s: any) => s.type === 'support' || s.department === 'support') 
+    const byDept = activeFilter === 'all'
+      ? active
+      : activeFilter === 'support'
+        ? active.filter((s: any) => s.type === 'support' || s.department === 'support')
         : active.filter((s: any) => s.type !== 'support'); // Simplification since DB schema has teaching/support
 
     const q = query.trim().toLowerCase()
@@ -109,7 +107,7 @@ export default function StaffDirectory() {
         ) : (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((member: any, i: number) => {
-              const portrait = member.imageUrl || (member.photo_url ? findStaffPortraitBySrc(member.photo_url) : null)
+              const portrait = member.imageUrl || member.photo_url
               const name = lang === 'en' ? (member.name_en || member.name?.en) : (member.name_hi || member.name?.hi)
               const role = lang === 'en' ? (member.role_en || member.designation?.en) : (member.role_hi || member.designation?.hi)
               const qualifications = lang === 'en' ? (member.qualifications_en || member.qualifications?.en) : (member.qualifications_hi || member.qualifications?.hi)
@@ -120,11 +118,7 @@ export default function StaffDirectory() {
                   className="flex h-full flex-col items-center gap-3 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 text-center transition-all hover:-translate-y-1 hover:shadow-md"
                 >
                   {portrait ? (
-                    typeof portrait === 'string' ? (
-                       <img src={portrait} alt={name} className="h-24 w-24 rounded-full object-cover" />
-                    ) : (
-                      <StockPhoto photo={portrait} compact isPersonPhoto className="h-24 w-24 rounded-full" imgClassName="rounded-full" />
-                    )
+                    <img src={portrait} alt={name} className="h-24 w-24 rounded-full object-cover" />
                   ) : (
                     <PlaceholderImage
                       initials={initialsOf(name || '')}

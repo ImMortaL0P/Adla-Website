@@ -98,8 +98,8 @@ export default function ImagesTab() {
             {category === 'system' ? (
               <select required value={key} onChange={e => setKey(e.target.value)} className="mt-1 block w-full rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-[hsl(var(--foreground))]">
                 <option value="">-- Select System Image to Replace --</option>
-                <option value="hero_bg">Landing Page Background (hero_bg)</option>
-                <option value="about_bg">About Page Background (about_bg)</option>
+                <option value="main bg image">Landing Page Background (main bg image)</option>
+                <option value="about image">About Page Background (about image)</option>
                 <option value="logo_main">Main Logo (logo_main)</option>
                 <option value="logo_footer">Footer Logo (logo_footer)</option>
                 <option value="headmaster_photo">Headmaster Photo (headmaster_photo)</option>

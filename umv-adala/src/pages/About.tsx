@@ -12,7 +12,7 @@ export default function About() {
   const { t, lang } = useT()
   const { getSystemImage } = useImages()
 
-  const aboutBg = getSystemImage('about_bg')
+  const aboutBg = getSystemImage('about image') || getSystemImage('about_bg')
 
   const infoCards = [
     { icon: Compass, title: t('about.vision'), body: t('about.visionText') },

@@ -4,25 +4,20 @@ import { SectionHeading } from '@/components/common/SectionHeading'
 import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { Reveal } from '@/components/motion/Reveal'
 import { PlaceholderImage } from '@/components/common/PlaceholderImage'
-import { StockPhoto } from '@/components/common/StockPhoto'
 import { CircularArrow } from '@/components/common/CircularArrow'
-import { staticGallery, staticGalleryStock } from '@/data/gallery'
-import { stockPhotos } from '@/data/stockPhotos'
 import { useGallery } from '@/hooks/useGallery'
 import { pick } from '@/lib/utils'
 
 export function GalleryPreview() {
   const { t, lang } = useT()
   const { images: liveImages } = useGallery()
-  const usingLive = liveImages.length > 0
-  const preview = usingLive ? liveImages.slice(0, 6) : staticGallery.slice(0, 6)
+  const preview = liveImages.slice(0, 6)
 
   return (
     <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-12">
       <SectionHeading title={t('home.gallery.title')} />
       <StaggerGroup stagger={60} className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
         {preview.map((image, i) => {
-          const stockKey = !usingLive ? staticGalleryStock[image.id] : undefined
           return (
             <Reveal key={image.id} className={i === 0 ? 'sm:col-span-2 sm:row-span-2' : ''}>
               {image.image_url ? (
@@ -32,8 +27,6 @@ export function GalleryPreview() {
                   className="h-full min-h-[100px] w-full rounded-2xl object-cover"
                   loading="lazy"
                 />
-              ) : stockKey ? (
-                <StockPhoto photo={stockPhotos[stockKey]} className="h-full min-h-[100px] w-full" imgClassName="aspect-square sm:aspect-auto sm:h-full" />
               ) : (
                 <PlaceholderImage
                   initials={pick(image, 'caption', lang).slice(0, 2).toUpperCase() || '🏫'}
@@ -58,3 +51,4 @@ export function GalleryPreview() {
     </section>
   )
 }
+

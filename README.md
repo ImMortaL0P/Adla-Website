@@ -8,14 +8,20 @@ The project is structured as a monorepo, keeping the frontend and backend closel
 
 - **Frontend:** React 19, TypeScript, Vite, Tailwind CSS, React Router, Radix UI, Tanstack Query, Zod.
 - **Backend:** Node.js, Express, MongoDB (Mongoose), JWT Auth, Multer, Nodemailer, Twilio, Google APIs (Drive).
-- **Automation:** GitHub Actions is configured to automatically mirror commits from the source repository to the client's repository.
+- **Storage:** Google Drive via OAuth 2.0 streaming upload, dynamically synced via backend API.
+
+## 🌟 Features
+
+- **Dynamic Content & Images**: Placeholder-free architecture. All images (including components like Hero background, About section, Staff gallery, etc.) are dynamically powered by Google Drive & MongoDB Atlas.
+- **Admin Dashboard**: Full CRUD capabilities for Staff Profiles, Gallery, Notices, and System Images.
+- **Google Drive Integration**: Direct, streams-based binary file uploads and downloads. (Resolving the `text/html` Google Docs corruption issue).
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/en/) (v18+)
 - [MongoDB](https://www.mongodb.com/try/download/community) (Local or Atlas)
-- Google Service Account (for Drive integration)
+- Google OAuth Desktop/Web App Credentials (for Drive integration)
 
 ### Installation
 
@@ -42,20 +48,21 @@ The project is structured as a monorepo, keeping the frontend and backend closel
 The application requires environment variables for both the backend and frontend. 
 
 1. **Backend:**
-   Create a `.env` file in the `umv-adala/backend/` directory (you can use `.env.example` as a template):
+   Create a `.env` file in the `umv-adala/backend/` directory:
    ```
-   PORT=5000
+   PORT=10000
    MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/adla
    JWT_SECRET=your_jwt_secret
-   # Mail & Twilio configuration
-   # Google Drive configuration
+   # Google Drive Application Credentials (OAuth 2.0)
+   GOOGLE_CLIENT_ID=your_client_id
+   GOOGLE_CLIENT_SECRET=your_client_secret
+   GOOGLE_REDIRECT_URI=http://localhost:10000/api/drive/oauth2callback
    ```
-   Also, ensure you place the `service-account.json` (Google Drive credentials) in the `umv-adala/backend/` folder.
 
 2. **Frontend:**
-   Create a `.env` file in the `umv-adala/` directory (if needed, configured by Vite). Commonly this includes the API URL:
+   Create a `.env` file in the `umv-adala/` directory:
    ```
-   VITE_API_URL=http://localhost:5000
+   VITE_API_URL=http://localhost:10000
    ```
 
 ### Running Locally
@@ -68,15 +75,14 @@ npm run dev
 ```
 
 - Local Frontend: `http://localhost:5173`
-- Local Backend: `http://localhost:5000`
+- Local Backend: `http://localhost:10000`
 
 ## ☁️ Deployment Guide
 
 ### Database (MongoDB Atlas)
 1. Create a cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
-2. Configure **Network Access** to allow inbound connections (add `0.0.0.0/0` for universal access or restrict to Render IPs).
-3. Create a **Database User**.
-4. Retrieve the connection string (`MONGODB_URI`) and update your production environment variables.
+2. Configure **Network Access** to allow inbound connections (`0.0.0.0/0`).
+3. Create a **Database User** and use the connection string in your `.env`.
 
 ### Backend (Render)
 1. Connect this GitHub repository to Render.
@@ -84,18 +90,22 @@ npm run dev
 3. Set the **Root Directory** to `umv-adala/backend`.
 4. Build Command: `npm install`
 5. Start Command: `npm start`
-6. Add the `.env` variables in the Render dashboard, particularly `MONGODB_URI` and any Google API keys. If your app relies on a `service-account.json` file, consider encoding it as a base64 variable or generating it dynamically before launch.
+6. Note: Ensure you remove static frontend serving in Render as the frontend is hosted independently and Render may throw `ENOENT` for `/dist/index.html`.
 
 ### Frontend (Vercel)
 1. Connect this GitHub repository to Vercel.
 2. Set the **Root Directory** to `umv-adala`.
-3. Vercel will automatically detect **Vite**. Add your environment variables (like `VITE_API_URL` pointing to the Render backend).
+3. Set the `VITE_API_URL` pointing to the Render backend (e.g. `https://umv-adla-backend.onrender.com`).
 4. Deploy!
 
-## 🔄 Automatic Repository Mirroring
+## 📸 System Media Mapping
 
-This repository automatically mirrors branch changes to another remote using GitHub Actions. Check `.github/workflows/mirror.yml` for the configuration details. 
-- Ensure a valid Personal Access Token is stored in GitHub Secrets at `CLIENT_REPO_PAT`.
+Images across the website are controlled from the Admin Dashboard using absolute String labels as keys:
+- **`main bg image`**: Renders on the Homepage Hero.
+- **`about image`**: Renders on the About Us section background.
+- **`headmaster_photo`**: Renders for the Headmaster element section.
+
+Removing stock photographs ensures accurate dynamic delivery strictly relying on these keys.
 
 ## 📄 License & Credits
 

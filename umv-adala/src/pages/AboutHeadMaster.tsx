@@ -3,9 +3,7 @@ import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs'
 import { Reveal } from '@/components/motion/Reveal'
-import { StockPhoto } from '@/components/common/StockPhoto'
 import { school } from '@/data/school'
-import { staffPortraits } from '@/data/stockPhotos'
 import { pick } from '@/lib/utils'
 import { useImages } from '@/hooks/useImages'
 
@@ -26,12 +24,9 @@ export default function AboutHeadMaster() {
               {dynamicPhoto ? (
                 <img src={dynamicPhoto} alt="Headmaster" className="h-40 w-40 rounded-full object-cover" />
               ) : (
-                <>
-                  <StockPhoto photo={staffPortraits.headMaster} compact isPersonPhoto className="h-40 w-40 rounded-full" imgClassName="rounded-full" />
-                  <p className="text-xs text-[hsl(var(--muted-foreground))]">
-                    {t('common.illustrativePhotoPerson')} · {t('common.photoCredit')}: {staffPortraits.headMaster.credit}
-                  </p>
-                </>
+                <div className="h-40 w-40 rounded-full bg-[hsl(var(--border))] flex items-center justify-center text-4xl font-bold text-[hsl(var(--muted-foreground))]">
+                   HM
+                </div>
               )}
             </div>
             <div>

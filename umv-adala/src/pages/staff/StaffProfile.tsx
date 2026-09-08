@@ -5,10 +5,8 @@ import { Seo } from '@/components/common/Seo'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs'
 import { Reveal } from '@/components/motion/Reveal'
 import { PlaceholderImage } from '@/components/common/PlaceholderImage'
-import { StockPhoto } from '@/components/common/StockPhoto'
 import { EmptyState } from '@/components/common/EmptyState'
 import { staticStaff } from '@/data/staff'
-import { findStaffPortraitBySrc } from '@/data/stockPhotos'
 import { pick } from '@/lib/utils'
 
 function initialsOf(name: string) {
@@ -26,7 +24,7 @@ export default function StaffProfile() {
   const { slug } = useParams<{ slug: string }>()
   const { t, lang } = useT()
   const member = staticStaff.find((s) => s.slug === slug && s.is_active)
-  const portrait = member ? findStaffPortraitBySrc(member.photo_url) : undefined
+  const portrait = member ? member.photo_url : undefined
 
   if (!member) {
     return (
@@ -58,10 +56,7 @@ export default function StaffProfile() {
           <div className="flex flex-col items-center gap-6 rounded-3xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-8 text-center sm:p-12">
             {portrait ? (
               <div className="flex flex-col items-center gap-2">
-                <StockPhoto photo={portrait} compact isPersonPhoto className="h-40 w-40 rounded-full" imgClassName="rounded-full" />
-                <p className="text-xs text-[hsl(var(--muted-foreground))]">
-                  {t('common.illustrativePhotoPerson')} · {t('common.photoCredit')}: {portrait.credit}
-                </p>
+                <img src={portrait} alt={pick(member, 'name', lang) || ''} className="h-40 w-40 rounded-full object-cover" />
               </div>
             ) : (
               <PlaceholderImage initials={initialsOf(pick(member, 'name', lang))} size="lg" variant="saffron" className="rounded-full" />
