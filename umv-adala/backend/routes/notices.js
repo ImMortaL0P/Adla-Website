@@ -101,7 +101,8 @@ router.post('/', auth, (req, res, next) => {
         });
       }
 
-      const uploaded = await uploadToDrive(req.file.path, req.file.originalname, req.file.mimetype);
+      const noticesFolderId = process.env.DRIVE_NOTICES_FOLDER_ID || process.env.DRIVE_FOLDER_ID;
+      const uploaded = await uploadToDrive(req.file.path, req.file.originalname, req.file.mimetype, noticesFolderId);
       driveFileId = uploaded.driveFileId;
       attachment_url = uploaded.attachment_url;
       attachment_download_url = uploaded.attachment_download_url;
