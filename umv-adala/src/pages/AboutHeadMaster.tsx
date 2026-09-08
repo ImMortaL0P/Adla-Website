@@ -35,14 +35,33 @@ export default function AboutHeadMaster() {
               </h2>
               <p className="text-[hsl(var(--muted-foreground))]">{t('common.nav.headMaster')}</p>
             </div>
-            <p className="max-w-2xl leading-relaxed text-[hsl(var(--muted-foreground))]">
-              {lang === 'en'
-                ? 'A full message from the Head Master — reflecting on the school’s values, its commitment to every student, and a welcome to families in the community — will be published here once provided by the school administration.'
-                : 'प्रधानाध्यापक का पूरा संदेश — विद्यालय के मूल्यों, प्रत्येक विद्यार्थी के प्रति प्रतिबद्धता एवं समुदाय के परिवारों का स्वागत करते हुए — विद्यालय प्रशासन द्वारा उपलब्ध कराए जाने पर यहाँ प्रकाशित किया जाएगा।'}
-            </p>
-            <span className="rounded-full bg-[hsl(var(--muted))] px-4 py-1.5 text-xs font-medium text-[hsl(var(--muted-foreground))]">
-              {t('common.placeholder')}
-            </span>
+            <div className="max-w-2xl space-y-4 text-left leading-relaxed text-[hsl(var(--muted-foreground))]">
+              {lang === 'en' ? (
+                <>
+                  <p>
+                    It gives me immense pleasure to welcome you to our school. Our school is not merely a place of academic learning, it is a place where adolescent minds are nurtured, values are developed, and confidence is built.
+                  </p>
+                  <p>
+                    We believe that every child is unique and has the potential to achieve great things. Our aim is to provide a safe, inclusive and inspiring environment where students can learn, explore, think independently and develop their talents.
+                  </p>
+                  <p>
+                    I sincerely appreciate the cooperation of parents, teachers and students in building a strong school community. Together, we are committed to creating a brighter future for the children.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    आप सभी का हमारे विद्यालय में स्वागत करते हुए मुझे अत्यंत हर्ष हो रहा है। हमारा विद्यालय केवल शैक्षणिक ज्ञान का केंद्र नहीं है, बल्कि यह एक ऐसा स्थान है जहाँ किशोर मन को पोषित किया जाता है, मूल्यों का विकास किया जाता है, और आत्मविश्वास का निर्माण होता है।
+                  </p>
+                  <p>
+                    हमारा विश्वास है कि प्रत्येक बच्चा अद्वितीय है और उसमें महान उपलब्धियां हासिल करने की क्षमता है। हमारा उद्देश्य एक सुरक्षित, समावेशी और प्रेरणादायक वातावरण प्रदान करना है जहाँ छात्र स्वतंत्र रूप से सीख सकें, अन्वेषण कर सकें, विचार कर सकें और अपनी प्रतिभा का विकास कर सकें।
+                  </p>
+                  <p>
+                    एक सशक्त विद्यालय समुदाय के निर्माण में अभिभावकों, शिक्षकों और छात्रों के सहयोग की मैं हृदय से सराहना करता हूँ। हम सब मिलकर बच्चों के लिए एक उज्ज्वल भविष्य बनाने के लिए प्रतिबद्ध हैं।
+                  </p>
+                </>
+              )}
+            </div>
           </div>
         </Reveal>
       </div>

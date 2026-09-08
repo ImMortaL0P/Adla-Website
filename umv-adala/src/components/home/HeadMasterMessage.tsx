@@ -30,8 +30,8 @@ export function HeadMasterMessage() {
             <Quote size={28} className="text-[hsl(var(--primary-strong))]/40" aria-hidden="true" />
             <p className="font-display text-xl italic leading-relaxed text-[hsl(var(--foreground))] sm:text-2xl">
               {lang === 'en'
-                ? '“Every child who walks through our gates deserves care, encouragement, and the chance to learn well. This message will be updated by our Head Master soon.”'
-                : '"हमारे द्वार से आने वाला प्रत्येक बच्चा देखभाल, प्रोत्साहन एवं अच्छी शिक्षा पाने का हकदार है। यह संदेश शीघ्र ही हमारे प्रधानाध्यापक द्वारा अद्यतन किया जाएगा।"'}
+                ? '“It gives me immense pleasure to welcome you to our school. Our school is not merely a place of academic learning, it is a place where adolescent minds are nurtured, values are developed, and confidence is built.”'
+                : '“आप सभी का हमारे विद्यालय में स्वागत करते हुए मुझे अत्यंत हर्ष हो रहा है। हमारा विद्यालय केवल शैक्षणिक ज्ञान का केंद्र नहीं है, बल्कि यह एक ऐसा स्थान है जहाँ किशोर मन को पोषित किया जाता है, मूल्यों का विकास किया जाता है, और आत्मविश्वास का निर्माण होता है।”'}
             </p>
             <div>
               <p className="font-semibold text-[hsl(var(--foreground))]">{pick(school.headMaster, 'name', lang)}</p>
