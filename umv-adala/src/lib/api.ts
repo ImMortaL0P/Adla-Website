@@ -1,8 +1,14 @@
+let rawApiUrl = import.meta.env.VITE_API_URL || '';
+if (rawApiUrl && !rawApiUrl.startsWith('http')) {
+  rawApiUrl = 'https://' + rawApiUrl;
+}
+rawApiUrl = rawApiUrl.replace(/\/$/, '');
+
 /**
  * Base URL of the backend.
  * In production or remote deployments, this should fall back to VITE_API_URL.
  */
-export const API_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, '') || (import.meta.env.DEV ? (typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}:10000` : 'http://localhost:10000') : '');
+export const API_URL = rawApiUrl || (import.meta.env.DEV ? (typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}:10000` : 'http://localhost:10000') : '');
 
 /**
  * Resolves a media URL returned by the backend. Uploaded images are served
@@ -10,8 +16,6 @@ export const API_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, '') || (impo
  */
 export function resolveMediaUrl(url?: string | null): string {
   if (!url) return '';
-  // If the url is already absolute (starts with http), return it.
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
-  // If the url is relative, resolve it against the API_URL (if API_URL is present, otherwise keep it relative).
   return url.startsWith('/') ? `${API_URL}${url}` : `${API_URL}/${url}`;
 }
