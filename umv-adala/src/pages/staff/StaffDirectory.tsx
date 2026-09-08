@@ -13,7 +13,6 @@ import type { Department } from '@/types/domain'
 
 const filters: Array<{ value: Department | 'all'; labelKey: string }> = [
   { value: 'all', labelKey: 'staff.filter.all' },
-  { value: 'primary', labelKey: 'staff.filter.primary' },
   { value: 'maths_science', labelKey: 'staff.filter.mathsScience' },
   { value: 'languages', labelKey: 'staff.filter.languages' },
   { value: 'social_science', labelKey: 'staff.filter.socialScience' },

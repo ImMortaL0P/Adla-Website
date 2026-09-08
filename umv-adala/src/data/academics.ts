@@ -1,24 +1,4 @@
 export const academicsData = {
-  primary: {
-    subjects: {
-      en: ['Hindi', 'English', 'Mathematics', 'Environmental Studies (EVS)', 'Art & Craft'],
-      hi: ['हिंदी', 'अंग्रेज़ी', 'गणित', 'पर्यावरण अध्ययन (EVS)', 'कला एवं शिल्प'],
-    },
-    assessment: {
-      en: 'Continuous and Comprehensive Evaluation (CCE) with Half-yearly and Annual Examinations.',
-      hi: 'सतत एवं व्यापक मूल्यांकन (CCE) के साथ अर्धवार्षिक एवं वार्षिक परीक्षाएँ।',
-    }
-  },
-  middle: {
-    subjects: {
-      en: ['Hindi', 'English', 'Sanskrit', 'Mathematics', 'Science', 'Social Science'],
-      hi: ['हिंदी', 'अंग्रेज़ी', 'संस्कृत', 'गणित', 'विज्ञान', 'सामाजिक विज्ञान'],
-    },
-    assessment: {
-      en: 'Formative and Summative Assessments as per BSEB guidelines.',
-      hi: 'बिहार विद्यालय परीक्षा समिति (BSEB) के दिशा-निर्देशों के अनुसार रचनात्मक एवं योगात्मक मूल्यांकन।',
-    }
-  },
   secondary: {
     subjects: {
       en: ['Hindi / Urdu', 'English', 'Sanskrit', 'Mathematics', 'Science', 'Social Science'],

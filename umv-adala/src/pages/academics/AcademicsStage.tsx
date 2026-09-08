@@ -6,18 +6,14 @@ import { Reveal } from '@/components/motion/Reveal'
 import { academicsData } from '@/data/academics'
 import { cn } from '@/lib/utils'
 
-type StageKey = 'primary' | 'middle' | 'secondary' | 'senior'
+type StageKey = 'secondary' | 'senior'
 
 const titleKeys: Record<StageKey, string> = {
-  primary: 'academics.primary.title',
-  middle: 'academics.middle.title',
   secondary: 'academics.secondary.title',
   senior: 'academics.senior.title',
 }
 
 const overlineKeys: Record<StageKey, string> = {
-  primary: 'common.nav.primary',
-  middle: 'common.nav.middle',
   secondary: 'common.nav.secondary',
   senior: 'common.nav.senior',
 }
@@ -38,7 +34,7 @@ export function AcademicsStage({ stage }: { stage: StageKey }) {
 
   return (
     <>
-      <Seo titleKey={titleKeys[stage]} path={`/academics/${stage === 'primary' ? 'primary' : stage}`} />
+      <Seo titleKey={titleKeys[stage]} path={`/academics/${stage}`} />
       <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8 lg:px-12">
         <Breadcrumbs items={[{ label: t('academics.title'), href: '/academics' }, { label: t(titleKeys[stage] as any) }]} />
         

@@ -8,12 +8,6 @@ const About = lazy(() => import('./pages/About'))
 const AboutHeadMaster = lazy(() => import('./pages/AboutHeadMaster'))
 const AboutInfrastructure = lazy(() => import('./pages/AboutInfrastructure'))
 const AcademicsOverview = lazy(() => import('./pages/academics/AcademicsOverview'))
-const AcademicsStagePrimary = lazy(() =>
-  import('./pages/academics/AcademicsStage').then((m) => ({ default: () => <m.AcademicsStage stage="primary" /> }))
-)
-const AcademicsStageMiddle = lazy(() =>
-  import('./pages/academics/AcademicsStage').then((m) => ({ default: () => <m.AcademicsStage stage="middle" /> }))
-)
 const AcademicsStageSecondary = lazy(() =>
   import('./pages/academics/AcademicsStage').then((m) => ({ default: () => <m.AcademicsStage stage="secondary" /> }))
 )
@@ -88,8 +82,6 @@ export function App() {
             <Route path="about/infrastructure" element={<AboutInfrastructure />} />
 
             <Route path="academics" element={<AcademicsOverview />} />
-            <Route path="academics/primary" element={<AcademicsStagePrimary />} />
-            <Route path="academics/middle" element={<AcademicsStageMiddle />} />
             <Route path="academics/secondary" element={<AcademicsStageSecondary />} />
             <Route path="academics/senior" element={<AcademicsStageSenior />} />
 
