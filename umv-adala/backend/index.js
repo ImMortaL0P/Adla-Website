@@ -31,17 +31,17 @@ app.use('/api/content', contentRoutes);
 app.use('/api/media', mediaRoutes);
 
 // --- Serve React Frontend in Production ---
+// (Disabled during Render/Vercel split architecture. Frontend is on Vercel.)
+/*
 const path = require('path');
 const distPath = path.join(__dirname, '../dist');
 app.use(express.static(distPath));
 
-// Catch-all to serve index.html for client-side routing. A bare '*' path
-// crashes on startup under Express 5 / path-to-regexp v7+ ("Missing
-// parameter name at index 1") — a path-less app.use() matches everything
-// that reaches it without going through route-pattern parsing at all.
+// Catch-all to serve index.html for client-side routing.
 app.use((req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));
 });
+*/
 
 const PORT = process.env.PORT || 5001;
 
