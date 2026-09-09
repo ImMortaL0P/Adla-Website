@@ -2,6 +2,9 @@ import { Suspense, lazy } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from './components/layout/Layout'
 import { useT } from './context/LanguageContext'
+import { Maintenance } from './pages/Maintenance'
+
+const IS_UNDER_MAINTENANCE = true;
 
 const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
@@ -71,6 +74,10 @@ function LoadingFallback() {
 }
 
 export function App() {
+  if (IS_UNDER_MAINTENANCE) {
+    return <Maintenance />
+  }
+
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Suspense fallback={<LoadingFallback />}>
