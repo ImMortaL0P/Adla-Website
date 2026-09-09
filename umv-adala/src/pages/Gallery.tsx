@@ -6,6 +6,7 @@ import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
 import { PlaceholderImage } from '@/components/common/PlaceholderImage'
+import { ProtectedImage } from '@/components/common/ProtectedImage'
 import { EmptyState } from '@/components/common/EmptyState'
 import { useGallery } from '@/hooks/useGallery'
 import { pick } from '@/lib/utils'
@@ -176,7 +177,7 @@ export default function Gallery() {
                             aria-label={pick(image, 'caption', lang) || 'Gallery image'}
                           >
                             {hasDriveImage(image) ? (
-                              <img
+                              <ProtectedImage
                                 src={image.thumbnail_url || image.image_url}
                                 alt={pick(image, 'caption', lang) || ''}
                                 className="h-full w-full object-cover transition-transform duration-500 group-hover/img:scale-105"
@@ -236,7 +237,7 @@ export default function Gallery() {
               <div className="flex h-full w-full max-w-5xl flex-col items-center justify-center gap-6">
                 <div className="relative flex h-[75vh] w-full items-center justify-center">
                   {hasDriveImage(currentImage) ? (
-                    <img
+                    <ProtectedImage
                       src={currentImage.image_url}
                       alt={pick(currentImage, 'caption', lang) || ''}
                       className="max-h-full max-w-full object-contain drop-shadow-2xl"

@@ -20,6 +20,11 @@ staffSchema.set('toJSON', {
     ret.id = ret._id.toString();
     delete ret._id;
     delete ret.__v;
+    if (ret.driveFileId) {
+      const { encryptId } = require('../lib/cryptoHelper');
+      const hash = encryptId(ret.driveFileId);
+      ret.imageUrl = `/api/media/img/${hash}`;
+    }
   }
 });
 

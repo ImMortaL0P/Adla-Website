@@ -3,32 +3,35 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "node --watch index.js",
     "check-drive": "node scripts/check-drive.js",
     "get-oauth-token": "node scripts/get-oauth-token.js",
-    "seed-notices": "node scripts/seed-notices.js",
-    "setup-gallery-folder": "node scripts/setup-gallery-folder.js"
+    "setup-gallery-folder": "node scripts/setup-gallery-folder.js",
+    "seed-notices": "node scripts/seed-notices.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "axios": "^1.20.0",
     "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.1.5",
     "googleapis": "^178.0.0",
+    "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.6.0",
     "mongoose": "^9.9.4",
     "multer": "^2.3.0",
     "nodemailer": "^9.1.1",
     "otp-generator": "^4.0.1",
-    "twilio": "^6.1.0"
+    "twilio": "^6.1.0",
+    "xss-clean": "^0.1.4"
   }
 }

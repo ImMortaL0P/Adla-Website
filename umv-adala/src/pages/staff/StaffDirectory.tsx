@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 
 import { Search, Users } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
+import { ProtectedImage } from "@/components/common/ProtectedImage"
 import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
@@ -117,7 +118,7 @@ export default function StaffDirectory() {
                   className="flex h-full flex-col items-center gap-3 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 text-center transition-all hover:-translate-y-1 hover:shadow-md"
                 >
                   {portrait ? (
-                    <img src={portrait} alt={name} className="h-24 w-24 rounded-full object-cover" />
+                    <ProtectedImage src={portrait} alt={name} className="h-24 w-24 rounded-full object-cover" />
                   ) : (
                     <PlaceholderImage
                       initials={initialsOf(name || '')}

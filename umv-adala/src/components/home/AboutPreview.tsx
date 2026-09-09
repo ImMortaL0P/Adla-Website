@@ -1,3 +1,4 @@
+import { ProtectedImage } from "@/components/common/ProtectedImage"
 import { Link } from 'react-router-dom'
 import { useT } from '@/context/LanguageContext'
 import { Reveal } from '@/components/motion/Reveal'
@@ -18,7 +19,7 @@ export function AboutPreview() {
         <Reveal direction="left">
           {dynamicAboutImg ? (
             <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl">
-              <img src={dynamicAboutImg} alt="About School" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
+              <ProtectedImage src={dynamicAboutImg} alt="About School" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
             </div>
           ) : (
             <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gray-200 animate-pulse" />

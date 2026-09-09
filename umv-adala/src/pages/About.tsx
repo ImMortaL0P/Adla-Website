@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Target, Compass, Clock, Landmark, ScrollText } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
+import { ProtectedImage } from "@/components/common/ProtectedImage"
 import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
@@ -26,7 +27,7 @@ export default function About() {
       <Seo titleKey="about.title" path="/about" />
       {aboutBg && (
         <div className="relative h-64 w-full md:h-80 lg:h-96">
-          <img src={aboutBg} alt="About School" className="h-full w-full object-cover" />
+          <ProtectedImage src={aboutBg} alt="About School" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-black/40" />
         </div>
       )}

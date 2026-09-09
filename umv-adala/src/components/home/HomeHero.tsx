@@ -1,3 +1,4 @@
+import { ProtectedImage } from "@/components/common/ProtectedImage"
 import { Link } from 'react-router-dom'
 import { ArrowRight, BookOpen } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
@@ -20,7 +21,7 @@ export function HomeHero() {
     <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden pt-16">
       {/* Background photo + gradient overlay — modern full-bleed hero treatment */}
       <div className="absolute inset-0 -z-20">
-        <img src={heroImage} alt="" aria-hidden="true" className="h-full w-full object-cover" loading="eager" />
+        <ProtectedImage src={heroImage} alt="" aria-hidden="true" className="h-full w-full object-cover" loading="eager" />
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220,25%,8%)]/55 via-[hsl(220,25%,8%)]/65 to-[hsl(220,25%,8%)]/90" />
         <div
           className="absolute inset-0 mix-blend-overlay"

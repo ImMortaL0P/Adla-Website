@@ -1,6 +1,7 @@
 const { google } = require('googleapis');
 const fs = require('fs');
 const path = require('path');
+const { encryptId } = require('./cryptoHelper');
 
 let cachedDrive = null;
 let cachedCredentials = null;
@@ -108,9 +109,10 @@ async function getDriveService() {
 }
 
 function buildImageUrls(fileId) {
+  const hash = encryptId(fileId);
   return {
-    image_url: `/api/media/${fileId}`,
-    thumbnail_url: `/api/media/${fileId}`,
+    image_url: `/api/media/img/${hash}`,
+    thumbnail_url: `/api/media/img/${hash}`,
     attachment_url: `https://drive.google.com/file/d/${fileId}/view?usp=sharing`,
     attachment_download_url: `https://drive.google.com/uc?export=download&id=${fileId}`,
   };

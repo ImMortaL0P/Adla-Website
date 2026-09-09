@@ -1,4 +1,5 @@
 import { useT } from '@/context/LanguageContext'
+import { ProtectedImage } from "@/components/common/ProtectedImage"
 import { Seo } from '@/components/common/Seo'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs'
@@ -22,7 +23,7 @@ export default function AboutHeadMaster() {
           <div className="flex flex-col items-center gap-8 rounded-3xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-8 text-center sm:p-12">
             <div className="flex flex-col items-center gap-2">
               {dynamicPhoto ? (
-                <img src={dynamicPhoto} alt="Headmaster" className="h-40 w-40 rounded-full object-cover" />
+                <ProtectedImage src={dynamicPhoto} alt="Headmaster" className="h-40 w-40 rounded-full object-cover" />
               ) : (
                 <div className="h-40 w-40 rounded-full bg-[hsl(var(--border))] flex items-center justify-center text-4xl font-bold text-[hsl(var(--muted-foreground))]">
                    HM

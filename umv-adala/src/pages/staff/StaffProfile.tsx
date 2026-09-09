@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, UserX } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
+import { ProtectedImage } from "@/components/common/ProtectedImage"
 import { Seo } from '@/components/common/Seo'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs'
 import { Reveal } from '@/components/motion/Reveal'
@@ -56,7 +57,7 @@ export default function StaffProfile() {
           <div className="flex flex-col items-center gap-6 rounded-3xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-8 text-center sm:p-12">
             {portrait ? (
               <div className="flex flex-col items-center gap-2">
-                <img src={portrait} alt={pick(member, 'name', lang) || ''} className="h-40 w-40 rounded-full object-cover" />
+                <ProtectedImage src={portrait} alt={pick(member, 'name', lang) || ''} className="h-40 w-40 rounded-full object-cover" />
               </div>
             ) : (
               <PlaceholderImage initials={initialsOf(pick(member, 'name', lang))} size="lg" variant="saffron" className="rounded-full" />
