@@ -1,0 +1,26 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.umvadla.in"
+        }
+      ],
+      "destination": "https://www.umvadla.in/admin",
+      "statusCode": 308
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.umvadla.in"
+        }
+      ],
+      "destination": "https://www.umvadla.in/admin",
+      "statusCode": 308
+    }
+  ]
+}
