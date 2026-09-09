@@ -27,7 +27,7 @@ export default function About() {
       <Seo titleKey="about.title" path="/about" />
       {aboutBg && (
         <div className="relative h-64 w-full md:h-80 lg:h-96">
-          <ProtectedImage src={aboutBg} alt="About School" className="h-full w-full object-cover" />
+          <ProtectedImage src={aboutBg} alt="About School" containerClassName="h-full w-full" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-black/40" />
         </div>
       )}

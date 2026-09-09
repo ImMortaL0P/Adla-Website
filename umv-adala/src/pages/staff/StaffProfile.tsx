@@ -57,7 +57,7 @@ export default function StaffProfile() {
           <div className="flex flex-col items-center gap-6 rounded-3xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-8 text-center sm:p-12">
             {portrait ? (
               <div className="flex flex-col items-center gap-2">
-                <ProtectedImage src={portrait} alt={pick(member, 'name', lang) || ''} className="h-40 w-40 rounded-full object-cover" />
+                <ProtectedImage src={portrait} alt={pick(member, 'name', lang) || ''} containerClassName="h-40 w-40 shrink-0 mx-auto overflow-hidden rounded-full" className="h-full w-full object-cover" />
               </div>
             ) : (
               <PlaceholderImage initials={initialsOf(pick(member, 'name', lang))} size="lg" variant="saffron" className="rounded-full" />

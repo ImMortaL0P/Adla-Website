@@ -22,7 +22,7 @@ export function HeadMasterMessage() {
         <Reveal>
           <div className="flex flex-col items-center gap-6">
             {dynamicHeadmasterPhoto ? (
-              <ProtectedImage src={dynamicHeadmasterPhoto} alt="Headmaster" className="h-24 w-24 rounded-full object-cover" />
+              <ProtectedImage src={dynamicHeadmasterPhoto} alt="Headmaster" containerClassName="h-24 w-24 shrink-0 overflow-hidden rounded-full" className="h-full w-full object-cover" />
             ) : (
               <div className="h-24 w-24 rounded-full bg-[hsl(var(--border))] flex items-center justify-center text-3xl font-bold text-[hsl(var(--muted-foreground))]">
                  HM

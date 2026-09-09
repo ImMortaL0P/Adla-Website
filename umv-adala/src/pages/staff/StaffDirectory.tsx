@@ -118,7 +118,7 @@ export default function StaffDirectory() {
                   className="flex h-full flex-col items-center gap-3 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 text-center transition-all hover:-translate-y-1 hover:shadow-md"
                 >
                   {portrait ? (
-                    <ProtectedImage src={portrait} alt={name} className="h-24 w-24 rounded-full object-cover" />
+                    <ProtectedImage src={portrait} alt={name} containerClassName="h-24 w-24 shrink-0 overflow-hidden rounded-full mx-auto" className="h-full w-full object-cover" />
                   ) : (
                     <PlaceholderImage
                       initials={initialsOf(name || '')}

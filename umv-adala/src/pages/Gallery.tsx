@@ -180,6 +180,7 @@ export default function Gallery() {
                               <ProtectedImage
                                 src={image.thumbnail_url || image.image_url}
                                 alt={pick(image, 'caption', lang) || ''}
+                                containerClassName="h-full w-full"
                                 className="h-full w-full object-cover transition-transform duration-500 group-hover/img:scale-105"
                                 loading="lazy"
                               />
@@ -240,6 +241,7 @@ export default function Gallery() {
                     <ProtectedImage
                       src={currentImage.image_url}
                       alt={pick(currentImage, 'caption', lang) || ''}
+                      containerClassName="max-h-full max-w-full flex items-center justify-center"
                       className="max-h-full max-w-full object-contain drop-shadow-2xl"
                     />
                   ) : (

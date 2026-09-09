@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useT } from '@/context/LanguageContext'
+import { useMemo } from 'react'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { Reveal } from '@/components/motion/Reveal'
@@ -7,11 +8,19 @@ import { PlaceholderImage } from '@/components/common/PlaceholderImage'
 import { CircularArrow } from '@/components/common/CircularArrow'
 import { useGallery } from '@/hooks/useGallery'
 import { pick } from '@/lib/utils'
+import { ProtectedImage } from '@/components/common/ProtectedImage'
 
 export function GalleryPreview() {
   const { t, lang } = useT()
   const { images: liveImages } = useGallery()
-  const preview = liveImages.slice(0, 6)
+
+  const preview = useMemo(() => {
+    if (liveImages.length <= 6) return liveImages;
+    // Shuffle copy
+    const shuffled = [...liveImages].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 6);
+  }, [liveImages]);
+
 
   return (
     <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-12">
@@ -21,11 +30,11 @@ export function GalleryPreview() {
           return (
             <Reveal key={image.id} className={i === 0 ? 'sm:col-span-2 sm:row-span-2' : ''}>
               {image.image_url ? (
-                <img
+                <ProtectedImage
                   src={image.thumbnail_url || image.image_url}
-                  alt={pick(image, 'caption', lang)}
-                  className="h-full min-h-[100px] w-full rounded-2xl object-cover"
-                  loading="lazy"
+                  alt={pick(image, 'caption', lang) || ''}
+                  containerClassName="h-full min-h-[100px] w-full shrink-0 overflow-hidden rounded-2xl"
+                  className="h-full min-h-[100px] w-full object-cover"
                 />
               ) : (
                 <PlaceholderImage
