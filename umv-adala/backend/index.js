@@ -43,7 +43,25 @@ app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 
 // 4. Data sanitization against NoSQL query injection
-app.use(mongoSanitize());
+// Custom wrapper around express-mongo-sanitize to fix Express 5 req.query getter assignment error
+app.use((req, res, next) => {
+  ['body', 'params', 'headers', 'query'].forEach((key) => {
+    if (req[key]) {
+      const sanitized = mongoSanitize.sanitize(req[key]);
+      if (key === 'query') {
+        Object.defineProperty(req, 'query', {
+          value: sanitized,
+          configurable: true,
+          enumerable: true,
+          writable: true
+        });
+      } else {
+        req[key] = sanitized;
+      }
+    }
+  });
+  next();
+});
 
 // 5. Data sanitization against XSS
 app.use(xss());
