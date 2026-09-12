@@ -249,3 +249,115 @@ async function streamDriveFile(fileId, res, reqArgs = {}) {
   });
 }
 
+async function uploadImageToDrive(localPath, originalName, mimeType) {
+  const folderId = getGalleryFolderId();
+  const uploaded = await uploadToDrive(localPath, originalName, mimeType, folderId);
+  return {
+    driveFileId: uploaded.driveFileId,
+    ...buildImageUrls(uploaded.driveFileId),
+  };
+}
+
+async function verifyGalleryAccess() {
+  const config = getDriveConfig();
+  const folderId = getGalleryFolderId();
+
+  if (!config.ready || !folderId) {
+    return {
+      ok: false,
+      ...config,
+      error: 'Missing Drive credentials or gallery folder ID',
+    };
+  }
+
+  if (!usesOAuth()) {
+    return {
+      ok: false,
+      ...config,
+      error: 'Gallery uploads need OAuth. Run: node scripts/get-oauth-token.js',
+    };
+  }
+
+  try {
+    const drive = await getDriveService();
+    const folder = await drive.files.get({
+      fileId: folderId,
+      fields: 'id,name,mimeType',
+      supportsAllDrives: true,
+    });
+
+    return {
+      ok: true,
+      ...config,
+      folderName: folder.data.name,
+      folderId,
+      usesSeparateGalleryFolder: Boolean(process.env.DRIVE_GALLERY_FOLDER_ID),
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      ...config,
+      error: formatDriveError(err),
+    };
+  }
+}
+
+async function verifyDriveAccess() {
+  const config = getDriveConfig();
+  if (!config.ready) {
+    return {
+      ok: false,
+      ...config,
+      error: 'Missing Drive credentials or DRIVE_FOLDER_ID',
+    };
+  }
+
+  try {
+    const drive = await getDriveService();
+    const folder = await drive.files.get({
+      fileId: process.env.DRIVE_FOLDER_ID,
+      fields: 'id,name,mimeType',
+      supportsAllDrives: true,
+    });
+
+    if (!usesOAuth()) {
+      return {
+        ok: false,
+        ...config,
+        folderName: folder.data.name,
+        error:
+          'Folder is reachable but uploads need OAuth for personal Google accounts. ' +
+          'Run: node scripts/get-oauth-token.js',
+      };
+    }
+
+    return {
+      ok: true,
+      ...config,
+      folderName: folder.data.name,
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      ...config,
+      error: formatDriveError(err),
+    };
+  }
+}
+
+module.exports = {
+  isDriveConfigured,
+  getDriveConfig,
+  getGalleryFolderId,
+  getDriveService,
+  uploadToDrive,
+  uploadImageToDrive,
+  streamDriveFile,
+  deleteFromDrive,
+  buildAttachmentUrls,
+  buildImageUrls,
+  verifyDriveAccess,
+  verifyGalleryAccess,
+  usesOAuth,
+  formatDriveError,
+};
