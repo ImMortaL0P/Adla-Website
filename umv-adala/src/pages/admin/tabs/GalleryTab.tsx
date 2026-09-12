@@ -27,7 +27,7 @@ export default function GalleryTab() {
   const [eventDate, setEventDate] = useState('');
   const [eventDescriptionEn, setEventDescriptionEn] = useState('');
   const [eventDescriptionHi, setEventDescriptionHi] = useState('');
-  const [file, setFile] = useState<File | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
 
   useEffect(() => {
     fetchImages();
@@ -116,7 +116,7 @@ export default function GalleryTab() {
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!captionEn || !file || !category) return alert('Category, English caption and image file are required');
+    if (!captionEn || files.length === 0 || !category) return alert('Category, English caption and at least one image file are required');
 
     setUploading(true);
     const token = localStorage.getItem('adminToken');
@@ -124,7 +124,11 @@ export default function GalleryTab() {
     formData.append('caption_en', captionEn);
     formData.append('caption_hi', captionHi);
     formData.append('category', category);
-    formData.append('file', file);
+
+    // Append multiple files
+    files.forEach(file => {
+      formData.append('images', file);
+    });
 
     // Add event metadata if provided
     if (eventNameEn) formData.append('event_name_en', eventNameEn);
@@ -141,21 +145,22 @@ export default function GalleryTab() {
       });
 
       if (res.ok) {
-        alert('Image uploaded successfully!');
+        alert(`${files.length} image(s) uploaded successfully!`);
         // Reset form
         setCaptionEn(''); setCaptionHi('');
         setEventNameEn(''); setEventNameHi('');
         setEventDate(''); setEventDescriptionEn(''); setEventDescriptionHi('');
-        setFile(null);
+        setFiles([]);
+        // We can't easily reset the file input visually without a ref, but state is cleared.
         fetchImages();
         fetchCategories();
       } else {
         const data = await res.json();
-        alert(data.message || 'Failed to upload image');
+        alert(data.message || 'Failed to upload images');
       }
     } catch (err) {
       console.error(err);
-      alert('Error uploading image');
+      alert('Error uploading images');
     } finally {
       setUploading(false);
     }
@@ -346,14 +351,20 @@ export default function GalleryTab() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[hsl(var(--foreground))]">Image File *</label>
+                <label className="block text-sm font-medium text-[hsl(var(--foreground))]">Image Files *</label>
                 <input
                   type="file"
                   required
+                  multiple
                   accept="image/*"
-                  onChange={e => setFile(e.target.files ? e.target.files[0] : null)}
+                  onChange={e => setFiles(e.target.files ? Array.from(e.target.files) : [])}
                   className="mt-1 block w-full text-sm text-[hsl(var(--muted-foreground))] file:mr-4 file:rounded-md file:border-0 file:bg-[hsl(var(--primary-strong))] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[hsl(var(--primary))]"
                 />
+                {files.length > 0 && (
+                  <p className="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
+                    {files.length} file(s) selected
+                  </p>
+                )}
               </div>
             </div>
           </div>
