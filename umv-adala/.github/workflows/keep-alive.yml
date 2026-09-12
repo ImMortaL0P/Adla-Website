@@ -1,0 +1,23 @@
+name: Keep Backend Alive
+
+on:
+  schedule:
+    # Run every 2 hours as requested to keep the backend warm
+    - cron: '0 */2 * * *'
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Backend API
+        run: |
+          echo "Pinging production backend on Render..."
+          HTTP_STATUS=$(curl -k -o /dev/null -s -w "%{http_code}" https://umv-adla-backend.onrender.com/api/health || echo "failure")
+          
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "Direct API ping got $HTTP_STATUS"
+            exit 1
+          else
+            echo "Ping successful ($HTTP_STATUS)"
+          fi

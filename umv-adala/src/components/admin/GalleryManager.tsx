@@ -180,8 +180,8 @@ export function GalleryManager({ driveReady }: GalleryManagerProps) {
                     <p className="truncate text-sm font-medium">{image.caption_en}</p>
                     <p className="text-xs capitalize text-[hsl(var(--muted-foreground))]">{image.category.replace('_', ' ')}</p>
                   </div>
-                  <button onClick={() => handleDelete(image.id)} className="shrink-0 text-red-500 hover:text-red-700" title="Delete">
-                    <Trash2 size={18} />
+                  <button type="button" onClick={() => handleDelete(image.id)} className="shrink-0 p-3 -mr-2 -mt-2 rounded-full hover:bg-red-50 text-red-500 hover:text-red-700 focus:outline-none active:bg-red-100 touch-manipulation" title="Delete">
+                    <Trash2 size={20} />
                   </button>
                 </div>
               </li>

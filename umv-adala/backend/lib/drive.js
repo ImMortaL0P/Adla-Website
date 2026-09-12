@@ -200,7 +200,12 @@ async function deleteFromDrive(fileId) {
  * own authenticated Drive access rather than Google's public thumbnail/uc
  * endpoints. Backing GET /api/media/:fileId.
  */
-async function streamDriveFile(fileId, res) {
+/**
+ * Streams a Drive file's bytes straight into an Express response, using our
+ * own authenticated Drive access rather than Google's public thumbnail/uc
+ * endpoints. Backing GET /api/media/:fileId.
+ */
+async function streamDriveFile(fileId, res, reqArgs = {}) {
   const drive = await getDriveService();
   if (!drive) {
     res.status(503).json({ message: 'Google Drive is not configured on the server.' });
@@ -225,8 +230,50 @@ async function streamDriveFile(fileId, res) {
     return;
   }
 
-  res.setHeader('Content-Type', mimeType);
+  // WebP compression/conversion on the fly
+  const isImage = mimeType.startsWith('image/') && mimeType !== 'image/svg+xml' && mimeType !== 'image/gif';
+  const acceptsWebp = reqArgs.acceptsWebp || false;
+
   res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+
+  if (isImage) {
+    try {
+      const sharp = require('sharp');
+      let transform = sharp();
+
+      const format = acceptsWebp ? 'webp' : (mimeType === 'image/jpeg' ? 'jpeg' : 'png');
+      const compressionOptions = acceptsWebp ? { quality: 75, effort: 4 } : { quality: 80 };
+
+      transform = transform.toFormat(format, compressionOptions);
+
+      // Simple width resize if ?w= flag is passed
+      if (reqArgs.width) {
+        transform = transform.resize({ width: parseInt(reqArgs.width, 10), withoutEnlargement: true });
+      }
+
+      res.setHeader('Content-Type', format === 'webp' ? 'image/webp' : mimeType);
+      
+      driveRes.data
+        .on('error', (err) => {
+          console.error('Error streaming Drive file (source):', err.message);
+          if (!res.headersSent) res.status(502).end();
+          else res.end();
+        })
+        .pipe(transform)
+        .on('error', (err) => {
+          console.error('Error compressing image:', err.message);
+          if (!res.headersSent) res.status(500).end();
+          else res.end();
+        })
+        .pipe(res);
+      return;
+    } catch (err) {
+      console.warn('Sharp compression failed/not available, falling back to original stream:', err.message);
+      // Fallback
+    }
+  }
+
+  res.setHeader('Content-Type', mimeType);
   driveRes.data
     .on('error', (err) => {
       console.error('Error streaming Drive file:', err.message);
@@ -235,7 +282,6 @@ async function streamDriveFile(fileId, res) {
     })
     .pipe(res);
 }
-
 async function uploadImageToDrive(localPath, originalName, mimeType) {
   const folderId = getGalleryFolderId();
   const uploaded = await uploadToDrive(localPath, originalName, mimeType, folderId);

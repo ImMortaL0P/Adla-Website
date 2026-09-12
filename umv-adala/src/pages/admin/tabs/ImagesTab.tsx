@@ -105,8 +105,8 @@ export default function ImagesTab() {
           <span className="bg-black/80 text-white text-xs px-2 py-1 rounded-md max-w-[80%] truncate">
             {image.key}
           </span>
-          <button onClick={() => handleDelete(image.id)} className="text-red-400 hover:text-red-300 bg-black/80 p-1.5 rounded-md" title="Delete">
-            <Trash2 size={16} />
+          <button type="button" onClick={() => handleDelete(image.id)} className="text-red-400 hover:text-red-300 bg-black/80 p-2.5 sm:p-1.5 rounded-md focus:outline-none touch-manipulation" title="Delete">
+            <Trash2 size={18} className="sm:h-4 sm:w-4" />
           </button>
         </div>
         <span className="text-white text-xs font-medium truncate">{image.label}</span>

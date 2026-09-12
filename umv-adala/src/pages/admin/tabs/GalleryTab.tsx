@@ -436,13 +436,14 @@ export default function GalleryTab() {
                         className="h-24 w-full object-cover transition-transform duration-300 group-hover:scale-105"
                         containerClassName="h-24 w-full"
                       />
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <div className="absolute inset-0 bg-black/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <button
+                          type="button"
                           onClick={() => handleDelete(image.id)}
-                          className="text-red-400 hover:text-red-300 bg-black/80 p-2 rounded-md transition-colors"
+                          className="text-red-400 hover:text-red-300 bg-black/80 p-2.5 sm:p-2 rounded-md transition-colors focus:outline-none touch-manipulation"
                           title="Delete"
                         >
-                          <Trash2 size={16} />
+                          <Trash2 size={18} className="sm:h-4 sm:w-4" />
                         </button>
                       </div>
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">

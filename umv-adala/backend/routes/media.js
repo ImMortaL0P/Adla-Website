@@ -10,7 +10,8 @@ router.get('/img/:hash', async (req, res) => {
     if (!fileId) {
       return res.status(400).json({ message: 'Invalid media hash' });
     }
-    await streamDriveFile(fileId, res);
+    const acceptsWebp = req.headers.accept?.includes('image/webp');
+    await streamDriveFile(fileId, res, { acceptsWebp, width: req.query.w });
   } catch (err) {
     console.error(err);
     if (!res.headersSent) res.status(500).json({ message: 'Server Error' });
@@ -20,7 +21,8 @@ router.get('/img/:hash', async (req, res) => {
 // Legacy backward-compatibility for non-hashed images if needed, or attachments
 router.get('/:fileId', async (req, res) => {
   try {
-    await streamDriveFile(req.params.fileId, res);
+    const acceptsWebp = req.headers.accept?.includes('image/webp');
+    await streamDriveFile(req.params.fileId, res, { acceptsWebp, width: req.query.w });
   } catch (err) {
     console.error(err);
     if (!res.headersSent) res.status(500).json({ message: 'Server Error' });

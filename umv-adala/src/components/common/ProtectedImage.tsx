@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { PlaceholderImage } from './PlaceholderImage';
 import { Loader } from './Loader';
 import { cn } from '@/lib/utils';
@@ -11,6 +11,7 @@ interface ProtectedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> 
   fallbackText?: string;
   onContextMenu?: React.MouseEventHandler<HTMLImageElement>;
   onDragStart?: React.DragEventHandler<HTMLImageElement>;
+  priority?: boolean;
 }
 
 export function ProtectedImage({
@@ -19,12 +20,40 @@ export function ProtectedImage({
   className,
   containerClassName,
   fallbackText,
+  priority = false, // Set to true for images above the fold
   ...props
 }: ProtectedImageProps) {
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [hasError, setHasError] = useState<boolean>(false);
+  const [isInView, setIsInView] = useState<boolean>(priority);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // Intersection Observer for lazy loading
+  useEffect(() => {
+    if (priority || isInView) return;
+
+    const currentRef = containerRef.current;
+    if (!currentRef) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' } // Start fetching a bit before it comes into view
+    );
+
+    observer.observe(currentRef);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [priority, isInView]);
+
+  // Fetch image logic
   useEffect(() => {
     let active = true;
     let url: string | null = null;
@@ -32,6 +61,10 @@ export function ProtectedImage({
     if (!src) {
       setIsLoading(false);
       setHasError(true);
+      return;
+    }
+
+    if (!isInView) {
       return;
     }
 
@@ -49,8 +82,10 @@ export function ProtectedImage({
         const fetchUrl = src.startsWith('/') ? `${API_URL}${src}` : src;
 
         const response = await fetch(fetchUrl, {
-          // Include credentials if needing to proxy secure images, maybe not needed for public DRM
-          credentials: 'omit'
+          credentials: 'omit',
+          headers: {
+            'Accept': 'image/webp,image/avif,image/*,*/*;q=0.8'
+          }
         });
 
         if (!response.ok) throw new Error('Failed to load protected image');
@@ -74,7 +109,7 @@ export function ProtectedImage({
       active = false;
       if (url) URL.revokeObjectURL(url);
     };
-  }, [src]);
+  }, [src, isInView]);
 
   // Anti-Screenshot alert (without blackout)
   useEffect(() => {
@@ -84,9 +119,6 @@ export function ProtectedImage({
         (e.metaKey && e.shiftKey && (e.key === '3' || e.key === '4' || e.key === '5' || e.key === 'S' || e.key === 's'))
       ) {
         e.preventDefault();
-        // Option 1: use alert
-        alert("Screenshots not allowed in this website");
-        // Option 2: clipboard override
         try {
           navigator.clipboard.writeText("Screenshots not allowed in this website");
         } catch (err) {}
@@ -97,30 +129,29 @@ export function ProtectedImage({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  if (isLoading) {
+  if (!isInView || isLoading) {
     return (
-      <div className={cn("relative flex items-center justify-center overflow-hidden bg-[hsl(var(--muted))]/30", containerClassName, className)}>
-        <Loader size="lg" variant="muted" />
+      <div ref={containerRef} className={cn("relative flex items-center justify-center overflow-hidden bg-[hsl(var(--muted))]/30", containerClassName, className)}>
+        {isInView && <Loader size="lg" variant="muted" />}
       </div>
     );
   }
 
   if (hasError || !blobUrl) {
     return (
-      <div className={cn("relative overflow-hidden bg-[hsl(var(--muted))]", containerClassName, className)}>
+      <div ref={containerRef} className={cn("relative overflow-hidden bg-[hsl(var(--muted))]", containerClassName, className)}>
         <PlaceholderImage initials="!" size="xl" />
       </div>
     );
   }
 
   return (
-    <div className={cn("relative group select-none", containerClassName)}>
+    <div ref={containerRef} className={cn("relative group select-none", containerClassName)}>
       {/* Invisible overlay to trap clicks/drags strictly */}
       <div
         className="absolute inset-0 z-10 select-none bg-transparent"
         onContextMenu={(e) => e.preventDefault()}
         onDragStart={(e) => e.preventDefault()}
-        style={{ touchAction: 'none' }}
       />
       <img
         src={blobUrl}

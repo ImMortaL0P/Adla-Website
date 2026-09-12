@@ -134,7 +134,7 @@ export default function NoticesTab() {
                     </a>
                   )}
                 </div>
-                <button onClick={() => handleDelete(notice.id)} className="shrink-0 text-red-500 hover:text-red-700" title="Delete Notice">
+                <button type="button" onClick={() => handleDelete(notice.id)} className="shrink-0 p-3 -mr-2 -mt-2 rounded-full text-red-500 hover:text-red-700 hover:bg-red-50 focus:outline-none touch-manipulation" title="Delete Notice">
                   <Trash2 size={20} />
                 </button>
               </li>
