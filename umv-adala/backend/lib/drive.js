@@ -230,59 +230,9 @@ async function streamDriveFile(fileId, res, reqArgs = {}) {
     return;
   }
 
-  // WebP compression/conversion on the fly
-  const isImage = mimeType.startsWith('image/') && mimeType !== 'image/svg+xml' && mimeType !== 'image/gif';
-  const acceptsWebp = reqArgs.acceptsWebp || false;
-
-  res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-
-  if (isImage) {
-    try {
-      const sharp = require('sharp');
-      sharp.cache(false); // Fix memory leak/OOM on Render Free Tier
-      sharp.concurrency(1);
-      let transform = sharp();
-
-      const format = acceptsWebp ? 'webp' : (mimeType === 'image/jpeg' ? 'jpeg' : 'png');
-      const compressionOptions = acceptsWebp ? { quality: 75, effort: 4 } : { quality: 80 };
-
-      transform = transform.toFormat(format, compressionOptions);
-
-      // Simple width resize if ?w= flag is passed
-      if (reqArgs.width) {
-        transform = transform.resize({ width: parseInt(reqArgs.width, 10), withoutEnlargement: true });
-      }
-
-      res.setHeader('Content-Type', format === 'webp' ? 'image/webp' : mimeType);
-      
-      return new Promise((resolve) => {
-        res.on('finish', resolve);
-        res.on('close', resolve);
-        res.on('error', resolve);
-
-        driveRes.data
-          .on('error', (err) => {
-            console.error('Error streaming Drive file (source):', err.message);
-            if (!res.headersSent) res.status(502).end();
-            else res.end();
-            resolve();
-          })
-          .pipe(transform)
-          .on('error', (err) => {
-            console.error('Error compressing image:', err.message);
-            if (!res.headersSent) res.status(500).end();
-            else res.end();
-            resolve();
-          })
-          .pipe(res);
-      });
-    } catch (err) {
-      console.warn('Sharp compression failed/not available, falling back to original stream:', err.message);
-      // Fallback
-    }
-  }
-
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
   res.setHeader('Content-Type', mimeType);
+
   return new Promise((resolve) => {
     res.on('finish', resolve);
     res.on('close', resolve);
@@ -290,7 +240,7 @@ async function streamDriveFile(fileId, res, reqArgs = {}) {
 
     driveRes.data
       .on('error', (err) => {
-        console.error('Error streaming Drive file:', err.message);
+        console.error('Error streaming Drive file (source):', err.message);
         if (!res.headersSent) res.status(502).end();
         else res.end();
         resolve();
@@ -298,115 +248,4 @@ async function streamDriveFile(fileId, res, reqArgs = {}) {
       .pipe(res);
   });
 }
-async function uploadImageToDrive(localPath, originalName, mimeType) {
-  const folderId = getGalleryFolderId();
-  const uploaded = await uploadToDrive(localPath, originalName, mimeType, folderId);
-  return {
-    driveFileId: uploaded.driveFileId,
-    ...buildImageUrls(uploaded.driveFileId),
-  };
-}
 
-async function verifyGalleryAccess() {
-  const config = getDriveConfig();
-  const folderId = getGalleryFolderId();
-
-  if (!config.ready || !folderId) {
-    return {
-      ok: false,
-      ...config,
-      error: 'Missing Drive credentials or gallery folder ID',
-    };
-  }
-
-  if (!usesOAuth()) {
-    return {
-      ok: false,
-      ...config,
-      error: 'Gallery uploads need OAuth. Run: node scripts/get-oauth-token.js',
-    };
-  }
-
-  try {
-    const drive = await getDriveService();
-    const folder = await drive.files.get({
-      fileId: folderId,
-      fields: 'id,name,mimeType',
-      supportsAllDrives: true,
-    });
-
-    return {
-      ok: true,
-      ...config,
-      folderName: folder.data.name,
-      folderId,
-      usesSeparateGalleryFolder: Boolean(process.env.DRIVE_GALLERY_FOLDER_ID),
-    };
-  } catch (err) {
-    return {
-      ok: false,
-      ...config,
-      error: formatDriveError(err),
-    };
-  }
-}
-
-async function verifyDriveAccess() {
-  const config = getDriveConfig();
-  if (!config.ready) {
-    return {
-      ok: false,
-      ...config,
-      error: 'Missing Drive credentials or DRIVE_FOLDER_ID',
-    };
-  }
-
-  try {
-    const drive = await getDriveService();
-    const folder = await drive.files.get({
-      fileId: process.env.DRIVE_FOLDER_ID,
-      fields: 'id,name,mimeType',
-      supportsAllDrives: true,
-    });
-
-    if (!usesOAuth()) {
-      return {
-        ok: false,
-        ...config,
-        folderName: folder.data.name,
-        error:
-          'Folder is reachable but uploads need OAuth for personal Google accounts. ' +
-          'Run: node scripts/get-oauth-token.js',
-      };
-    }
-
-    return {
-      ok: true,
-      ...config,
-      folderName: folder.data.name,
-    };
-  } catch (err) {
-    return {
-      ok: false,
-      ...config,
-      error: formatDriveError(err),
-    };
-  }
-}
-
-module.exports = {
-  isDriveConfigured,
-  getDriveConfig,
-  getGalleryFolderId,
-  getDriveService,
-  uploadToDrive,
-  uploadImageToDrive,
-  streamDriveFile,
-  deleteFromDrive,
-  buildAttachmentUrls,
-  buildImageUrls,
-  verifyDriveAccess,
-  verifyGalleryAccess,
-  usesOAuth,
-  formatDriveError,
-};

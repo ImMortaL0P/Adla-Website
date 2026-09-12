@@ -1,4 +1,3 @@
-const { enqueueStream, dequeueStream } = require('../middleware/streamQueue');
 const express = require('express');
 const { streamDriveFile } = require('../lib/drive');
 const { decryptId } = require('../lib/cryptoHelper');
@@ -11,13 +10,7 @@ router.get('/img/:hash', async (req, res) => {
     if (!fileId) {
       return res.status(400).json({ message: 'Invalid media hash' });
     }
-    const acceptsWebp = req.headers.accept?.includes('image/webp');
-    await enqueueStream();
-    try {
-      await streamDriveFile(fileId, res, { acceptsWebp, width: req.query.w });
-    } finally {
-      dequeueStream();
-    }
+    await streamDriveFile(fileId, res);
   } catch (err) {
     console.error(err);
     if (!res.headersSent) res.status(500).json({ message: 'Server Error' });
@@ -27,13 +20,7 @@ router.get('/img/:hash', async (req, res) => {
 // Legacy backward-compatibility for non-hashed images if needed, or attachments
 router.get('/:fileId', async (req, res) => {
   try {
-    const acceptsWebp = req.headers.accept?.includes('image/webp');
-    await enqueueStream();
-    try {
-      await streamDriveFile(req.params.fileId, res, { acceptsWebp, width: req.query.w });
-    } finally {
-      dequeueStream();
-    }
+    await streamDriveFile(req.params.fileId, res);
   } catch (err) {
     console.error(err);
     if (!res.headersSent) res.status(500).json({ message: 'Server Error' });
