@@ -30,7 +30,6 @@ const navItems = [
   { labelKey: 'common.nav.staff', href: '/staff' },
   { labelKey: 'common.nav.gallery', href: '/gallery' },
   { labelKey: 'common.nav.notices', href: '/notices' },
-  { labelKey: 'common.nav.results', href: '/results' },
   { labelKey: 'common.nav.admission', href: '/admission' },
   { labelKey: 'common.nav.contact', href: '/contact' },
 ] as const
