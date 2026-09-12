@@ -38,6 +38,22 @@ export default function Gallery() {
   // Track which groups are fully expanded ("View more" clicked)
   const [expandedViewMore, setExpandedViewMore] = useState<Set<string>>(new Set())
 
+  // Touch tracking for mobile swipe
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStart === null) return
+    const touchEnd = e.changedTouches[0].clientX
+    const diff = touchStart - touchEnd
+    if (diff > 50) showNext()
+    if (diff < -50) showPrev()
+    setTouchStart(null)
+  }
+
   // Group images by event or category
   const eventGroups = useMemo(() => {
     const source = liveImages
@@ -233,8 +249,11 @@ export default function Gallery() {
                         return (
                           <Reveal key={image.id} delay={Math.min(imageIndex * 40, 300)}>
                             <button
-                              onClick={() => setLightboxIndex({ groupIndex, imageIndex })}
-                              className="group/img block aspect-[4/3] w-full overflow-hidden rounded-xl bg-[hsl(var(--muted))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]"
+                              onClick={() => {
+                                // Double check default scrolling wasn't intended
+                                setLightboxIndex({ groupIndex, imageIndex })
+                              }}
+                              className="group/img block aspect-[4/3] w-full overflow-hidden rounded-xl bg-[hsl(var(--muted))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] touch-manipulation"
                               aria-label={pick(image, 'caption', lang) || 'Gallery image'}
                             >
                               {hasDriveImage(image) ? (
@@ -242,7 +261,7 @@ export default function Gallery() {
                                   src={image.thumbnail_url || image.image_url}
                                   alt={pick(image, 'caption', lang) || ''}
                                   containerClassName="h-full w-full"
-                                  className="h-full w-full object-cover transition-transform duration-500 group-hover/img:scale-105"
+                                  className="h-full w-full object-cover transition-transform duration-500 md:group-hover/img:scale-105"
                                   loading="lazy"
                                 />
                               ) : (
@@ -250,7 +269,7 @@ export default function Gallery() {
                                   initials="📷"
                                   size="lg"
                                   variant={variants[globalIndex % variants.length]}
-                                  className="h-full w-full transition-transform duration-500 group-hover/img:scale-105"
+                                  className="h-full w-full transition-transform duration-500 md:group-hover/img:scale-105"
                                 />
                               )}
                             </button>
@@ -283,6 +302,8 @@ export default function Gallery() {
           <Dialog.Overlay className="fixed inset-0 z-[100] bg-black/90 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
           <Dialog.Content
             className="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4 sm:p-8 outline-none"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
             onKeyDown={(e) => {
               if (e.key === 'ArrowLeft') showPrev()
               if (e.key === 'ArrowRight') showNext()
@@ -291,7 +312,7 @@ export default function Gallery() {
             <Dialog.Title className="sr-only">{currentImage ? pick(currentImage, 'caption', lang) : ''}</Dialog.Title>
             <Dialog.Close
               aria-label={t('gallery.lightbox.close')}
-              className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors duration-200 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              className="absolute right-4 top-4 z-[101] flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors duration-200 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white touch-manipulation active:scale-95"
             >
               <X size={24} />
             </Dialog.Close>
@@ -325,15 +346,17 @@ export default function Gallery() {
 
             <button
               onClick={(e) => { e.stopPropagation(); showPrev(); }}
+              onTouchEnd={(e) => { e.stopPropagation(); e.preventDefault(); showPrev(); }}
               aria-label={t('gallery.lightbox.prev')}
-              className="absolute left-2 top-1/2 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/5 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:left-8"
+              className="absolute left-2 top-1/2 flex h-14 w-14 z-[101] -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:left-8 shadow-lg active:scale-95 touch-manipulation"
             >
               <ChevronLeft size={32} />
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); showNext(); }}
+              onTouchEnd={(e) => { e.stopPropagation(); e.preventDefault(); showNext(); }}
               aria-label={t('gallery.lightbox.next')}
-              className="absolute right-2 top-1/2 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/5 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:right-8"
+              className="absolute right-2 top-1/2 flex h-14 w-14 z-[101] -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:right-8 shadow-lg active:scale-95 touch-manipulation"
             >
               <ChevronRight size={32} />
             </button>
