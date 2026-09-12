@@ -6,7 +6,7 @@
 
 const en = {
   // ── Common ──
-  'common.schoolName': 'UMV Adla',
+  'common.schoolName': 'U.M.V. Adla, Patna',
   'common.schoolNameFull': 'Uchcha Madhyamik Vidyalaya Adla',
   'common.schoolNameHi': 'उच्च माध्यमिक विद्यालय अदला',
   'common.motto': 'सा विद्या या विमुक्तये',
@@ -34,7 +34,7 @@ const en = {
   'common.nav.home': 'Home',
   'common.nav.about': 'About',
   'common.nav.aboutSchool': 'About the School',
-  'common.nav.headMaster': "Head Master's Message",
+  'common.nav.headMaster': "Headmaster's Message",
   'common.nav.infrastructure': 'Infrastructure',
   'common.nav.academics': 'Academics',
   'common.nav.academicsOverview': 'Overview',
@@ -65,8 +65,8 @@ const en = {
   'notFound.suggestion': 'Here are some helpful links:',
 
   // ── Home ──
-  'home.hero.title': 'Uchcha Madhyamik Vidyalaya Adla',
-  'home.hero.titleHi': 'उच्च माध्यमिक विद्यालय अदला',
+  'home.hero.title': 'Uchcha Madhyamik Vidyalaya, Adla, Naubatpur, Patna',
+  'home.hero.titleHi': 'उच्च माध्यमिक विद्यालय, अदला, नौबतपुर, पटना',
   'home.hero.subtitle': 'A Bihar Government school nurturing Class 9 to 12 at Adla, Naubatpur, Patna',
   'home.hero.ctaAdmission': 'Admission Enquiry',
   'home.hero.ctaAcademics': 'Explore Academics',
@@ -74,6 +74,7 @@ const en = {
   'home.stats.title': 'At a Glance',
   'home.stats.classes': 'Classes',
   'home.stats.teachers': 'Teachers',
+  'home.stats.nonTeachingStaff': 'Non Teaching Staff',
   'home.stats.students': 'Students',
   'home.stats.established': 'Established',
   'home.stats.provisional': 'Figures are provisional and will be updated',
@@ -88,7 +89,7 @@ const en = {
     'home.facilities.drinkingWater': 'Drinking Water',
   'home.facilities.toilets': 'Toilets',
   'home.facilities.boundaryWall': 'Boundary Wall',
-  'home.headMaster.title': "From the Head Master's Desk",
+  'home.headMaster.title': "From the Headmaster's Desk",
   'home.headMaster.overline': 'Message',
   'home.headMaster.readFull': 'Read full message',
   'home.gallery.title': 'Photo Gallery',
@@ -117,7 +118,7 @@ const en = {
   'about.affiliation': 'Board Affiliation',
   'about.affiliationText': 'Bihar School Examination Board (BSEB)',
   'about.timeline': 'Milestones',
-  'about.headMaster.title': "Head Master's Message",
+  'about.headMaster.title': "Headmaster's Message",
   'about.headMaster.overline': 'Leadership',
   'about.infra.title': 'Infrastructure & Facilities',
   'about.infra.overline': 'Our Campus',
@@ -249,6 +250,10 @@ const en = {
   'downloads.title': 'Downloads',
   'downloads.overline': 'Resources',
   'downloads.comingSoon': 'Downloadable resources will be available soon.',
+  'downloads.sno': 'S.No.',
+  'downloads.titleHeader': 'Title',
+  'downloads.date': 'Date',
+  'downloads.action': 'Link',
 } as const
 
 /**
@@ -311,8 +316,8 @@ const hi: Record<keyof typeof en, string> = {
   'notFound.description': 'आप जिस पृष्ठ को खोज रहे हैं वह मौजूद नहीं है या स्थानांतरित कर दिया गया है।',
   'notFound.suggestion': 'ये कुछ उपयोगी लिंक हैं:',
 
-  'home.hero.title': 'Uchcha Madhyamik Vidyalaya Adla',
-  'home.hero.titleHi': 'उच्च माध्यमिक विद्यालय अदला',
+  'home.hero.title': 'Uchcha Madhyamik Vidyalaya, Adla, Naubatpur, Patna',
+  'home.hero.titleHi': 'उच्च माध्यमिक विद्यालय, अदला, नौबतपुर, पटना',
   'home.hero.subtitle': 'अदला, नौबतपुर, पटना में कक्षा 9 से 12 तक शिक्षा प्रदान करने वाला बिहार सरकार का विद्यालय',
   'home.hero.ctaAdmission': 'प्रवेश पूछताछ',
   'home.hero.ctaAcademics': 'शिक्षा जानें',
@@ -320,6 +325,7 @@ const hi: Record<keyof typeof en, string> = {
   'home.stats.title': 'एक नज़र में',
   'home.stats.classes': 'कक्षाएँ',
   'home.stats.teachers': 'शिक्षक',
+  'home.stats.nonTeachingStaff': 'गैर-शिक्षण कर्मचारी',
   'home.stats.students': 'विद्यार्थी',
   'home.stats.established': 'स्थापित',
   'home.stats.provisional': 'आँकड़े अस्थायी हैं और अद्यतन किए जाएँगे',
@@ -485,6 +491,10 @@ const hi: Record<keyof typeof en, string> = {
   'downloads.title': 'डाउनलोड',
   'downloads.overline': 'संसाधन',
   'downloads.comingSoon': 'डाउनलोड करने योग्य संसाधन जल्द ही उपलब्ध होंगे।',
+  'downloads.sno': 'क्र.सं.',
+  'downloads.titleHeader': 'शीर्षक',
+  'downloads.date': 'दिनांक',
+  'downloads.action': 'लिंक',
 }
 
 export type TranslationKey = keyof typeof en

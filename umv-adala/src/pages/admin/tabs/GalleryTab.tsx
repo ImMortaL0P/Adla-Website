@@ -1,23 +1,25 @@
+import { Loader } from '@/components/common/Loader';
+import { ProtectedImage } from '@/components/common/ProtectedImage';
 import { API_URL, resolveMediaUrl } from "@/lib/api";
 import { useState, useEffect } from 'react';
-import { Trash2, Image as ImageIcon, Upload, Calendar, Plus, X } from 'lucide-react';
+import { Trash2, Image as ImageIcon, Upload, Calendar, Plus } from 'lucide-react';
+import { GALLERY_CATEGORIES } from '@/hooks/useGallery';
 
-// Default categories - only 2 initially
-const DEFAULT_CATEGORIES = [
-  { value: 'pratibha_samman_samaroh', label: 'Pratibha Samman Samaroh' },
-  { value: 'sakhi_sahayta_desk', label: 'Sakhi Sahayta Desk' },
-];
+// Default categories shown alongside any existing ones
+const DEFAULT_CATEGORIES = GALLERY_CATEGORIES;
 
 export default function GalleryTab() {
   const [images, setImages] = useState<any[]>([]);
-  const [existingCategories, setExistingCategories] = useState<string[]>([]);
+  const [existingCategories, setExistingCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [creatingCategory, setCreatingCategory] = useState(false);
 
   // Form fields
-  const [category, setCategory] = useState<string>('pratibha_samman_samaroh');
+  const [category, setCategory] = useState<string>(DEFAULT_CATEGORIES[0].value);
   const [isCreatingCategory, setIsCreatingCategory] = useState(false);
-  const [newCategoryName, setNewCategoryName] = useState('');
+  const [newCatEn, setNewCatEn] = useState('');
+  const [newCatHi, setNewCatHi] = useState('');
   const [captionEn, setCaptionEn] = useState('');
   const [captionHi, setCaptionHi] = useState('');
   const [eventNameEn, setEventNameEn] = useState('');
@@ -77,14 +79,39 @@ export default function GalleryTab() {
     }
   };
 
-  const handleCreateCategory = () => {
-    if (!newCategoryName.trim()) {
-      alert('Please enter a category name');
+  const handleCreateCategory = async () => {
+    if (!newCatEn.trim()) {
+      alert('Please enter a category name in English');
       return;
     }
-    setCategory(newCategoryName.trim().toLowerCase());
-    setIsCreatingCategory(false);
-    setNewCategoryName('');
+    setCreatingCategory(true);
+    try {
+      const token = localStorage.getItem('adminToken');
+      const res = await fetch(`${API_URL}/api/gallery/categories`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ label_en: newCatEn.trim(), label_hi: newCatHi.trim() })
+      });
+      if (res.ok) {
+        const newCat = await res.json();
+        await fetchCategories();
+        setCategory(newCat.value);
+        setIsCreatingCategory(false);
+        setNewCatEn('');
+        setNewCatHi('');
+        alert('Category added successfully!');
+      } else {
+        alert('Failed to create category');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error creating category');
+    } finally {
+      setCreatingCategory(false);
+    }
   };
 
   const handleUpload = async (e: React.FormEvent) => {
@@ -134,13 +161,14 @@ export default function GalleryTab() {
     }
   };
 
-  if (loading) return <div className="py-8 text-center">Loading gallery...</div>;
+  if (loading) return <div className="py-8 flex justify-center"><Loader text="Loading gallery..." /></div>;
 
   // Combine default + existing categories
-  const allCategories = Array.from(new Set([
-    ...DEFAULT_CATEGORIES.map(c => c.value),
-    ...existingCategories
-  ])).sort();
+  const catMap = new Map();
+  DEFAULT_CATEGORIES.forEach(c => catMap.set(c.value, { value: c.value, label: c.label }));
+  existingCategories.forEach(c => catMap.set(c.value, { value: c.value, label: c.label_en || c.label }));
+
+  const allCategories = Array.from(catMap.values()).sort((a,b) => a.label.localeCompare(b.label));
 
   // Group images by event or category
   const groupedImages = images.reduce((acc, img) => {
@@ -169,35 +197,46 @@ export default function GalleryTab() {
             <label className="block text-sm font-medium text-[hsl(var(--foreground))]">Category *</label>
             {isCreatingCategory ? (
               <div className="mt-1 space-y-2">
-                <div className="flex gap-2">
+                <div className="flex flex-col gap-2">
                   <input
                     type="text"
-                    value={newCategoryName}
-                    onChange={e => setNewCategoryName(e.target.value)}
-                    placeholder="Enter category name..."
-                    className="flex-1 rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-sm text-[hsl(var(--foreground))]"
+                    value={newCatEn}
+                    onChange={e => setNewCatEn(e.target.value)}
+                    placeholder="Category name (English)..."
+                    className="w-full rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-sm text-[hsl(var(--foreground))]"
                     autoFocus
                   />
-                  <button
-                    type="button"
-                    onClick={handleCreateCategory}
-                    className="rounded-md bg-[hsl(var(--primary-strong))] px-3 py-2 text-white hover:bg-[hsl(var(--primary))]"
-                  >
-                    <Plus size={16} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsCreatingCategory(false);
-                      setNewCategoryName('');
-                    }}
-                    className="rounded-md border border-[hsl(var(--border))] px-3 py-2 text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]"
-                  >
-                    <X size={16} />
-                  </button>
+                  <input
+                    type="text"
+                    value={newCatHi}
+                    onChange={e => setNewCatHi(e.target.value)}
+                    placeholder="Category name (Hindi) - optional..."
+                    className="w-full rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-sm text-[hsl(var(--foreground))]"
+                  />
+                  <div className="flex gap-2 justify-end mt-1">
+                    <button
+                      type="button"
+                      disabled={creatingCategory}
+                      onClick={handleCreateCategory}
+                      className="rounded-md bg-[hsl(var(--primary-strong))] px-4 py-2 text-sm text-white hover:bg-[hsl(var(--primary))]"
+                    >
+                      {creatingCategory ? 'Saving...' : 'Create Category'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsCreatingCategory(false);
+                        setNewCatEn('');
+                        setNewCatHi('');
+                      }}
+                      className="rounded-md border border-[hsl(var(--border))] px-4 py-2 text-sm text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]"
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
                 <p className="text-xs text-[hsl(var(--muted-foreground))]">
-                  Enter a new category name and click + to create
+                  This category will be permanently added to the list and available even if it has no images.
                 </p>
               </div>
             ) : (
@@ -209,8 +248,8 @@ export default function GalleryTab() {
                   className="block w-full rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-[hsl(var(--foreground))]"
                 >
                   {allCategories.map(cat => (
-                    <option key={cat} value={cat}>
-                      {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    <option key={cat.value} value={cat.value}>
+                      {cat.label}
                     </option>
                   ))}
                 </select>
@@ -380,10 +419,11 @@ export default function GalleryTab() {
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
                   {group.images.map((image: any) => (
                     <div key={image.id} className="relative group overflow-hidden rounded-lg border border-[hsl(var(--border))]">
-                      <img
+                      <ProtectedImage
                         src={image.thumbnail_url || image.image_url}
-                        alt={image.caption_en}
+                        alt={image.caption_en || 'Gallery Image'}
                         className="h-24 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        containerClassName="h-24 w-full"
                       />
                       <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <button

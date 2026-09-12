@@ -8,7 +8,8 @@ import { Reveal } from '@/components/motion/Reveal'
 import { PlaceholderImage } from '@/components/common/PlaceholderImage'
 import { ProtectedImage } from '@/components/common/ProtectedImage'
 import { EmptyState } from '@/components/common/EmptyState'
-import { useGallery } from '@/hooks/useGallery'
+import { Loader } from '@/components/common/Loader'
+import { useGallery, GALLERY_CATEGORY_ORDER } from '@/hooks/useGallery'
 import { pick } from '@/lib/utils'
 import type { GalleryImage } from '@/types/domain'
 
@@ -31,7 +32,7 @@ const MAX_PREVIEW_IMAGES = 6;
 
 export default function Gallery() {
   const { t, lang } = useT()
-  const { images: liveImages, loading } = useGallery()
+  const { images: liveImages, categories: liveCategories, loading } = useGallery()
   const [lightboxIndex, setLightboxIndex] = useState<{ groupIndex: number; imageIndex: number } | null>(null)
 
   // Track which groups are fully expanded ("View more" clicked)
@@ -42,8 +43,46 @@ export default function Gallery() {
     const source = liveImages
     const filtered = source // use all images since no filter is used
 
+    const categoryLabels: Record<string, { en: string; hi: string }> = {
+      science_math_club: { en: 'Science and Math Club', hi: 'विज्ञान एवं गणित क्लब' },
+      eco_youth_club: { en: 'Eco & Youth Club', hi: 'इको एवं यूथ क्लब' },
+      surakshit_sanivar: { en: 'Surakshit Sanivar', hi: 'सुरक्षित शनिवार' },
+      independance_republic_day: { en: 'Independence & Republic Day', hi: 'स्वतंत्रता एवं गणतंत्र दिवस' },
+      other_school_events: { en: 'Other School Events', hi: 'अन्य विद्यालय कार्यक्रम' },
+    }
 
     const groups = new Map<string, EventGroup>()
+
+    // Pre-populate with the predefined categories AND fetched db categories so they appear even if empty
+    const allKnownCategories = new Map<string, {en: string; hi: string}>()
+
+    // Default ones
+    GALLERY_CATEGORY_ORDER.forEach(cat => {
+      allKnownCategories.set(cat, {
+        en: categoryLabels[cat]?.en || (cat.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')),
+        hi: categoryLabels[cat]?.hi || (cat.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')),
+      })
+    })
+
+    // Custom ones from API
+    liveCategories.forEach(cat => {
+      if (!allKnownCategories.has(cat.value)) {
+        allKnownCategories.set(cat.value, {
+          en: cat.label_en || cat.label || cat.value.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+          hi: cat.label_hi || cat.label_en || cat.label || cat.value.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+        })
+      }
+    })
+
+    allKnownCategories.forEach((labels, catValue) => {
+      groups.set(catValue, {
+        eventKey: catValue,
+        eventName: labels,
+        eventDate: null,
+        category: catValue,
+        images: [],
+      })
+    })
 
     filtered.forEach((image) => {
       const eventKey = image.event_name_en || image.category
@@ -52,8 +91,8 @@ export default function Gallery() {
         groups.set(eventKey, {
           eventKey,
           eventName: {
-            en: image.event_name_en || (image.category?.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')) || 'Uncategorized',
-            hi: image.event_name_hi || (image.category?.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')) || 'वर्गीकृत नहीं',
+            en: image.event_name_en || categoryLabels[image.category]?.en || (image.category?.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')) || 'Uncategorized',
+            hi: image.event_name_hi || categoryLabels[image.category]?.hi || (image.category?.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')) || 'वर्गीकृत नहीं',
           },
           eventDate: image.event_date ? new Date(image.event_date) : null,
           eventDescription: image.event_description_en ? {
@@ -68,16 +107,28 @@ export default function Gallery() {
       groups.get(eventKey)!.images.push(image)
     })
 
-    // Sort by date (most recent first), then by name
+    // Sort by custom category order first, then alphabetically by English name
     return Array.from(groups.values()).sort((a, b) => {
+      const indexA = GALLERY_CATEGORY_ORDER.indexOf(a.category as any)
+      const indexB = GALLERY_CATEGORY_ORDER.indexOf(b.category as any)
+
+      const posA = indexA !== -1 ? indexA : 999
+      const posB = indexB !== -1 ? indexB : 999
+
+      if (posA !== posB) {
+        return posA - posB
+      }
+
       if (a.eventDate && b.eventDate) {
         return b.eventDate.getTime() - a.eventDate.getTime()
       }
       if (a.eventDate) return -1
       if (b.eventDate) return 1
+
+      // Secondary sort alphabetically
       return a.eventName.en.localeCompare(b.eventName.en)
     })
-  }, [liveImages])
+  }, [liveImages, liveCategories])
 
   const toggleViewMore = (key: string) => {
     setExpandedViewMore((prev) => {
@@ -126,7 +177,9 @@ export default function Gallery() {
         <SectionHeading title={t('gallery.title')} level={1} />
 
         {loading ? (
-          <div className="py-16 text-center text-[hsl(var(--muted-foreground))]">Loading gallery...</div>
+          <div className="py-16 flex justify-center">
+            <Loader text="Loading gallery..." />
+          </div>
         ) : eventGroups.length === 0 ? (
           <EmptyState icon={ImageIcon} title={t('gallery.empty')} description="" />
         ) : (
@@ -166,37 +219,46 @@ export default function Gallery() {
                   </div>
 
                   {/* Images Grid */}
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-                    {visibleImages.map((image, imageIndex) => {
-                      const globalIndex = flatImages.indexOf(image)
-                      return (
-                        <Reveal key={image.id} delay={Math.min(imageIndex * 40, 300)}>
-                          <button
-                            onClick={() => setLightboxIndex({ groupIndex, imageIndex })}
-                            className="group/img block aspect-[4/3] w-full overflow-hidden rounded-xl bg-[hsl(var(--muted))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]"
-                            aria-label={pick(image, 'caption', lang) || 'Gallery image'}
-                          >
-                            {hasDriveImage(image) ? (
-                              <ProtectedImage
-                                src={image.thumbnail_url || image.image_url}
-                                alt={pick(image, 'caption', lang) || ''}
-                                containerClassName="h-full w-full"
-                                className="h-full w-full object-cover transition-transform duration-500 group-hover/img:scale-105"
-                                loading="lazy"
-                              />
-                            ) : (
-                              <PlaceholderImage
-                                initials="📷"
-                                size="lg"
-                                variant={variants[globalIndex % variants.length]}
-                                className="h-full w-full transition-transform duration-500 group-hover/img:scale-105"
-                              />
-                            )}
-                          </button>
-                        </Reveal>
-                      )
-                    })}
-                  </div>
+                  {visibleImages.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[hsl(var(--border))] bg-[hsl(var(--muted))]/30 py-12 text-center">
+                      <ImageIcon className="mb-2 h-8 w-8 text-[hsl(var(--muted-foreground))]/50" />
+                      <p className="text-sm font-medium text-[hsl(var(--muted-foreground))]">
+                        {lang === 'hi' ? 'इस श्रेणी में अभी तक कोई चित्र उपलब्ध नहीं है।' : 'No photos available for this section yet.'}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+                      {visibleImages.map((image, imageIndex) => {
+                        const globalIndex = flatImages.indexOf(image)
+                        return (
+                          <Reveal key={image.id} delay={Math.min(imageIndex * 40, 300)}>
+                            <button
+                              onClick={() => setLightboxIndex({ groupIndex, imageIndex })}
+                              className="group/img block aspect-[4/3] w-full overflow-hidden rounded-xl bg-[hsl(var(--muted))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]"
+                              aria-label={pick(image, 'caption', lang) || 'Gallery image'}
+                            >
+                              {hasDriveImage(image) ? (
+                                <ProtectedImage
+                                  src={image.thumbnail_url || image.image_url}
+                                  alt={pick(image, 'caption', lang) || ''}
+                                  containerClassName="h-full w-full"
+                                  className="h-full w-full object-cover transition-transform duration-500 group-hover/img:scale-105"
+                                  loading="lazy"
+                                />
+                              ) : (
+                                <PlaceholderImage
+                                  initials="📷"
+                                  size="lg"
+                                  variant={variants[globalIndex % variants.length]}
+                                  className="h-full w-full transition-transform duration-500 group-hover/img:scale-105"
+                                />
+                              )}
+                            </button>
+                          </Reveal>
+                        )
+                      })}
+                    </div>
+                  )}
 
                   {/* View More / Show Less Toggle */}
                   {group.images.length > MAX_PREVIEW_IMAGES && (

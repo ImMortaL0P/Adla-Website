@@ -1,6 +1,17 @@
+import { Loader } from '@/components/common/Loader';
+import { ProtectedImage } from '@/components/common/ProtectedImage';
 import { API_URL, resolveMediaUrl } from "@/lib/api";
 import { useState, useEffect } from 'react';
 import { Trash2, Image as ImageIcon } from 'lucide-react';
+
+// System image keys the website actually consumes (see useImages / getSystemImage usages).
+const SYSTEM_KEYS: { key: string; label: string }[] = [
+  { key: 'main bg image', label: 'Landing Page Background' },
+  { key: 'about image', label: 'About Page Background' },
+  { key: 'logo_main', label: 'Main Logo' },
+  { key: 'logo_footer', label: 'Footer Logo' },
+  { key: 'headmaster_photo', label: 'Headmaster Photo' },
+];
 
 export default function ImagesTab() {
   const [images, setImages] = useState<any[]>([]);
@@ -76,7 +87,32 @@ export default function ImagesTab() {
     }
   };
 
-  if (loading) return <div className="py-8 text-center">Loading images...</div>;
+  if (loading) return <div className="py-8 flex justify-center"><Loader text="Loading images..." /></div>;
+
+  const systemImages = images.filter(img => img.category === 'system');
+  const galleryImages = images.filter(img => img.category !== 'system');
+
+  const renderImageCard = (image: any) => (
+    <div key={image.id} className="relative group overflow-hidden rounded-lg border border-[hsl(var(--border))]">
+      <ProtectedImage
+        src={image.url}
+        alt={image.label}
+        className="h-32 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        containerClassName="h-32 w-full"
+      />
+      <div className="absolute inset-0 bg-black/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex flex-col justify-between p-3">
+        <div className="flex justify-between items-start">
+          <span className="bg-black/80 text-white text-xs px-2 py-1 rounded-md max-w-[80%] truncate">
+            {image.key}
+          </span>
+          <button onClick={() => handleDelete(image.id)} className="text-red-400 hover:text-red-300 bg-black/80 p-1.5 rounded-md" title="Delete">
+            <Trash2 size={16} />
+          </button>
+        </div>
+        <span className="text-white text-xs font-medium truncate">{image.label}</span>
+      </div>
+    </div>
+  );
 
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -98,18 +134,16 @@ export default function ImagesTab() {
             {category === 'system' ? (
               <select required value={key} onChange={e => setKey(e.target.value)} className="mt-1 block w-full rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-[hsl(var(--foreground))]">
                 <option value="">-- Select System Image to Replace --</option>
-                <option value="main bg image">Landing Page Background (main bg image)</option>
-                <option value="about image">About Page Background (about image)</option>
-                <option value="logo_main">Main Logo (logo_main)</option>
-                <option value="logo_footer">Footer Logo (logo_footer)</option>
-                <option value="headmaster_photo">Headmaster Photo (headmaster_photo)</option>
+                {SYSTEM_KEYS.map(sk => (
+                  <option key={sk.key} value={sk.key}>{sk.label} ({sk.key})</option>
+                ))}
               </select>
             ) : (
               <input type="text" required value={key} onChange={e => setKey(e.target.value)} placeholder="e.g., annual_function_2024" className="mt-1 block w-full rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-[hsl(var(--foreground))]" />
             )}
             <p className="mt-1 text-xs text-[hsl(var(--muted-foreground))]">
-              {category === 'system' 
-                ? "Select which core website image you want to replace. Uploading will override the current one." 
+              {category === 'system'
+                ? "Select which core website image you want to replace. Uploading will override the current one."
                 : "Give this gallery image a unique identifier."}
             </p>
           </div>
@@ -130,26 +164,30 @@ export default function ImagesTab() {
       {/* Images List */}
       <div className="col-span-1 md:col-span-2 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm">
         <h3 className="mb-4 text-lg font-semibold text-[hsl(var(--foreground))]">Manage Images</h3>
-        {images.length === 0 ? (
-          <p className="text-[hsl(var(--muted-foreground))]">No images found.</p>
+
+        {/* System images */}
+        <h4 className="mb-3 mt-2 text-sm font-semibold text-[hsl(var(--primary-strong))] uppercase tracking-wide">
+          System Images ({systemImages.length})
+        </h4>
+        {systemImages.length === 0 ? (
+          <p className="mb-6 text-sm text-[hsl(var(--muted-foreground))]">
+            No system images yet — upload one from the "System (Landing, About, etc.)" category above.
+          </p>
+        ) : (
+          <div className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
+            {systemImages.map(renderImageCard)}
+          </div>
+        )}
+
+        {/* Other/gallery images */}
+        <h4 className="mb-3 mt-2 text-sm font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wide">
+          Other Images ({galleryImages.length})
+        </h4>
+        {galleryImages.length === 0 ? (
+          <p className="text-sm text-[hsl(var(--muted-foreground))]">No other images found.</p>
         ) : (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {images.map(image => (
-              <div key={image.id} className="relative group overflow-hidden rounded-lg border border-[hsl(var(--border))]">
-                <img src={image.url} alt={image.label} className="h-32 w-full object-cover transition-transform group-hover:scale-105" />
-                <div className="absolute inset-0 bg-black/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex flex-col justify-between p-3">
-                  <div className="flex justify-between items-start">
-                    <span className="bg-black/80 text-white text-xs px-2 py-1 rounded-md max-w-[80%] truncate">
-                      {image.key}
-                    </span>
-                    <button onClick={() => handleDelete(image.id)} className="text-red-400 hover:text-red-300 bg-black/80 p-1.5 rounded-md" title="Delete">
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                  <span className="text-white text-xs font-medium truncate">{image.label}</span>
-                </div>
-              </div>
-            ))}
+            {galleryImages.map(renderImageCard)}
           </div>
         )}
       </div>

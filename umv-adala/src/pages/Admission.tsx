@@ -39,13 +39,26 @@ export default function Admission() {
   const { getValue } = useContent()
 
   const admissionContent = useMemo(() => {
-    const raw = getValue('admission_content', 'en', '');
-    if (!raw) return staticAdmissionContent;
-    try {
-      return JSON.parse(raw);
-    } catch {
-      return staticAdmissionContent;
+    // We clone the static content to safely mutate it
+    const content = JSON.parse(JSON.stringify(staticAdmissionContent));
+
+    const startDate = getValue('admission_start_date', 'en', '');
+    const admissionFee = getValue('admission_fee', 'en', '');
+
+    if (startDate) {
+      const idx = content.importantDates.findIndex((d: any) => d.label_en === 'Session begins');
+      if (idx !== -1) content.importantDates[idx].date = startDate;
     }
+
+    if (admissionFee) {
+      const idx = content.feeRows.findIndex((r: any) => r.head_en === 'Admission Fee');
+      if (idx !== -1) {
+        content.feeRows[idx].value_en = admissionFee;
+        content.feeRows[idx].value_hi = admissionFee; // Numeric/String representation generally works for both
+      }
+    }
+
+    return content;
   }, [getValue]);
 
   const schema = buildSchema(t as (key: string) => string)

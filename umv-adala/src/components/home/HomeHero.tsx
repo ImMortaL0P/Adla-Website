@@ -39,27 +39,33 @@ export function HomeHero() {
         <StaggerGroup stagger={100} className="flex max-w-4xl flex-col items-center">
 
           <Reveal>
-            <div className="mb-4 inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
-              UDISE: 10280606804
+            <div className="-mt-24 mb-36 text-2xl font-bold tracking-widest text-white/90 uppercase md:text-3xl lg:text-4xl">
+              Est. - 2020
             </div>
           </Reveal>
 
           <Reveal>
-            <h1 className="mb-4 font-display text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="mb-4 max-w-[700px] font-display text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
               <AnimatedTitle
                 text={t('home.hero.title')}
                 as="span"
-                className={cn('block', lang === 'hi' && 'mb-2')}
+                className={cn('block mx-auto max-w-full', lang === 'hi' && 'mb-2')}
               />
               {lang === 'en' && (
                 <AnimatedTitle
                   text={t('home.hero.titleHi')}
                   as="span"
-                  className="font-jaini mt-2 block text-3xl font-normal text-white/80 sm:text-4xl md:text-5xl"
+                  className="font-jaini mt-2 block text-3xl font-medium text-white/80 sm:text-4xl md:text-5xl mx-auto max-w-full"
                   startDelay={250}
                 />
               )}
             </h1>
+          </Reveal>
+
+          <Reveal>
+            <div className="mb-4 inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
+              UDISE: 10280606804
+            </div>
           </Reveal>
 
           <Reveal>

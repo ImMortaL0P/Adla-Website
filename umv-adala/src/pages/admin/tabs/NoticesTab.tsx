@@ -1,3 +1,4 @@
+import { Loader } from '@/components/common/Loader';
 import { API_URL } from "@/lib/api";
 import { useState, useEffect } from 'react';
 import { Trash2, Plus } from 'lucide-react';
@@ -76,7 +77,7 @@ export default function NoticesTab() {
     }
   };
 
-  if (loading) return <div className="py-8 text-center">Loading notices...</div>;
+  if (loading) return <div className="py-8 flex justify-center"><Loader text="Loading notices..." /></div>;
 
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">

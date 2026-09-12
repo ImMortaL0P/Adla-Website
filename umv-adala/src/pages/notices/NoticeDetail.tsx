@@ -4,6 +4,7 @@ import { ArrowLeft, BellOff, Download, ExternalLink } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
 import { Seo } from '@/components/common/Seo'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs'
+import { Loader } from '@/components/common/Loader'
 import { Reveal } from '@/components/motion/Reveal'
 import { EmptyState } from '@/components/common/EmptyState'
 import { PdfViewer } from '@/components/notices/PdfViewer'
@@ -33,7 +34,11 @@ export default function NoticeDetail() {
   }, [slug, notices])
 
   if (loading) {
-    return <div className="p-12 text-center text-[hsl(var(--muted-foreground))]">Loading...</div>
+    return (
+      <div className="p-12 flex justify-center">
+        <Loader text="Loading..." />
+      </div>
+    )
   }
 
   if (!notice) {

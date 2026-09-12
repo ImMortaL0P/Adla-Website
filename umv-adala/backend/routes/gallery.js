@@ -3,6 +3,7 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const GalleryImage = require('../models/GalleryImage');
+const GalleryCategory = require('../models/GalleryCategory');
 const auth = require('../middleware/auth');
 const { uploadImageToDrive, deleteFromDrive, usesOAuth, getGalleryFolderId } = require('../lib/drive');
 
@@ -43,14 +44,60 @@ router.get('/', async (_req, res) => {
   }
 });
 
-// Get unique categories from existing images
+// Get categories
 router.get('/categories', async (_req, res) => {
   try {
-    const categories = await GalleryImage.distinct('category');
-    res.json(categories.sort());
+    const existingImagesCats = await GalleryImage.distinct('category');
+    const customCats = await GalleryCategory.find();
+
+    const catMap = new Map();
+
+    // add from images
+    existingImagesCats.forEach(val => {
+      catMap.set(val, {
+        value: val,
+        label_en: val.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+        label_hi: val.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+      });
+    });
+
+    // add from custom
+    customCats.forEach(c => {
+      catMap.set(c.value, {
+        value: c.value,
+        label_en: c.label_en,
+        label_hi: c.label_hi
+      });
+    });
+
+    res.json(Array.from(catMap.values()).sort((a,b) => a.value.localeCompare(b.value)));
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
+  }
+});
+
+// Create category
+router.post('/categories', auth, async (req, res) => {
+  try {
+    const { label_en, label_hi } = req.body;
+    if (!label_en) {
+      return res.status(400).json({ message: 'Category English name is required' });
+    }
+    const value = label_en.toLowerCase().replace(/[^a-z0-9]+/g, '_');
+
+    let cat = await GalleryCategory.findOne({ value });
+    if (!cat) {
+      cat = await GalleryCategory.create({
+        value,
+        label_en,
+        label_hi: label_hi || label_en
+      });
+    }
+    res.json(cat);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
   }
 });
 

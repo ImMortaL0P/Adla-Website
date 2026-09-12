@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PlaceholderImage } from './PlaceholderImage';
+import { Loader } from './Loader';
 import { cn } from '@/lib/utils';
 
 interface ProtectedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -44,8 +45,8 @@ export function ProtectedImage({
     const fetchImage = async () => {
       try {
         setIsLoading(true);
-        const backendUrl = import.meta.env.VITE_API_URL || '';
-        const fetchUrl = src.startsWith('/') ? `${backendUrl}${src}` : src;
+        const { API_URL } = await import('@/lib/api');
+        const fetchUrl = src.startsWith('/') ? `${API_URL}${src}` : src;
 
         const response = await fetch(fetchUrl, {
           // Include credentials if needing to proxy secure images, maybe not needed for public DRM
@@ -98,8 +99,8 @@ export function ProtectedImage({
 
   if (isLoading) {
     return (
-      <div className={cn("relative overflow-hidden bg-[hsl(var(--muted))]", containerClassName, className)}>
-        <PlaceholderImage initials="⌛" size="xl" />
+      <div className={cn("relative flex items-center justify-center overflow-hidden bg-[hsl(var(--muted))]/30", containerClassName, className)}>
+        <Loader size="lg" variant="muted" />
       </div>
     );
   }

@@ -8,7 +8,7 @@ export function generateMeta({
   path?: string
 }) {
   const siteUrl = import.meta.env.VITE_SITE_URL || 'https://umvadla.example'
-  const fullTitle = `${title} | UMV Adla`
+  const fullTitle = `${title} | U.M.V. Adla, Patna`
   const url = `${siteUrl}${path}`
 
   return {
@@ -19,13 +19,13 @@ export function generateMeta({
       title: fullTitle,
       description,
       url,
-      siteName: 'UMV Adla',
+      siteName: 'U.M.V. Adla, Patna',
       images: [
         {
           url: `${siteUrl}/og-image.png`,
           width: 1200,
           height: 630,
-          alt: 'UMV Adla — Uchcha Madhyamik Vidyalaya Adla',
+          alt: 'U.M.V. Adla, Patna — Uchcha Madhyamik Vidyalaya Adla',
         },
       ],
       type: 'website',

@@ -1,10 +1,11 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from './components/layout/Layout'
 import { useT } from './context/LanguageContext'
 import { Maintenance } from './pages/Maintenance'
+import { BootLoader } from './components/common/BootLoader'
 
-const IS_UNDER_MAINTENANCE = true;
+const IS_UNDER_MAINTENANCE = false;
 
 const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
@@ -24,27 +25,10 @@ const NoticesList = lazy(() => import('./pages/notices/NoticesList'))
 const NoticeDetail = lazy(() => import('./pages/notices/NoticeDetail'))
 const Admission = lazy(() => import('./pages/Admission'))
 const Contact = lazy(() => import('./pages/Contact'))
+const Downloads = lazy(() => import('./pages/Downloads'))
 const MandatoryDisclosure = lazy(() => import('./pages/MandatoryDisclosure'))
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'))
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'))
-
-// Lazy loaded placeholder pages for Phase 1 code-splitting optimization
-const PlaceholderPage = lazy(() => Promise.resolve({
-  default: function PlaceholderPage({ titleKey }: { titleKey: string }) {
-    const { t } = useT()
-    return (
-      <div className="mx-auto max-w-7xl px-5 py-24 text-center sm:px-8 lg:px-12">
-        <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
-          {/* @ts-ignore - temporary for Phase 1 stubs */}
-          {t(titleKey)}
-        </h1>
-        <p className="mx-auto max-w-2xl text-lg text-[hsl(var(--muted-foreground))]">
-          {t('common.comingSoonDesc')}
-        </p>
-      </div>
-    )
-  }
-}))
 
 const NotFound = lazy(() => Promise.resolve({
   default: function NotFound() {
@@ -74,48 +58,54 @@ function LoadingFallback() {
 }
 
 export function App() {
+  const [bootReady, setBootReady] = useState(false)
+
   if (IS_UNDER_MAINTENANCE) {
     return <Maintenance />
   }
 
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="about/headMaster" element={<AboutHeadMaster />} />
-            <Route path="about/infrastructure" element={<AboutInfrastructure />} />
+    <>
+      {!bootReady && <BootLoader onReady={() => setBootReady(true)} />}
+      {bootReady && (
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="about" element={<About />} />
+                <Route path="about/headMaster" element={<AboutHeadMaster />} />
+                <Route path="about/infrastructure" element={<AboutInfrastructure />} />
 
-            <Route path="academics" element={<AcademicsOverview />} />
-            <Route path="academics/secondary" element={<AcademicsStageSecondary />} />
-            <Route path="academics/senior" element={<AcademicsStageSenior />} />
+                <Route path="academics" element={<AcademicsOverview />} />
+                <Route path="academics/secondary" element={<AcademicsStageSecondary />} />
+                <Route path="academics/senior" element={<AcademicsStageSenior />} />
 
-            <Route path="staff" element={<StaffDirectory />} />
-            <Route path="staff/:slug" element={<StaffProfile />} />
+                <Route path="staff" element={<StaffDirectory />} />
+                <Route path="staff/:slug" element={<StaffProfile />} />
 
-            <Route path="gallery" element={<Gallery />} />
+                <Route path="gallery" element={<Gallery />} />
 
-            <Route path="notices" element={<NoticesList />} />
-            <Route path="notices/:slug" element={<NoticeDetail />} />
+                <Route path="notices" element={<NoticesList />} />
+                <Route path="notices/:slug" element={<NoticeDetail />} />
 
-            <Route path="admission" element={<Admission />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="mandatory-disclosure" element={<MandatoryDisclosure />} />
-            
-            <Route path="admin" element={<AdminLogin />} />
-            <Route path="admin/dashboard" element={<AdminDashboard />} />
+                <Route path="admission" element={<Admission />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="mandatory-disclosure" element={<MandatoryDisclosure />} />
 
-            {/* Phase 3/4 scope — remain stubbed until Supabase + admin land */}
-            <Route path="results" element={<PlaceholderPage titleKey="results.title" />} />
-            <Route path="downloads" element={<PlaceholderPage titleKey="downloads.title" />} />
+                <Route path="admin" element={<AdminLogin />} />
+                <Route path="admin/dashboard" element={<AdminDashboard />} />
 
-            {/* 404 */}
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+                {/* Phase 3/4 scope — remain stubbed until Supabase + admin land */}
+                <Route path="downloads" element={<Downloads />} />
+
+                {/* 404 */}
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+      )}
+    </>
   )
 }

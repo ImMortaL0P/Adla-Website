@@ -67,12 +67,14 @@ app.use((req, res, next) => {
 app.use(xss());
 
 // 6. Global Rate Limiter
-const globalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 200,
-  message: 'Too many requests from this IP, please try again later.'
-});
-app.use('/api', globalLimiter);
+if (process.env.NODE_ENV === 'production') {
+  const globalLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 200,
+    message: 'Too many requests from this IP, please try again later.'
+  });
+  app.use('/api', globalLimiter);
+}
 
 app.get('/api/health', async (_req, res) => {
   const drive = await verifyDriveAccess();

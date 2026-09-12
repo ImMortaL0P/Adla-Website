@@ -1,6 +1,6 @@
 export const school = {
   name: { en: 'Uchcha Madhyamik Vidyalaya Adla', hi: 'उच्च माध्यमिक विद्यालय अदला' },
-  shortName: 'UMV Adla',
+  shortName: 'U.M.V. Adla, Patna',
   type: { en: 'Bihar Government School', hi: 'बिहार सरकारी विद्यालय' },
   classes: '9 to 12',
   address: { en: 'Adla, Naubatpur, Patna District, Bihar — 801109', hi: 'अदला, नौबतपुर, पटना जिला, बिहार — 801109' },
@@ -10,7 +10,7 @@ export const school = {
   
   // PLACEHOLDERS below — TODO: replace with real data when available
   udise: '10280606804', // TODO: replace
-  phone: '+91 XXXXX XXXXX', // TODO: replace
+  phone: '+91 7481978550',
   email: 'umvadla@gmail.com, contact@umvadla.in', // TODO: replace
   headMaster: { name_en: 'Chandan Kumar', name_hi: 'चंदन कुमार' }, // TODO: replace
   established: '2020',

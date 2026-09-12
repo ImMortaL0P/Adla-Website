@@ -8,7 +8,7 @@ rawApiUrl = rawApiUrl.replace(/\/$/, '');
  * Base URL of the backend.
  * In production or remote deployments, this should fall back to VITE_API_URL.
  */
-export const API_URL = rawApiUrl || (import.meta.env.DEV ? (typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}:10000` : 'http://localhost:10000') : '');
+export const API_URL = rawApiUrl || (import.meta.env.DEV ? (typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}:5001` : 'http://localhost:5001') : '');
 
 /**
  * Resolves a media URL returned by the backend. Uploaded images are served

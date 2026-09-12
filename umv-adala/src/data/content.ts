@@ -8,12 +8,12 @@
 
 export const aboutContent = {
   history: {
-    en: 'Established in 2020, Uchcha Madhyamik Vidyalaya Adla is a Bihar Government school serving students from Class 9 to Class 12 in Adla village, Naubatpur block, Patna district. As an "Uchcha Madhyamik" (higher secondary) institution, the school offers secondary and senior secondary education. A detailed account of the school’s history since its founding is being compiled by the school administration and will be published here.',
-    hi: '2020 में स्थापित, उच्च माध्यमिक विद्यालय अदला बिहार सरकार का एक विद्यालय है जो पटना जिले के नौबतपुर प्रखंड के अदला गाँव में कक्षा 9 से कक्षा 12 तक के विद्यार्थियों को शिक्षा प्रदान करता है। एक "उच्च माध्यमिक" संस्थान के रूप में, यह विद्यालय माध्यमिक एवं उच्चतर माध्यमिक शिक्षा प्रदान करता है। स्थापना के बाद से विद्यालय के इतिहास का विस्तृत विवरण विद्यालय प्रशासन द्वारा तैयार किया जा रहा है और शीघ्र ही यहाँ प्रकाशित किया जाएगा।',
+    en: 'Established in 2020, Uchcha Madhyamik Vidyalaya Adla is a Bihar Government school serving students from Class 9 to Class 12 in Adla Panchayat, Naubatpur block, Patna district. As an "Uchcha Madhyamik" (higher secondary) institution, the school offers secondary and senior secondary education. A detailed account of the school’s history since its founding is being compiled by the school administration and will be published here.',
+    hi: '2020 में स्थापित, उच्च माध्यमिक विद्यालय अदला बिहार सरकार का एक विद्यालय है जो पटना जिले के नौबतपुर प्रखंड के अदला पंचायत में कक्षा 9 से कक्षा 12 तक के विद्यार्थियों को शिक्षा प्रदान करता है। एक "उच्च माध्यमिक" संस्थान के रूप में, यह विद्यालय माध्यमिक एवं उच्चतर माध्यमिक शिक्षा प्रदान करता है। स्थापना के बाद से विद्यालय के इतिहास का विस्तृत विवरण विद्यालय प्रशासन द्वारा तैयार किया जा रहा है और शीघ्र ही यहाँ प्रकाशित किया जाएगा।',
   },
   management: {
-    en: 'The school is managed by the Department of Education, Government of Bihar, and administered locally by the Headmaster/Head Master along with the teaching and non-teaching staff. Details of the School Management Committee (SMC) will be published here once available.',
-    hi: 'विद्यालय का संचालन शिक्षा विभाग, बिहार सरकार द्वारा किया जाता है तथा स्थानीय प्रशासन प्रधानाध्यापक/प्रधानाध्यापक एवं शिक्षण व गैर-शिक्षण स्टाफ द्वारा किया जाता है। विद्यालय प्रबंधन समिति (SMC) का विवरण उपलब्ध होने पर यहाँ प्रकाशित किया जाएगा।',
+    en: 'The school is managed by the Department of Education, Government of Bihar, and administered locally by the Headmaster along with the teaching and non-teaching staff. Details of the School Management Committee (SMC) will be published here once available.',
+    hi: 'विद्यालय का संचालन शिक्षा विभाग, बिहार सरकार द्वारा किया जाता है तथा स्थानीय प्रशासन प्रधानाध्यापक एवं शिक्षण व गैर-शिक्षण स्टाफ द्वारा किया जाता है। विद्यालय प्रबंधन समिति (SMC) का विवरण उपलब्ध होने पर यहाँ प्रकाशित किया जाएगा।',
   },
   // No verified founding-to-present timeline exists yet — left empty rather
   // than invented, per the placeholder discipline above. About.tsx skips
@@ -70,13 +70,13 @@ export const admissionContent = {
   eligibility: [
     {
       classRange: '9',
-      en: 'Passing certificate / report card of Class 8, subject to seat availability.',
-      hi: 'कक्षा 8 का उत्तीर्ण प्रमाण पत्र / रिपोर्ट कार्ड, सीट उपलब्धता के अधीन।',
+      en: 'Transfer Certificate (TC), subject to seat availability.',
+      hi: 'स्थानांतरण प्रमाण पत्र (TC), सीट उपलब्धता के अधीन।',
     },
     {
       classRange: '11',
-      en: 'Class 10 (Matriculation) mark sheet from BSEB or an equivalent recognised board.',
-      hi: 'BSEB या समकक्ष मान्यता प्राप्त बोर्ड से कक्षा 10 (मैट्रिक) की अंकसूची।',
+      en: 'Intimation letter of OFSS / Class 10 (Matriculation) mark sheet from BSEB or an equivalent recognised board.',
+      hi: 'OFSS का सूचना पत्र / BSEB या समकक्ष मान्यता प्राप्त बोर्ड से कक्षा 10 (मैट्रिक) की अंकसूची।',
     },
   ],
   documents: [
@@ -92,13 +92,11 @@ export const admissionContent = {
     { en: 'Student ID (E-Siksha Kosh)', hi: 'विद्यार्थी आईडी (ई-शिक्षा कोष)' },
   ],
   feeRows: [
+    { head_en: 'Admission Fee', head_hi: 'प्रवेश शुल्क', value_en: 'As per government rules', value_hi: 'सरकारी नियमानुसार' },
     { head_en: 'Tuition Fees', head_hi: 'शिक्षण शुल्क', value_en: 'As per government rules', value_hi: 'सरकारी नियमानुसार' },
-    { head_en: 'Other Fees', head_hi: 'अन्य शुल्क', value_en: 'As per current government norms.', value_hi: 'वर्तमान सरकारी मानदंडों के अनुसार।' },
+    { head_en: 'Other Fees', head_hi: 'अन्य शुल्क', value_en: 'As per government rules', value_hi: 'सरकारी नियमानुसार' },
   ],
   importantDates: [
-    { label_en: 'Admission form distribution begins', label_hi: 'प्रवेश फॉर्म वितरण प्रारंभ', date: 'To be announced' },
-    { label_en: 'Last date for submission', label_hi: 'जमा करने की अंतिम तिथि', date: 'To be announced' },
-    { label_en: 'Merit list / confirmation', label_hi: 'मेधा सूची / पुष्टि', date: 'To be announced' },
     { label_en: 'Session begins', label_hi: 'सत्र प्रारंभ', date: 'April, Every Calendar Year' },
   ],
   faq: [
@@ -203,7 +201,7 @@ export const disclosureSections = [
     rows: [
       { label_en: 'Drinking Water', label_hi: 'पेयजल', value: '1 Purifier' },
       { label_en: 'Toilets (Boys/Girls)', label_hi: 'शौचालय (बालक/बालिका)', value: '1 toilet each' },
-      { label_en: 'Playground', label_hi: 'खेल का मैदान', value: 'To be updated' },
+      { label_en: 'Playground', label_hi: 'खेल का मैदान', value: 'Under-Development' },
       { label_en: 'Boundary Wall', label_hi: 'चहारदीवारी', value: 'Covers in all 4 directions' },
     ],
   },

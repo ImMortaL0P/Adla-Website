@@ -1,3 +1,4 @@
+import { Loader } from '@/components/common/Loader';
 import { useState, useEffect } from 'react'
 import { Trash2, Plus } from 'lucide-react'
 import { API_URL, resolveMediaUrl } from '@/lib/api'
@@ -14,7 +15,7 @@ export function GalleryManager({ driveReady }: GalleryManagerProps) {
 
   const [captionEn, setCaptionEn] = useState('')
   const [captionHi, setCaptionHi] = useState('')
-  const [category, setCategory] = useState('campus')
+  const [category, setCategory] = useState('science_math_club')
   const [takenOn, setTakenOn] = useState('')
   const [file, setFile] = useState<File | null>(null)
 
@@ -76,7 +77,7 @@ export function GalleryManager({ driveReady }: GalleryManagerProps) {
       if (res.ok) {
         setCaptionEn('')
         setCaptionHi('')
-        setCategory('campus')
+        setCategory('science_math_club')
         setTakenOn('')
         setFile(null)
         fetchImages()
@@ -91,7 +92,7 @@ export function GalleryManager({ driveReady }: GalleryManagerProps) {
     }
   }
 
-  if (loading) return <div className="p-8 text-center">Loading gallery...</div>
+  if (loading) return <div className="p-8 flex justify-center"><Loader text="Loading gallery..." /></div>
 
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">

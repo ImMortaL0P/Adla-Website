@@ -60,6 +60,12 @@ router.put('/:id', auth, upload.single('image'), async (req, res) => {
       staff.driveFileId = driveData.driveFileId;
       staff.imageUrl = driveData.image_url;
       fs.unlinkSync(req.file.path);
+    } else if (data.removePhoto === 'true') {
+      if (staff.driveFileId) {
+        try { await deleteFromDrive(staff.driveFileId); } catch(e) { console.error('Failed to delete old staff image from drive', e); }
+      }
+      staff.driveFileId = null;
+      staff.imageUrl = null;
     }
 
     Object.assign(staff, data);
