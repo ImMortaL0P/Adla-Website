@@ -239,6 +239,8 @@ async function streamDriveFile(fileId, res, reqArgs = {}) {
   if (isImage) {
     try {
       const sharp = require('sharp');
+      sharp.cache(false); // Fix memory leak/OOM on Render Free Tier
+      sharp.concurrency(1);
       let transform = sharp();
 
       const format = acceptsWebp ? 'webp' : (mimeType === 'image/jpeg' ? 'jpeg' : 'png');
@@ -253,20 +255,27 @@ async function streamDriveFile(fileId, res, reqArgs = {}) {
 
       res.setHeader('Content-Type', format === 'webp' ? 'image/webp' : mimeType);
       
-      driveRes.data
-        .on('error', (err) => {
-          console.error('Error streaming Drive file (source):', err.message);
-          if (!res.headersSent) res.status(502).end();
-          else res.end();
-        })
-        .pipe(transform)
-        .on('error', (err) => {
-          console.error('Error compressing image:', err.message);
-          if (!res.headersSent) res.status(500).end();
-          else res.end();
-        })
-        .pipe(res);
-      return;
+      return new Promise((resolve) => {
+        res.on('finish', resolve);
+        res.on('close', resolve);
+        res.on('error', resolve);
+
+        driveRes.data
+          .on('error', (err) => {
+            console.error('Error streaming Drive file (source):', err.message);
+            if (!res.headersSent) res.status(502).end();
+            else res.end();
+            resolve();
+          })
+          .pipe(transform)
+          .on('error', (err) => {
+            console.error('Error compressing image:', err.message);
+            if (!res.headersSent) res.status(500).end();
+            else res.end();
+            resolve();
+          })
+          .pipe(res);
+      });
     } catch (err) {
       console.warn('Sharp compression failed/not available, falling back to original stream:', err.message);
       // Fallback
@@ -274,13 +283,20 @@ async function streamDriveFile(fileId, res, reqArgs = {}) {
   }
 
   res.setHeader('Content-Type', mimeType);
-  driveRes.data
-    .on('error', (err) => {
-      console.error('Error streaming Drive file:', err.message);
-      if (!res.headersSent) res.status(502).end();
-      else res.end();
-    })
-    .pipe(res);
+  return new Promise((resolve) => {
+    res.on('finish', resolve);
+    res.on('close', resolve);
+    res.on('error', resolve);
+
+    driveRes.data
+      .on('error', (err) => {
+        console.error('Error streaming Drive file:', err.message);
+        if (!res.headersSent) res.status(502).end();
+        else res.end();
+        resolve();
+      })
+      .pipe(res);
+  });
 }
 async function uploadImageToDrive(localPath, originalName, mimeType) {
   const folderId = getGalleryFolderId();
