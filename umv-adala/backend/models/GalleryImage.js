@@ -23,6 +23,8 @@ const gallerySchema = new mongoose.Schema({
   is_published: { type: Boolean, default: true },
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
+gallerySchema.index({ is_published: 1, display_order: 1, created_at: -1 });
+
 gallerySchema.set('toJSON', {
   virtuals: true,
   transform: (doc, ret) => {

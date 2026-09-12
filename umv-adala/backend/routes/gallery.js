@@ -1,3 +1,4 @@
+const { cacheMiddleware, clearCache } = require('../middleware/cache');
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
@@ -34,7 +35,7 @@ function cleanupTempFile(filePath) {
   }
 }
 
-router.get('/', async (_req, res) => {
+router.get('/', cacheMiddleware(300), async (_req, res) => {
   try {
     const images = await GalleryImage.find({ is_published: true }).sort({ display_order: 1, created_at: -1 });
     res.json(images);
@@ -45,7 +46,7 @@ router.get('/', async (_req, res) => {
 });
 
 // Get categories
-router.get('/categories', async (_req, res) => {
+router.get('/categories', cacheMiddleware(300), async (_req, res) => {
   try {
     const existingImagesCats = await GalleryImage.distinct('category');
     const customCats = await GalleryCategory.find();
@@ -94,6 +95,7 @@ router.post('/categories', auth, async (req, res) => {
         label_hi: label_hi || label_en
       });
     }
+    clearCache('/api/gallery');
     res.json(cat);
   } catch (err) {
     console.error(err);
@@ -175,6 +177,7 @@ router.post('/', auth, (req, res, next) => {
        return res.status(500).json({ message: 'Failed to upload images' });
     }
 
+    clearCache('/api/gallery');
     res.json({ message: 'Images uploaded successfully', images: uploads });
   } catch (err) {
     console.error(err);
@@ -197,6 +200,7 @@ router.delete('/:id', auth, async (req, res) => {
     }
 
     await GalleryImage.findByIdAndDelete(req.params.id);
+    clearCache('/api/gallery');
     res.json({ message: 'Image removed' });
   } catch (err) {
     console.error(err);

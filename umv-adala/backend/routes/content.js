@@ -1,3 +1,4 @@
+const { cacheMiddleware, clearCache } = require('../middleware/cache');
 const express = require('express');
 const Content = require('../models/Content');
 const auth = require('../middleware/auth');
@@ -5,7 +6,7 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 // Get all content
-router.get('/', async (req, res) => {
+router.get('/', cacheMiddleware(3600), async (req, res) => {
   try {
     const content = await Content.find();
     res.json(content);
@@ -24,6 +25,8 @@ router.post('/', auth, async (req, res) => {
       content.value_en = value_en;
       content.value_hi = value_hi;
       await content.save();
+      clearCache('/api/content');
+      clearCache('/api/content');
     } else {
       content = new Content({ key, value_en, value_hi });
       await content.save();

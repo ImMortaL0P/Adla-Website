@@ -1,3 +1,4 @@
+const { cacheMiddleware, clearCache } = require('../middleware/cache');
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
@@ -41,7 +42,7 @@ function cleanupTempFile(filePath) {
 }
 
 // Get all notices (Public)
-router.get('/', async (req, res) => {
+router.get('/', cacheMiddleware(300), async (req, res) => {
   try {
     const notices = await Notice.find({ is_published: true }).sort({ published_at: -1 });
     res.json(notices);
@@ -52,7 +53,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get single notice by slug (Public)
-router.get('/slug/:slug', async (req, res) => {
+router.get('/slug/:slug', cacheMiddleware(300), async (req, res) => {
   try {
     const notice = await Notice.findOne({ slug: req.params.slug, is_published: true });
     if (!notice) return res.status(404).json({ message: 'Notice not found' });
@@ -132,6 +133,7 @@ router.post('/', auth, (req, res, next) => {
     });
 
     await newNotice.save();
+    clearCache('/api/notices');
     res.json(newNotice);
   } catch (err) {
     console.error(err);
@@ -155,6 +157,7 @@ router.delete('/:id', auth, async (req, res) => {
     }
 
     await Notice.findByIdAndDelete(req.params.id);
+    clearCache('/api/notices');
     res.json({ message: 'Notice removed' });
   } catch (err) {
     console.error(err);

@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 const authRoutes = require('./routes/auth');
 const noticeRoutes = require('./routes/notices');
@@ -20,7 +21,18 @@ const { verifyDriveAccess, verifyGalleryAccess } = require('./lib/drive');
 const app = express();
 
 // 1. Set Security HTTP headers
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      imgSrc: ["'self'", "data:", "https://drive.google.com", "blob:"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"]
+    }
+  }
+}));
+app.use(compression());
 
 // 2. Restrict CORS Policy for APIs
 const allowedOrigins = process.env.NODE_ENV === 'production'
@@ -79,7 +91,13 @@ if (process.env.NODE_ENV === 'production') {
 app.get('/api/health', async (_req, res) => {
   const drive = await verifyDriveAccess();
   const gallery = await verifyGalleryAccess();
-  res.json({ status: 'ok', drive, gallery });
+  const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+  res.json({ 
+    status: 'ok', 
+    database: dbStatus, 
+    drive, 
+    gallery 
+  });
 });
 
 app.use('/api/auth', authRoutes);
@@ -92,25 +110,31 @@ app.use('/api/media', mediaRoutes);
 
 const PORT = process.env.PORT || 5001;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/umv-adala')
-  .then(async () => {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/umv-adala', {
+  maxPoolSize: 10,
+  serverSelectionTimeoutMS: 5000
+})
+  .then(() => {
     console.log('Connected to MongoDB');
-
-    const drive = await verifyDriveAccess();
-    const gallery = await verifyGalleryAccess();
-    if (drive.ok) {
-      console.log(`Google Drive ready (notices folder: ${drive.folderName})`);
-    } else {
-      console.warn(`Google Drive not ready: ${drive.error}`);
-    }
-    if (gallery.ok) {
-      console.log(`Gallery Drive ready (folder: ${gallery.folderName})`);
-    } else {
-      console.warn(`Gallery Drive not ready: ${gallery.error}`);
-    }
 
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT}`);
+    });
+    
+    // Check drive in the background to not block server boot (Phase 8)
+    Promise.all([verifyDriveAccess(), verifyGalleryAccess()]).then(([drive, gallery]) => {
+      if (drive.ok) {
+        console.log(`Google Drive ready (notices folder: ${drive.folderName})`);
+      } else {
+        console.warn(`Google Drive not ready: ${drive.error}`);
+      }
+      if (gallery.ok) {
+        console.log(`Gallery Drive ready (folder: ${gallery.folderName})`);
+      } else {
+        console.warn(`Gallery Drive not ready: ${gallery.error}`);
+      }
+    }).catch(err => {
+      console.error(`Drive check failed on boot:`, err);
     });
   })
   .catch((err) => {

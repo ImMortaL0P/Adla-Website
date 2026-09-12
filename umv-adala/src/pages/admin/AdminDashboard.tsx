@@ -1,8 +1,9 @@
+import SystemHealthTab from './tabs/SystemHealthTab';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Seo } from '@/components/common/Seo';
-import { Image as ImageIcon, Users, FileText, Bell, ImagePlus, PenTool } from 'lucide-react';
+import { Image as ImageIcon, Users, FileText, Bell, ImagePlus, PenTool, Activity } from 'lucide-react';
 import NoticesTab from './tabs/NoticesTab';
 import PressNoticeTab from './tabs/PressNoticeTab';
 import ImagesTab from './tabs/ImagesTab';
@@ -11,7 +12,7 @@ import StaffTab from './tabs/StaffTab';
 import ContentTab from './tabs/ContentTab';
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState<'notices' | 'pressNotice' | 'images' | 'gallery' | 'staff' | 'content'>('notices');
+  const [activeTab, setActiveTab] = useState<'notices' | 'pressNotice' | 'images' | 'gallery' | 'staff' | 'content' | 'health'>('health');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function AdminDashboard() {
   };
 
   const tabs = [
+    { id: 'health', label: 'System Health', icon: Activity },
     { id: 'notices', label: 'Notices', icon: Bell },
     { id: 'pressNotice', label: 'Press Notice', icon: PenTool },
     { id: 'gallery', label: 'Gallery', icon: ImagePlus },
@@ -72,6 +74,7 @@ export default function AdminDashboard() {
           {activeTab === 'images' && <ImagesTab />}
           {activeTab === 'staff' && <StaffTab />}
           {activeTab === 'content' && <ContentTab />}
+          {activeTab === 'health' && <SystemHealthTab />}
         </div>
       </div>
     </>

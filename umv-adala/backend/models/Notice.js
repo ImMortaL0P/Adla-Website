@@ -14,6 +14,8 @@ const noticeSchema = new mongoose.Schema({
   is_published: { type: Boolean, default: true },
 }, { timestamps: { createdAt: 'published_at', updatedAt: 'updated_at' } });
 
+noticeSchema.index({ is_published: 1, published_at: -1 });
+
 noticeSchema.set('toJSON', {
   virtuals: true,
   transform: (doc, ret) => {

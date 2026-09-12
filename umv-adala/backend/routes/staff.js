@@ -1,3 +1,4 @@
+const { cacheMiddleware, clearCache } = require('../middleware/cache');
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
@@ -9,7 +10,7 @@ const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
 // Get all staff
-router.get('/', async (req, res) => {
+router.get('/', cacheMiddleware(3600), async (req, res) => {
   try {
     const staff = await Staff.find().sort({ order: 1 });
     res.json(staff);
@@ -38,6 +39,7 @@ router.post('/', auth, upload.single('image'), async (req, res) => {
       imageUrl
     });
     await newStaff.save();
+    clearCache('/api/staff');
     res.json(newStaff);
   } catch (err) {
     if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
@@ -70,6 +72,7 @@ router.put('/:id', auth, upload.single('image'), async (req, res) => {
 
     Object.assign(staff, data);
     await staff.save();
+    clearCache('/api/staff');
     res.json(staff);
   } catch (err) {
     if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
@@ -87,6 +90,7 @@ router.delete('/:id', auth, async (req, res) => {
       try { await deleteFromDrive(staff.driveFileId); } catch(e) { console.error('Failed to delete staff image from drive', e); }
     }
     await Staff.findByIdAndDelete(req.params.id);
+    clearCache('/api/staff');
     res.json({ message: 'Removed' });
   } catch (err) {
     res.status(500).json({ message: 'Server Error' });
