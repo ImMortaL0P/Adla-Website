@@ -5,7 +5,7 @@ import { useT } from './context/LanguageContext'
 import { Maintenance } from './pages/Maintenance'
 import { BootLoader } from './components/common/BootLoader'
 
-const IS_UNDER_MAINTENANCE = false;
+const IS_UNDER_MAINTENANCE = true;
 
 const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
