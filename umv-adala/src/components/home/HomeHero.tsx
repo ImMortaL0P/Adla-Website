@@ -39,7 +39,7 @@ export function HomeHero() {
         <StaggerGroup stagger={100} className="flex max-w-5xl flex-col items-center gap-6 sm:gap-8">
 
           <Reveal>
-            <div className="flex flex-col items-center mb-2">
+            <div className="flex flex-col items-center mb-2 -translate-y-[8px] sm:-translate-y-[15px]">
               <span className="-translate-y-[10px] sm:translate-y-0 mb-4 text-[15.4px] font-bold tracking-widest text-white/90 uppercase sm:text-base md:text-lg">
                 ESTD. - 2020
               </span>
