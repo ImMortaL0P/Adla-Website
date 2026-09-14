@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useT } from '@/context/LanguageContext'
 import { Seo } from '@/components/common/Seo'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs'
@@ -123,7 +124,9 @@ export function AcademicsStage({ stage }: { stage: StageKey }) {
         <Reveal>
           <section className="rounded-2xl border border-dashed border-[hsl(var(--border))] bg-[hsl(var(--muted))]/50 p-6">
             <h2 className="mb-2 font-semibold text-[hsl(var(--foreground))]">{t('academics.periods')}</h2>
-            <p className="text-sm text-[hsl(var(--muted-foreground))]">{t('academics.periodsNote')}</p>
+            <Link to="/downloads" className="inline-block text-sm text-[hsl(var(--primary-strong))] hover:underline underline-offset-4">
+              {t('academics.periodsNote')}
+            </Link>
           </section>
         </Reveal>
       </div>

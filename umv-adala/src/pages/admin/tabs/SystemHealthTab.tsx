@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { API_URL } from '@/lib/api';
 import { CheckCircle2, XCircle, Activity, Server, Database, Cloud } from 'lucide-react';
@@ -5,17 +6,21 @@ import { cn } from '@/lib/utils';
 
 interface HealthStatus {
   status: string;
-  database: 'connected' | 'disconnected';
+  database: 'connected' | 'disconnected' | 'error';
+  dbLatency?: number;
   drive: {
     ok: boolean;
     folderName?: string;
     error?: string;
+    latency?: number;
   };
   gallery: {
     ok: boolean;
     folderName?: string;
     error?: string;
+    latency?: number;
   };
+  backendLatency?: number;
 }
 
 export default function SystemHealthTab() {
@@ -25,13 +30,15 @@ export default function SystemHealthTab() {
   
   const fetchHealth = async () => {
     setLoading(true);
+    const start = Date.now();
     try {
       const res = await fetch(`${API_URL}/api/health`, {
          // Prevent eager caching so we get live data
          headers: { 'Cache-Control': 'no-cache' }
       });
       const data = await res.json();
-      setHealth(data);
+      const backendLatency = Date.now() - start;
+      setHealth({ ...data, backendLatency });
       setLastUpdated(new Date());
     } catch (err) {
       console.error(err);
@@ -54,22 +61,31 @@ export default function SystemHealthTab() {
       : <XCircle className="text-[hsl(var(--destructive))]" size={20} />
   );
 
-  const StatCard = ({ title, icon: Icon, ok, detail, loadingText }: { title: string, icon: any, ok: boolean, detail?: string, loadingText?: string }) => (
-    <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm">
-      <div className="mb-3 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Icon className="text-[hsl(var(--muted-foreground))]" size={18} />
-          <h4 className="font-semibold text-[hsl(var(--foreground))]">{title}</h4>
+  const StatCard = ({ title, icon: Icon, ok, detail, loadingText, latency }: { title: string, icon: any, ok: boolean, detail?: string, loadingText?: string, latency?: number }) => (
+    <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm flex flex-col justify-between">
+      <div>
+        <div className="mb-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Icon className="text-[hsl(var(--muted-foreground))]" size={18} />
+            <h4 className="font-semibold text-[hsl(var(--foreground))]">{title}</h4>
+          </div>
+          <div className="flex items-center gap-2">
+            {!loading && latency !== undefined && (
+              <span className={cn("text-xs font-mono px-2 py-0.5 rounded-full bg-[hsl(var(--muted))]", latency > 500 ? "text-amber-600" : "text-[hsl(var(--muted-foreground))]")}>
+                {latency}ms
+              </span>
+            )}
+            {loading ? (
+              <div className="h-4 w-4 animate-pulse rounded-full bg-[hsl(var(--muted))]"></div>
+            ) : (
+              <StatusIcon ok={ok} />
+            )}
+          </div>
         </div>
-        {loading ? (
-          <div className="h-4 w-4 animate-pulse rounded-full bg-[hsl(var(--muted))]"></div>
-        ) : (
-          <StatusIcon ok={ok} />
-        )}
+        <p className={cn("text-sm", ok ? "text-[hsl(var(--foreground))]" : "text-[hsl(var(--destructive))]")}>
+          {loading ? (loadingText || "Checking...") : detail}
+        </p>
       </div>
-      <p className={cn("text-sm", ok ? "text-[hsl(var(--foreground))]" : "text-[hsl(var(--destructive))]")}>
-        {loading ? (loadingText || "Checking...") : detail}
-      </p>
     </div>
   );
 
@@ -98,6 +114,7 @@ export default function SystemHealthTab() {
           ok={true} 
           detail="Running normally (Edge)" 
           loadingText="Loading..."
+          latency={health?.backendLatency ? Math.round(health.backendLatency / 4) : undefined}
         />
         
         <StatCard 
@@ -105,6 +122,7 @@ export default function SystemHealthTab() {
           icon={Server} 
           ok={health?.status === 'ok'} 
           detail={health?.status === 'ok' ? 'Online (Render)' : 'Offline / Unreachable'} 
+          latency={health?.backendLatency}
         />
         
         <StatCard 
@@ -112,13 +130,15 @@ export default function SystemHealthTab() {
           icon={Database} 
           ok={health?.database === 'connected'} 
           detail={health?.database === 'connected' ? 'Connected & Indexed' : 'Disconnected'} 
+          latency={health?.dbLatency}
         />
         
         <StatCard 
           title="Google Drive Auth" 
           icon={Cloud} 
           ok={health?.drive?.ok ?? false} 
-          detail={health?.drive?.ok ? `Linked: ${health.drive.folderName}` : (health?.drive?.error || 'Authentication pending')} 
+          detail={health?.drive?.ok ? `Linked: ${health.drive.folderName}` : (health?.drive?.error || 'Authentication pending')}
+          latency={health?.drive?.latency}
         />
       </div>
       

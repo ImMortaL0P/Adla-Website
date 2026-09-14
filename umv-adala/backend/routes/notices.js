@@ -80,7 +80,7 @@ router.post('/', auth, (req, res, next) => {
   });
 }, async (req, res) => {
   try {
-    const { title_en, title_hi, body_en, body_hi, type } = req.body;
+    const { title_en, title_hi, body_en, body_hi, type, category } = req.body;
     let driveFileId = null;
     let attachment_url = null;
     let attachment_download_url = null;
@@ -126,6 +126,7 @@ router.post('/', auth, (req, res, next) => {
       body_en,
       body_hi,
       type,
+      category,
       driveFileId,
       attachment_url,
       attachment_download_url,

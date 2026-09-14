@@ -43,8 +43,8 @@ export default defineConfig({
         ]
       },
       manifest: {
-        name: 'UMV Adala',
-        short_name: 'UMV Adala',
+        name: 'UMV Adla',
+        short_name: 'UMV Adla',
         description: 'Uchcha Madhyamik Vidyalaya Adla',
         theme_color: '#ffffff',
         icons: [

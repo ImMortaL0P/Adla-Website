@@ -1,7 +1,7 @@
 /* Domain types mirroring the database schema.
    Used by both static data files and future Supabase queries. */
 
-export type NoticeType = 'circular' | 'notice' | 'event' | 'holiday' | 'result'
+export type NoticeType = 'circular' | 'notice' | 'event' | 'holiday' | 'result' | 'order' | 'tender' | 'routine'
 export type Department = 'primary' | 'maths_science' | 'languages' | 'social_science' | 'administration' | 'support'
 export type GalleryCategory = string // Allow any custom category
 export type DownloadCategory = 'forms' | 'syllabus' | 'timetable' | 'circular' | 'other'
@@ -16,6 +16,7 @@ export interface Notice {
   body_en: string | null
   body_hi: string | null
   type: NoticeType
+  category?: string | null
   attachment_url: string | null
   attachment_download_url?: string | null
   attachment_filename?: string | null

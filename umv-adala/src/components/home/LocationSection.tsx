@@ -8,9 +8,11 @@ const landmarkIcons: Record<string, LucideIcon> = { Plane, TrainFront, Landmark 
 
 export function LocationSection() {
   const { t, lang } = useT()
-  const { lat, lng } = school.coordinates
-  const mapsUrl = `https://www.google.com/maps?q=${lat},${lng}`
-  const embedUrl = `https://www.google.com/maps?q=${lat},${lng}&z=15&output=embed`
+  const { plusCode, lat, lng, googleMapsLink } = school.coordinates
+
+  const query = plusCode ? encodeURIComponent(plusCode) : `${lat},${lng}`
+  const mapsUrl = googleMapsLink || `https://www.google.com/maps?q=${query}`
+  const embedUrl = `https://www.google.com/maps?q=${query}&z=15&output=embed`
 
   return (
     <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-12">

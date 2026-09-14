@@ -35,7 +35,7 @@ export default function PressNoticeTab() {
 
       // Try to load and add logo
       try {
-        const res = await fetch('/images/logo/adala-crest.png');
+        const res = await fetch('/images/logo/adla-crest.png');
         if (res.ok) {
           const imgBlob = await res.blob();
           const base64data = await new Promise<string>((resolve) => {

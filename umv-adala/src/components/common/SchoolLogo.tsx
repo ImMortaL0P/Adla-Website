@@ -19,7 +19,7 @@ export function SchoolLogo({ className, variant = 'main' }: SchoolLogoProps) {
   }
   
   if (!logoUrl) {
-    logoUrl = withBase('/images/logo/adala-crest.png')
+    logoUrl = withBase('/images/logo/adla-crest.png')
   }
 
   return (

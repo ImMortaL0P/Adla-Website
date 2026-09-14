@@ -8,15 +8,17 @@ import { SectionHeading } from '@/components/common/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
 import { PlaceholderImage } from '@/components/common/PlaceholderImage'
 import { EmptyState } from '@/components/common/EmptyState'
+import { useImages } from "@/hooks/useImages"
 import { useStaff } from "@/hooks/useStaff"
 import { cn } from '@/lib/utils'
-import type { Department } from '@/types/domain'
 
-const filters: Array<{ value: Department | 'all'; labelKey: string }> = [
+const filters: Array<{ value: string; labelKey: string }> = [
   { value: 'all', labelKey: 'staff.filter.all' },
   { value: 'maths_science', labelKey: 'staff.filter.mathsScience' },
   { value: 'languages', labelKey: 'staff.filter.languages' },
   { value: 'social_science', labelKey: 'staff.filter.socialScience' },
+  { value: 'commerce', labelKey: 'staff.filter.commerce' },
+  { value: 'arts', labelKey: 'staff.filter.arts' },
   { value: 'administration', labelKey: 'staff.filter.administration' },
   { value: 'support', labelKey: 'staff.filter.support' },
 ]
@@ -36,20 +38,41 @@ function initialsOf(name: string) {
 
 export default function StaffDirectory() {
   const { t, lang } = useT()
-  const [activeFilter, setActiveFilter] = useState<Department | 'all'>('all')
+  const [activeFilter, setActiveFilter] = useState<string>('all')
   const [query, setQuery] = useState('')
 
   const { staffList } = useStaff()
+  const { getSystemImage } = useImages()
+  const hmImage = getSystemImage('headmaster_photo')
 
   const filtered = useMemo(() => {
-    // If backend staff array is empty but we're not loading, it'll return empty.
-    // If it's loaded, use the API objects. Note the field differences.
-    const active = staffList;
+    const active = staffList || [];
+    const getCat = (s: any) => {
+      const isSupport = s.type === 'support' || s.department === 'support';
+      const role = (s.role_en || s.designation_en || s.designation?.en || '').toLowerCase();
+      
+      if (isSupport) {
+         if (role.includes('clerk') || role.includes('accountant') || role.includes('headmaster')) return 'administration';
+         return 'support';
+      }
+      
+      if (role.includes('headmaster') || role.includes('principal') || role.includes('clerk')) return 'administration';
+      
+      if (role.includes('math') || role.includes('physics') || role.includes('chemistry') || role.includes('biology') || role.includes('zoology') || role.includes('science') || role.includes('computer')) return 'maths_science';
+      if (role.includes('english') || role.includes('hindi') || role.includes('sanskrit') || role.includes('urdu')) return 'languages';
+      if (role.includes('business') || role.includes('entrepreneurship') || role.includes('commerce') || role.includes('accountancy')) return 'commerce';
+      if (role.includes('music') || role.includes('art') || role.includes('sport') || role.includes('physical')) return 'arts';
+      
+      // social_science covers S.ST, History, Geography, etc.
+      if (role.includes('s. st') || role.includes('history') || role.includes('geography') || role.includes('civics') || role.includes('social')) return 'social_science';
+      
+      // Fallback for generic teachers could be spread or put into all
+      return 'social_science'; // Or return a default
+    }
+
     const byDept = activeFilter === 'all'
       ? active
-      : activeFilter === 'support'
-        ? active.filter((s: any) => s.type === 'support' || s.department === 'support')
-        : active.filter((s: any) => s.type !== 'support'); // Simplification since DB schema has teaching/support
+      : active.filter((s: any) => getCat(s) === activeFilter);
 
     const q = query.trim().toLowerCase()
     if (!q) return byDept
@@ -107,7 +130,9 @@ export default function StaffDirectory() {
         ) : (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((member: any, i: number) => {
-              const portrait = member.imageUrl || member.photo_url
+              const roleStr = (member.role_en || member.designation?.en || '').toLowerCase()
+              const isHM = roleStr.includes('headmaster') || roleStr.includes('principal')
+              const portrait = member.imageUrl || member.photo_url || (isHM ? hmImage : null)
               const name = lang === 'en' ? (member.name_en || member.name?.en) : (member.name_hi || member.name?.hi)
               const role = lang === 'en' ? (member.role_en || member.designation?.en) : (member.role_hi || member.designation?.hi)
               const qualifications = lang === 'en' ? (member.qualifications_en || member.qualifications?.en) : (member.qualifications_hi || member.qualifications?.hi)

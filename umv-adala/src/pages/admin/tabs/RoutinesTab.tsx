@@ -3,14 +3,14 @@ import { API_URL } from "@/lib/api";
 import { useState, useEffect } from 'react';
 import { Trash2, Plus } from 'lucide-react';
 
-export default function NoticesTab() {
+export default function RoutinesTab() {
   const [notices, setNotices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
 
   const [titleEn, setTitleEn] = useState('');
   const [titleHi, setTitleHi] = useState('');
-  const [type, setType] = useState('notice');
+  const [type] = useState('routine');
   const [category, setCategory] = useState('');
   const [file, setFile] = useState<File | null>(null);
 
@@ -20,7 +20,7 @@ export default function NoticesTab() {
     try {
       const res = await fetch(`${API_URL}/api/notices`);
       const data = await res.json();
-      setNotices(data.filter((n: any) => n.type !== "routine" && !(n.title_en || "").toLowerCase().includes("routine") && !(n.title_en || "").toLowerCase().includes("timetable") && !(n.title_en || "").toLowerCase().includes("time table")));
+      setNotices(data.filter((n: any) => n.type === "routine" || (n.title_en || "").toLowerCase().includes("routine") || (n.title_en || "").toLowerCase().includes("timetable") || (n.title_en || "").toLowerCase().includes("time table")));
     } catch (err) {
       console.error(err);
     } finally {
@@ -64,16 +64,16 @@ export default function NoticesTab() {
       });
 
       if (res.ok) {
-        alert('Notice uploaded successfully!');
-        setTitleEn(''); setTitleHi(''); setType('notice'); setCategory(''); setFile(null);
+        alert('Routine uploaded successfully!');
+        setTitleEn(''); setTitleHi(''); setCategory(''); setFile(null);
         fetchNotices();
       } else {
         const data = await res.json();
-        alert(data.message || 'Failed to upload notice');
+        alert(data.message || 'Failed to upload routine');
       }
     } catch (err) {
       console.error(err);
-      alert('Error uploading notice');
+      alert('Error uploading routine');
     } finally {
       setUploading(false);
     }
@@ -86,7 +86,7 @@ export default function NoticesTab() {
       {/* Upload Form */}
       <div className="col-span-1 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm h-fit">
         <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-[hsl(var(--foreground))]">
-          <Plus size={20} /> Upload New Notice
+          <Plus size={20} /> Upload New Routine/Timetable
         </h3>
         <form onSubmit={handleUpload} className="space-y-4">
           <div>
@@ -97,28 +97,25 @@ export default function NoticesTab() {
             <label className="block text-sm font-medium text-[hsl(var(--foreground))]">Title (Hindi)</label>
             <input type="text" value={titleHi} onChange={e => setTitleHi(e.target.value)} className="mt-1 block w-full rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-[hsl(var(--foreground))]" />
           </div>
-          <div>
-            <label className="block text-sm font-medium text-[hsl(var(--foreground))]">Type</label>
-            <select value={type} onChange={e => setType(e.target.value)} className="mt-1 block w-full rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-[hsl(var(--foreground))]">
-              <option value="notice">Notice</option>
-              <option value="circular">Circular</option>
-              <option value="order">Order</option>
-              <option value="tender">Tender</option>
-            </select>
-          </div>
+          
+          
+            <div>
+              <label className="block text-sm font-medium text-[hsl(var(--foreground))]">Category (e.g. Class 10, IX-A)</label>
+              <input type="text" value={category} onChange={e => setCategory(e.target.value)} placeholder="E.g. Class 12 Science" className="mt-1 block w-full rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-[hsl(var(--foreground))]" />
+            </div>
           <div>
             <label className="block text-sm font-medium text-[hsl(var(--foreground))]">Document File (PDF, etc)</label>
             <input type="file" onChange={e => setFile(e.target.files ? e.target.files[0] : null)} className="mt-1 block w-full text-sm text-[hsl(var(--muted-foreground))] file:mr-4 file:rounded-md file:border-0 file:bg-[hsl(var(--primary-strong))] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[hsl(var(--primary))]" />
           </div>
           <button type="submit" disabled={uploading} className="w-full rounded-md bg-[hsl(var(--primary-strong))] px-4 py-2 text-white hover:bg-[hsl(var(--primary))] disabled:opacity-50">
-            {uploading ? 'Uploading...' : 'Publish Notice'}
+            {uploading ? 'Uploading...' : 'Publish Routine'}
           </button>
         </form>
       </div>
 
       {/* Notices List */}
       <div className="col-span-1 md:col-span-2 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm">
-        <h3 className="mb-4 text-lg font-semibold text-[hsl(var(--foreground))]">Manage Notices</h3>
+        <h3 className="mb-4 text-lg font-semibold text-[hsl(var(--foreground))]">Manage Routines</h3>
         {notices.length === 0 ? (
           <p className="text-[hsl(var(--muted-foreground))]">No notices found.</p>
         ) : (

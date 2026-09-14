@@ -6,7 +6,7 @@
 require('dotenv').config();
 const { getDriveService, usesOAuth, getGalleryFolderId } = require('../lib/drive');
 
-const FOLDER_NAME = 'UMV Adala Gallery';
+const FOLDER_NAME = 'UMV Adla Gallery';
 
 async function findOrCreateGalleryFolder(drive, parentId) {
   const query = `'${parentId}' in parents and name='${FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false`;

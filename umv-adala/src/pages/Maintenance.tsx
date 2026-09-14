@@ -86,7 +86,7 @@ export function Maintenance() {
 
       <Reveal direction="up" delay={600} className="absolute bottom-8 left-0 w-full text-center z-10 pointer-events-none">
         <p className="text-muted-foreground font-medium text-sm tracking-widest uppercase">
-          Adala Website &copy; {new Date().getFullYear()}
+          Adla Website &copy; {new Date().getFullYear()}
         </p>
       </Reveal>
     </div>

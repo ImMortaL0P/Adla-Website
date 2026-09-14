@@ -39,43 +39,44 @@ export function HomeHero() {
         <StaggerGroup stagger={100} className="flex max-w-4xl flex-col items-center">
 
           <Reveal>
-            <div className="-mt-24 mb-36 text-2xl font-bold tracking-widest text-white/90 uppercase md:text-3xl lg:text-4xl">
-              Est. - 2020
+            <div className="flex flex-col items-center mb-4 mt-[-150px]">
+              <span className="mb-2 scale-[1.15] translate-y-[15px] text-xs font-bold tracking-widest text-white/90 uppercase sm:text-sm md:text-base lg:mb-4">
+                ESTD. - 2020
+              </span>
+              <h1 className="max-w-[700px] font-display text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
+                <AnimatedTitle
+                  text={t('home.hero.title')}
+                  as="span"
+                  className={cn('block mx-auto max-w-full', lang === 'hi' && 'mb-2')}
+                />
+                {lang === 'en' && (
+                  <div className="pt-[120px]">
+                    <AnimatedTitle
+                      text={t('home.hero.titleHi')}
+                      as="span"
+                      className="font-jaini mt-2 block text-3xl font-medium text-white/80 sm:text-4xl md:text-5xl mx-auto max-w-full"
+                      startDelay={250}
+                    />
+                  </div>
+                )}
+              </h1>
             </div>
           </Reveal>
 
           <Reveal>
-            <h1 className="mb-4 max-w-[700px] font-display text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
-              <AnimatedTitle
-                text={t('home.hero.title')}
-                as="span"
-                className={cn('block mx-auto max-w-full', lang === 'hi' && 'mb-2')}
-              />
-              {lang === 'en' && (
-                <AnimatedTitle
-                  text={t('home.hero.titleHi')}
-                  as="span"
-                  className="font-jaini mt-2 block text-3xl font-medium text-white/80 sm:text-4xl md:text-5xl mx-auto max-w-full"
-                  startDelay={250}
-                />
-              )}
-            </h1>
-          </Reveal>
-
-          <Reveal>
-            <div className="mb-4 inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
+            <div className="mb-4 translate-y-[50px] inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
               UDISE: 10280606804
             </div>
           </Reveal>
 
           <Reveal>
-            <p className="mb-10 mt-2 max-w-2xl text-lg text-white/85 sm:text-xl">
+            <p className="mb-10 mt-2 translate-y-[50px] max-w-2xl text-lg text-white/85 sm:text-xl">
               {t('home.hero.subtitle')}
             </p>
           </Reveal>
 
           <Reveal>
-            <div className="flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
+            <div className="flex w-full translate-y-[90px] flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
               <Link
                 to="/admission"
                 className={cn(

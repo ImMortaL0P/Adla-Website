@@ -5,7 +5,7 @@ export const school = {
   classes: '9 to 12',
   address: { en: 'Adla, Naubatpur, Patna District, Bihar — 801109', hi: 'अदला, नौबतपुर, पटना जिला, बिहार — 801109' },
   locality: 'Sarasat, Naubatpur block',
-  coordinates: { lat: 25.508267, lng: 84.918096 },
+  coordinates: { lat: 25.508267, lng: 84.918096, plusCode: 'GWCF+5GH, Adla, Bhagwanpur, Bihar 801109', googleMapsLink: 'https://maps.app.goo.gl/UCcudjks1Uj8eKYZ8' },
   managedBy: { en: 'Department of Education, Government of Bihar', hi: 'शिक्षा विभाग, बिहार सरकार' },
   
   // PLACEHOLDERS below — TODO: replace with real data when available

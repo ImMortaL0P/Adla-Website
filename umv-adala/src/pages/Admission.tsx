@@ -14,6 +14,7 @@ import { admissionContent as staticAdmissionContent } from '@/data/content'
 import { school } from '@/data/school'
 import { cn } from '@/lib/utils'
 import { useContent } from '@/hooks/useContent'
+import { API_URL } from '@/lib/api'
 
 const classOptions = ['9', '10', '11', '12']
 
@@ -70,8 +71,26 @@ export default function Admission() {
   } = useForm<FormValues>({ resolver: zodResolver(schema) })
 
   const onSubmit = async (values: FormValues) => {
-    setSubmitted(values)
-    reset()
+    try {
+      const res = await fetch(`${API_URL}/api/enquiries`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+           studentName: values.studentName,
+           parentName: values.guardianName || '',
+           phone: values.phone,
+           email: values.email || '',
+           standard: values.classApplying || '',
+           message: values.message || ''
+        })
+      });
+      if (!res.ok) throw new Error('Submission failed');
+      setSubmitted(values)
+      reset()
+    } catch (err) {
+      console.error(err)
+      alert(lang === 'hi' ? 'त्रुटि हुई। कृपया पुनः प्रयास करें।' : 'An error occurred. Please try again.')
+    }
   }
 
   const whatsappNumber = school.phone.replace(/[^0-9]/g, '')

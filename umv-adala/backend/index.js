@@ -16,6 +16,7 @@ const imageRoutes = require('./routes/images');
 const staffRoutes = require('./routes/staff');
 const contentRoutes = require('./routes/content');
 const mediaRoutes = require('./routes/media');
+const enquiryRoutes = require('./routes/enquiries');
 const { verifyDriveAccess, verifyGalleryAccess } = require('./lib/drive');
 
 const app = express();
@@ -89,12 +90,33 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.get('/api/health', async (_req, res) => {
+  const startDb = Date.now();
+  let dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+  let dbLatency = null;
+  
+  if (dbStatus === 'connected') {
+    try {
+      await mongoose.connection.db.admin().ping();
+      dbLatency = Date.now() - startDb;
+    } catch(e) {
+      dbStatus = 'error';
+    }
+  }
+
+  const startDrive = Date.now();
   const drive = await verifyDriveAccess();
+  const driveLatency = Date.now() - startDrive;
+  if (drive.ok) drive.latency = driveLatency;
+
+  const startGallery = Date.now();
   const gallery = await verifyGalleryAccess();
-  const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+  const galleryLatency = Date.now() - startGallery;
+  if (gallery.ok) gallery.latency = galleryLatency;
+
   res.json({ 
     status: 'ok', 
-    database: dbStatus, 
+    database: dbStatus,
+    dbLatency,
     drive, 
     gallery 
   });
@@ -107,6 +129,7 @@ app.use('/api/images', imageRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/media', mediaRoutes);
+app.use('/api/enquiries', enquiryRoutes);
 
 const PORT = process.env.PORT || 5001;
 

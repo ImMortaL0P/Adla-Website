@@ -49,9 +49,10 @@ export default function Contact() {
     setSent(true)
   }
 
-  const { lat, lng } = school.coordinates
-  const mapsUrl = `https://www.google.com/maps?q=${lat},${lng}`
-  const embedUrl = `https://www.google.com/maps?q=${lat},${lng}&z=16&output=embed`
+  const { plusCode, lat, lng, googleMapsLink } = school.coordinates
+  const query = plusCode ? encodeURIComponent(plusCode) : `${lat},${lng}`
+  const mapsUrl = googleMapsLink || `https://www.google.com/maps?q=${query}`
+  const embedUrl = `https://www.google.com/maps?q=${query}&z=16&output=embed`
 
   return (
     <>

@@ -21,8 +21,8 @@ export default function Home() {
       <MottoSection />
       <AboutPreview />
       <AcademicsGrid />
-      <FacilitiesStrip />
       <HeadMasterMessage />
+      <FacilitiesStrip />
       <GalleryPreview />
       <AdmissionCta />
       <LocationSection />
