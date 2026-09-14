@@ -37,17 +37,17 @@ const navItems = [
 export type NavItem = (typeof navItems)[number]
 
 function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
 
-  const nextTheme = theme === 'light' ? 'dark' : theme === 'dark' ? 'system' : 'light'
-  const Icon = theme === 'light' ? Sun : theme === 'dark' ? Moon : Monitor
-  const label = theme === 'light' ? 'Switch to dark mode' : theme === 'dark' ? 'Switch to system theme' : 'Switch to light mode'
+  const nextTheme = resolvedTheme === 'dark' ? 'light' : 'dark'
+  const Icon = resolvedTheme === 'dark' ? Moon : Sun
+  const label = resolvedTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
 
   return (
     <button
       onClick={() => setTheme(nextTheme)}
       aria-label={label}
-      aria-pressed={theme === 'dark'}
+      aria-pressed={resolvedTheme === 'dark'}
       className={cn(
         'flex h-9 w-9 items-center justify-center rounded-lg',
         'text-white hover:bg-white/15 dark:text-[hsl(var(--foreground))] dark:hover:bg-white/10',

@@ -8,6 +8,8 @@
 /* ────────────────────────────────────────────────────────
    Tailwind v4 Theme Configuration
    ──────────────────────────────────────────────────────── */
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
