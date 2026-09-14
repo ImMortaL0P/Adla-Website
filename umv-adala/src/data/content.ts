@@ -184,7 +184,7 @@ export const disclosureSections = [
     rows: [
       { label_en: 'Area of School Campus', label_hi: 'विद्यालय परिसर का क्षेत्रफल', value: '1240 Sq mtrs' },
       { label_en: 'Type of Building', label_hi: 'भवन का प्रकार', value: 'New block under construction' },
-      { label_en: 'No. of Classrooms', label_hi: 'कक्षा-कक्षों की संख्या', value: '4 + 4 upcoming classrooms' },
+      { label_en: 'No. of Classrooms', label_hi: 'कक्षा-कक्षों की संख्या', value: '6 + 4 Under Construction' },
     ],
   },
   {
