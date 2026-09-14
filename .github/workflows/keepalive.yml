@@ -1,0 +1,14 @@
+name: Backend Keep-Alive Ping
+
+on:
+  schedule:
+    # 2:00 UTC to 14:59 UTC is approx 7:30 AM to 8:30 PM IST.
+    # Runs every 14 minutes.
+    - cron: '*/14 2-14 * * *'
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping backend health endpoint
+        run: curl -s https://umv-adla-backend.onrender.com/api/health
