@@ -36,14 +36,14 @@ export function HomeHero() {
       </div>
 
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center px-5 text-center sm:px-8 lg:px-12">
-        <StaggerGroup stagger={100} className="flex max-w-4xl flex-col items-center gap-6 sm:gap-8">
+        <StaggerGroup stagger={100} className="flex max-w-5xl flex-col items-center gap-6 sm:gap-8">
 
           <Reveal>
             <div className="flex flex-col items-center mb-2">
               <span className="-translate-y-[10px] sm:translate-y-0 mb-4 text-[15.4px] font-bold tracking-widest text-white/90 uppercase sm:text-base md:text-lg">
                 ESTD. - 2020
               </span>
-              <h1 className="max-w-[800px] font-display text-2xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl px-2">
+              <h1 className="max-w-[900px] font-display text-2xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[52px] lg:leading-[1.15] px-2">
                 <AnimatedTitle
                   text={t('home.hero.title')}
                   as="span"
