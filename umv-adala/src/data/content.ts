@@ -8,7 +8,7 @@
 
 export const aboutContent = {
   history: {
-    en: 'Established in 2020, Uchcha Madhyamik Vidyalaya Adla is a Bihar Government school serving students from Class 9 to Class 12 in Adla Panchayat, Naubatpur block, Patna district. As an "Uchcha Madhyamik" (senior secondary) institution, the school offers secondary and senior secondary education. A detailed account of the school’s history since its founding is being compiled by the school administration and will be published here.',
+    en: 'Established in 2020, Uchcha Madhyamik Vidyalaya Adla is a Bihar Government school serving students from Class 9 to Class 12 in Adla Panchayat, Naubatpur block, Patna district. As an "Uchcha Madhyamik Vidyalay" (senior secondary school), the school offers secondary and senior secondary education. A detailed account of the school’s history since its founding is being compiled by the school administration and will be published here.',
     hi: '2020 में स्थापित, उच्च माध्यमिक विद्यालय अदला बिहार सरकार का एक विद्यालय है जो पटना जिले के नौबतपुर प्रखंड के अदला पंचायत में कक्षा 9 से कक्षा 12 तक के विद्यार्थियों को शिक्षा प्रदान करता है। एक "उच्च माध्यमिक" संस्थान के रूप में, यह विद्यालय माध्यमिक एवं उच्चतर माध्यमिक शिक्षा प्रदान करता है। स्थापना के बाद से विद्यालय के इतिहास का विस्तृत विवरण विद्यालय प्रशासन द्वारा तैयार किया जा रहा है और शीघ्र ही यहाँ प्रकाशित किया जाएगा।',
   },
   management: {
