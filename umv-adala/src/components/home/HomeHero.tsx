@@ -43,18 +43,18 @@ export function HomeHero() {
               <span className="mb-4 text-sm font-bold tracking-widest text-white/90 uppercase sm:text-base md:text-lg">
                 ESTD. - 2020
               </span>
-              <h1 className="max-w-[800px] font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl px-2">
+              <h1 className="max-w-[800px] font-display text-2xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl px-2">
                 <AnimatedTitle
                   text={t('home.hero.title')}
                   as="span"
                   className={cn('block mx-auto w-full break-words', lang === 'hi' && 'mb-2')}
                 />
                 {lang === 'en' && (
-                  <div className="pt-4 sm:pt-6">
+                  <div className="pt-3 sm:pt-6">
                     <AnimatedTitle
                       text={t('home.hero.titleHi')}
                       as="span"
-                      className="font-jaini mt-2 block text-2xl font-medium text-white/80 sm:text-4xl md:text-5xl mx-auto w-full break-words"
+                      className="font-jaini mt-2 block text-xl font-medium text-white/80 sm:text-3xl md:text-4xl mx-auto w-full break-words"
                       startDelay={250}
                     />
                   </div>
@@ -76,11 +76,11 @@ export function HomeHero() {
           </Reveal>
 
           <Reveal>
-            <div className="flex w-full flex-col items-center justify-center gap-4 px-4 sm:w-auto sm:flex-row mt-2">
+            <div className="flex w-full max-w-[280px] flex-col items-center justify-center gap-3 px-2 sm:max-w-none sm:w-auto sm:flex-row mt-2">
               <Link
                 to="/admission"
                 className={cn(
-                  'group flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 sm:px-8 sm:py-4 text-sm sm:text-base font-medium',
+                  'group flex w-full items-center justify-center gap-2 rounded-xl px-4 py-2.5 sm:px-8 sm:py-4 text-sm sm:text-base font-medium',
                   'bg-[hsl(var(--primary-strong))] text-[hsl(var(--primary-foreground))] shadow-lg shadow-black/20',
                   'transition-all hover:bg-[hsl(var(--primary-strong))]/90 hover:shadow-xl active:scale-[0.98]',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/40',
@@ -88,20 +88,20 @@ export function HomeHero() {
                 )}
               >
                 {t('home.hero.ctaAdmission')}
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1 sm:h-[18px] sm:w-[18px]" />
               </Link>
 
               <Link
                 to="/academics"
                 className={cn(
-                  'group flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 sm:px-8 sm:py-4 text-sm sm:text-base font-medium',
+                  'group flex w-full items-center justify-center gap-2 rounded-xl px-4 py-2.5 sm:px-8 sm:py-4 text-sm sm:text-base font-medium',
                   'border border-white/30 bg-white/10 text-white shadow-lg shadow-black/10 backdrop-blur-md',
                   'transition-all hover:bg-white/20 active:scale-[0.98]',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/40',
                   'sm:w-auto'
                 )}
               >
-                <BookOpen size={18} className="text-white/80" />
+                <BookOpen size={16} className="text-white/80 sm:h-[18px] sm:w-[18px]" />
                 {t('home.hero.ctaAcademics')}
               </Link>
             </div>
