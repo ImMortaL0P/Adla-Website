@@ -7,6 +7,7 @@ import { StaggerGroup } from '@/components/motion/StaggerGroup'
 import { AnimatedTitle } from '@/components/common/AnimatedTitle'
 import { useImages } from '@/hooks/useImages'
 import { cn } from '@/lib/utils'
+import { translations } from '@/i18n/translations'
 
 export function HomeHero() {
   const { t, lang } = useT()
@@ -45,20 +46,18 @@ export function HomeHero() {
               </span>
               <h1 className="max-w-[900px] font-display text-2xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[52px] lg:leading-[1.15] px-2">
                 <AnimatedTitle
-                  text={t('home.hero.title')}
+                  text={translations.en['home.hero.title']}
                   as="span"
-                  className={cn('block mx-auto w-full break-words', lang === 'hi' && 'mb-2 font-jaini font-medium')}
+                  className="block mx-auto w-full break-words"
                 />
-                {lang === 'en' && (
-                  <div className="pt-3 sm:pt-6">
-                    <AnimatedTitle
-                      text={t('home.hero.titleHi')}
-                      as="span"
-                      className="font-jaini mt-2 block text-3xl leading-[1.2] font-medium text-white/80 sm:text-3xl md:text-5xl mx-auto w-full break-words"
-                      startDelay={250}
-                    />
-                  </div>
-                )}
+                <div className="pt-3 sm:pt-6">
+                  <AnimatedTitle
+                    text={translations.en['home.hero.titleHi']}
+                    as="span"
+                    className="font-jaini mt-2 block text-3xl leading-[1.2] font-medium text-white/80 sm:text-3xl md:text-5xl mx-auto w-full break-words"
+                    startDelay={250}
+                  />
+                </div>
               </h1>
             </div>
           </Reveal>
