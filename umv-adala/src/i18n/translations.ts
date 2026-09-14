@@ -318,7 +318,7 @@ const hi: Record<keyof typeof en, string> = {
   'notFound.description': 'आप जिस पृष्ठ को खोज रहे हैं वह मौजूद नहीं है या स्थानांतरित कर दिया गया है।',
   'notFound.suggestion': 'ये कुछ उपयोगी लिंक हैं:',
 
-  'home.hero.title': 'Uchcha Madhyamik Vidyalaya, Adla, Naubatpur, Patna',
+  'home.hero.title': 'उच्च माध्यमिक विद्यालय, अदला, नौबतपुर, पटना',
   'home.hero.titleHi': 'उच्च माध्यमिक विद्यालय, अदला, नौबतपुर, पटना',
   'home.hero.subtitle': 'अदला, नौबतपुर, पटना में कक्षा 9 से 12 तक शिक्षा प्रदान करने वाला बिहार सरकार का विद्यालय',
   'home.hero.ctaAdmission': 'प्रवेश पूछताछ',

@@ -47,7 +47,7 @@ export function HomeHero() {
                 <AnimatedTitle
                   text={t('home.hero.title')}
                   as="span"
-                  className={cn('block mx-auto w-full break-words', lang === 'hi' && 'mb-2')}
+                  className={cn('block mx-auto w-full break-words', lang === 'hi' && 'mb-2 font-jaini font-medium')}
                 />
                 {lang === 'en' && (
                   <div className="pt-3 sm:pt-6">
