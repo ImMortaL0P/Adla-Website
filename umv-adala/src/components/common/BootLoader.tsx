@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API_URL } from '@/lib/api';
+import { SchoolLogo } from './SchoolLogo';
 
 const BOOT_LOGS = [
   { text: "Initializing environment...", at: 0 },
@@ -11,7 +12,7 @@ const BOOT_LOGS = [
 ];
 
 export function BootLoader({ onReady }: { onReady: () => void }) {
-  const [progress, setProgress] = useState(0);
+  const [, setProgress] = useState(0);
   const [currentLog, setCurrentLog] = useState("Connecting to server...");
   const [isReady, setIsReady] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -24,7 +25,7 @@ export function BootLoader({ onReady }: { onReady: () => void }) {
     return () => clearTimeout(t);
   }, []);
   
-  // Fake progress ticking
+  // Fake progress ticking (still tracks progress internally for text logs)
   useEffect(() => {
     if (isReady) return;
     
@@ -76,7 +77,7 @@ export function BootLoader({ onReady }: { onReady: () => void }) {
                  setVisible(false);
                  setTimeout(() => onReady(), 500);
                }
-             }, 800);
+             }, 1000);
           }
         } else {
           if (active) setTimeout(() => checkHealth(false), 3000);
@@ -97,27 +98,43 @@ export function BootLoader({ onReady }: { onReady: () => void }) {
   if (!showUI) return null;
 
   return (
-    <div className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-[#0a0a0d] transition-opacity duration-500 ease-in-out ${isReady ? 'opacity-0' : 'opacity-100'}`}>
-      <div className="flex flex-col items-center justify-center w-full max-w-sm px-6">
-        <div className="text-white font-display text-6xl font-light mb-8 tabular-nums tracking-tighter">
-          {Math.floor(progress)}<span className="text-white/40 text-4xl">%</span>
+    <div className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-background transition-opacity duration-700 ease-in-out ${isReady ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+      <div 
+        className={`flex flex-col items-center justify-center w-full max-w-sm px-6 transition-all duration-700 ease-in-out ${isReady ? 'scale-105 blur-[2px]' : 'scale-100 blur-0'}`}
+      >
+        <div className="relative mb-10 flex items-center justify-center w-28 h-28 sm:w-32 sm:h-32">
+          {/* Soft outer glow pulse */}
+          <div className="absolute inset-0 rounded-full bg-primary/10 animate-ping" style={{ animationDuration: '3s' }} />
+          
+          {/* Creative animated SVG ring */}
+          <svg className="absolute -inset-4 w-[calc(100%+2rem)] h-[calc(100%+2rem)] animate-[spin_4s_linear_infinite] text-primary/30" viewBox="0 0 100 100">
+            <circle 
+              cx="50" cy="50" r="48" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="1.5" 
+              strokeDasharray="40 20 60 40 20 60" 
+              strokeLinecap="round" 
+              className={`transition-all duration-700 ${isReady ? 'stroke-primary/80 opacity-0' : 'opacity-100'}`}
+            />
+          </svg>
+
+          {/* Logo container wrapper */}
+          <div className="relative z-10 p-4 sm:p-5 rounded-full bg-card shadow-lg shadow-black/5 dark:shadow-black/20 ring-1 ring-border/50 backdrop-blur-md flex items-center justify-center">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 animate-pulse" style={{ animationDuration: '2.5s' }}>
+               <SchoolLogo className="w-full h-full" />
+            </div>
+          </div>
         </div>
         
-        <div className="w-full h-[1px] bg-white/10 rounded-full overflow-hidden mb-8">
-          <div 
-            className="h-full bg-white transition-all duration-300 ease-out"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        
-        <div className="w-full font-mono text-xs flex flex-col items-center gap-4 text-white/50">
-           <svg className="w-5 h-5 animate-spin text-white/40" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-           </svg>
-           <span className="text-center font-medium animate-pulse tracking-wide uppercase">
-             {currentLog}
-           </span>
+        {/* Animated log text */}
+        <div className="flex flex-col items-center justify-center h-8 overflow-hidden">
+          <span 
+            key={currentLog} // Re-triggers animation on log change (if we add custom CSS)
+            className="block text-center font-medium font-body text-[11px] sm:text-xs text-muted-foreground tracking-[0.15em] uppercase animate-pulse"
+          >
+            {currentLog}
+          </span>
         </div>
       </div>
     </div>

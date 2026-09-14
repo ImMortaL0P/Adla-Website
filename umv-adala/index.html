@@ -21,7 +21,7 @@
     <!-- Force App Update / Cache Invalidation -->
     <script>
       (function() {
-        var CURRENT_VERSION = '1.0.1'; // Bump this string to force a global reload
+        var CURRENT_VERSION = '1.0.2'; // Bump this string to force a global reload
         if (localStorage.getItem('app-version') !== CURRENT_VERSION) {
           localStorage.setItem('app-version', CURRENT_VERSION);
           if ('serviceWorker' in navigator) {
