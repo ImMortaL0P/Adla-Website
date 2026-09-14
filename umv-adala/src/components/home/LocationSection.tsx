@@ -20,7 +20,7 @@ export function LocationSection() {
       <div className="relative">
         {/* Full-width map */}
         <Reveal>
-          <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl border border-[hsl(var(--border))] sm:aspect-[21/9]">
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-[hsl(var(--border))] sm:aspect-[21/9]">
             <iframe
               title="School location map"
               src={embedUrl}
@@ -28,6 +28,14 @@ export function LocationSection() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
+            {/* Floating name tag over the center map pin */}
+            <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[calc(100%+38px)]">
+              <div className="relative rounded-lg bg-white px-3 py-1.5 text-sm font-bold text-gray-900 shadow-[0_4px_12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 dark:bg-gray-900 dark:text-white">
+                U.M.V. Adla High School
+                {/* Tooltip downward caret */}
+                <div className="absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-b border-r border-black/5 bg-white dark:border-white/5 dark:bg-gray-900" />
+              </div>
+            </div>
           </div>
         </Reveal>
 

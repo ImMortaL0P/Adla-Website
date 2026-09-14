@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, Sun, Moon, Monitor, User } from 'lucide-react'
+import { Menu, Sun, Moon, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SchoolLogo } from '@/components/common/SchoolLogo'
 import { ScrollRing } from '@/components/motion/ScrollRing'

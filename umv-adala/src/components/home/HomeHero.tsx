@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils'
 import { translations } from '@/i18n/translations'
 
 export function HomeHero() {
-  const { t, lang } = useT()
+  const { t } = useT()
   const { getSystemImage } = useImages()
 
   // New keys based on client uploads.
