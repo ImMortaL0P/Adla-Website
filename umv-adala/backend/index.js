@@ -21,6 +21,9 @@ const { verifyDriveAccess, verifyGalleryAccess } = require('./lib/drive');
 
 const app = express();
 
+// Trust the first proxy so that rate limiters and IP-based checks work correctly behind Render/Vercel load balancers
+app.set('trust proxy', 1);
+
 // 1. Set Security HTTP headers
 app.use(helmet({
   contentSecurityPolicy: {
