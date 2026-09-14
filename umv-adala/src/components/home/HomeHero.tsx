@@ -40,7 +40,7 @@ export function HomeHero() {
 
           <Reveal>
             <div className="flex flex-col items-center mb-2">
-              <span className="mb-4 text-sm font-bold tracking-widest text-white/90 uppercase sm:text-base md:text-lg">
+              <span className="-translate-y-[10px] sm:translate-y-0 mb-4 text-[15.4px] font-bold tracking-widest text-white/90 uppercase sm:text-base md:text-lg">
                 ESTD. - 2020
               </span>
               <h1 className="max-w-[800px] font-display text-2xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl px-2">
