@@ -27,6 +27,8 @@ const Admission = lazy(() => import('./pages/Admission'))
 const Contact = lazy(() => import('./pages/Contact'))
 const Downloads = lazy(() => import('./pages/Downloads'))
 const MandatoryDisclosure = lazy(() => import('./pages/MandatoryDisclosure'))
+const Privacy = lazy(() => import('./pages/Privacy'))
+const Terms = lazy(() => import('./pages/Terms'))
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'))
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'))
 
@@ -92,6 +94,8 @@ export function App() {
                 <Route path="admission" element={<Admission />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="mandatory-disclosure" element={<MandatoryDisclosure />} />
+                <Route path="privacy" element={<Privacy />} />
+                <Route path="terms" element={<Terms />} />
 
                 <Route path="admin" element={<AdminLogin />} />
                 <Route path="admin/dashboard" element={<AdminDashboard />} />
