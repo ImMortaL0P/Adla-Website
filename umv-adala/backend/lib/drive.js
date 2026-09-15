@@ -72,7 +72,16 @@ function isDriveConfigured() {
   return getDriveConfig().ready;
 }
 
-async function getAuthClient() {
+async function getAuthClient(forceServiceAccount = false) {
+  if (forceServiceAccount) {
+    const credentials = getServiceAccountCredentials();
+    if (credentials) {
+      return new google.auth.GoogleAuth({
+        credentials,
+        scopes: DRIVE_SCOPES,
+      });
+    }
+  }
   if (usesOAuth()) {
     const oauth2 = new google.auth.OAuth2(
       process.env.GOOGLE_OAUTH_CLIENT_ID,
@@ -92,10 +101,11 @@ async function getAuthClient() {
   });
 }
 
-async function getDriveService() {
-  if (cachedDrive) return cachedDrive;
+async function getDriveService(forceServiceAccount = false) {
+  // do not cache if forcing service account
+  if (!forceServiceAccount && cachedDrive) return cachedDrive;
 
-  const auth = await getAuthClient();
+  const auth = await getAuthClient(forceServiceAccount);
   if (!auth) {
     console.warn(
       'Google Drive auth not configured. For personal Gmail folders, set OAuth env vars ' +
@@ -206,7 +216,7 @@ async function deleteFromDrive(fileId) {
  * endpoints. Backing GET /api/media/:fileId.
  */
 async function streamDriveFile(fileId, res, reqArgs = {}) {
-  const drive = await getDriveService();
+  const drive = await getDriveService(true); // force service account for streams
   if (!drive) {
     res.status(503).json({ message: 'Google Drive is not configured on the server.' });
     return;

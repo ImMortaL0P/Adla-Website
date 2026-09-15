@@ -78,7 +78,12 @@ export function MobileNav({ open, onClose, navItems }: MobileNavProps) {
         )}
       >
         <div className="flex h-16 items-center justify-between px-6 border-b border-[hsl(var(--border))]">
-          <span className="font-semibold text-[hsl(var(--foreground))]">{t('common.nav.home')}</span>
+          <Link
+            to="/"
+            className="font-semibold text-[hsl(var(--foreground))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] rounded-lg px-2 -ml-2 py-1"
+          >
+            {t('common.nav.home')}
+          </Link>
           <button
             onClick={onClose}
             aria-label={t('common.closeMenu')}
