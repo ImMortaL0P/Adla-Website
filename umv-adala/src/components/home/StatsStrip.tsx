@@ -11,7 +11,7 @@ export function StatsStrip() {
     { label: t('home.stats.classes'), value: 4 },
     { label: t('home.stats.teachers'), value: 15 },
     { label: t('home.stats.nonTeachingStaff'), value: 2 },
-    { label: t('home.stats.students'), value: 1200, suffix: '+' },
+    { label: t('home.stats.smartClasses'), value: 3 },
   ] as { label: string; value: number; subtext?: string; suffix?: string }[]
 
   return (
