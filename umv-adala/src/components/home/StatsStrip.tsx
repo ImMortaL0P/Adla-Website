@@ -11,8 +11,8 @@ export function StatsStrip() {
     { label: t('home.stats.classes'), value: 4 },
     { label: t('home.stats.teachers'), value: 15 },
     { label: t('home.stats.nonTeachingStaff'), value: 2 },
-    { label: t('home.stats.students'), value: 190 },
-  ] as { label: string; value: number; subtext?: string }[]
+    { label: t('home.stats.students'), value: 1200, suffix: '+' },
+  ] as { label: string; value: number; subtext?: string; suffix?: string }[]
 
   return (
     <section className="border-y border-[hsl(var(--border))] bg-[hsl(var(--card))]">
@@ -34,6 +34,7 @@ export function StatsStrip() {
               >
                 <span className="font-display text-3xl font-bold tabular-nums text-[hsl(var(--primary-strong))] sm:text-4xl">
                   {typeof stat.value === 'number' ? <CountUp to={stat.value} /> : stat.value}
+                  {stat.suffix}
                 </span>
                 <span className="mt-2 text-sm font-medium text-[hsl(var(--muted-foreground))]">{stat.label}</span>
                 {stat.subtext && (
