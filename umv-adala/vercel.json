@@ -20,28 +20,22 @@
   "redirects": [
     {
       "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "admin.umvadla.in"
-        }
-      ],
+      "has": [{ "type": "host", "value": "admin.umvadla.in" }],
       "destination": "https://www.umvadla.in/admin",
       "statusCode": 308
     },
     {
       "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "admin.umvadla.in"
-        }
-      ],
+      "has": [{ "type": "host", "value": "admin.umvadla.in" }],
       "destination": "https://www.umvadla.in/admin",
       "statusCode": 308
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://umv-adla-backend.onrender.com/api/$1"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
